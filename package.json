@@ -1,0 +1,26 @@
+{
+  "name": "bizmote-hp",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "bizmote 株式会社 コーポレートサイト",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.2.0",
+    "@astrojs/sitemap": "^3.2.1",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^5.1.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.20",
+    "sharp": "^0.34.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0"
+  }
+}

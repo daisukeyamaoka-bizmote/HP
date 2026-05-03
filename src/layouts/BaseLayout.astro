@@ -1,0 +1,93 @@
+---
+/**
+ * BaseLayout
+ *
+ * 全ページ共通レイアウト。
+ * - SEO/OGP メタデータ
+ * - Organization JSON-LD (docs/02_TECHNICAL_SPEC.md Section 7.2)
+ * - フォント・グローバル CSS の読み込み
+ *
+ * 個別ページは title, description, ogImage を props で上書きできる。
+ */
+
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalPath?: string;
+}
+
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL ?? 'https://bizmote.jp';
+const DEFAULT_DESCRIPTION =
+  'bizmote は、BtoB 事業の GTM(市場開拓)パートナーです。事業の設計・実行・移管までを一貫して支援する、GTM コンサルティングファームです。';
+const DEFAULT_OG_IMAGE = '/images/og/default.png';
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  ogImage = DEFAULT_OG_IMAGE,
+  canonicalPath = Astro.url.pathname,
+} = Astro.props;
+
+const fullTitle = title ? `${title} | bizmote` : 'bizmote — 次の "常識" をつくる';
+const canonicalUrl = new URL(canonicalPath, SITE_URL).toString();
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, SITE_URL).toString();
+
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'bizmote 株式会社',
+  url: SITE_URL,
+  logo: `${SITE_URL}/images/logo/bizmote.png`,
+  description: 'BtoB 事業の GTM(市場開拓)パートナー',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'JP',
+    addressRegion: '東京都',
+    addressLocality: '新宿区',
+    streetAddress: '西新宿 4-8-11 SHINJUKU NEW VILLA 203',
+    postalCode: '160-0023',
+  },
+  founder: {
+    '@type': 'Person',
+    name: '山岡 大介',
+  },
+  foundingDate: '2023-05-01',
+};
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="bizmote" />
+    <meta property="og:locale" content="ja_JP" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bizmoteinc" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
