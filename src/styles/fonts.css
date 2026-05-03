@@ -1,0 +1,16 @@
+/*
+ * Fonts
+ * Source: docs/03_DESIGN_SYSTEM.md Section 3
+ *
+ * 採用フォントと Google Fonts で利用可能なウェイト:
+ *   - Shippori Mincho        (400, 500, 700)   — 日本語見出し
+ *   - Noto Serif JP          (400, 500, 700)   — 日本語本文
+ *   - Cormorant Garamond     (300, 400, 500, 700) — 英語
+ *   - JetBrains Mono         (300, 400, 500)   — ラベル・コード
+ *
+ * NOTE: 仕様書 Section 3.1 では Shippori Mincho に weight 200 を指定しているが、
+ * Google Fonts での同フォントは 400-800 のみで 200 が存在しない。Phase 1 で巨大見出し
+ * (weight 200) を実装する際に、別フォント採用または仕様書修正で解決すること。
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;700&family=Cormorant+Garamond:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500&display=swap');

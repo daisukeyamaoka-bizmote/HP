@@ -1,0 +1,123 @@
+/*
+ * Global Styles
+ *
+ * 読み込み順:
+ *   1. fonts.css       — Google Fonts (外部リクエストを最優先)
+ *   2. tokens.css      — デザイントークン (CSS 変数)
+ *   3. tailwindcss     — ユーティリティ (@theme で v4 設定)
+ *   4. base styles     — リセット & タイポグラフィ
+ *
+ * Source: docs/03_DESIGN_SYSTEM.md
+ */
+
+@import './fonts.css';
+@import './tokens.css';
+@import 'tailwindcss';
+
+/* ============================================================
+ * Tailwind v4 Theme — トークンを Tailwind ユーティリティに展開
+ *   class="bg-kinari text-sumi font-mincho" のように使える
+ * ============================================================ */
+@theme {
+  /* Monotone */
+  --color-sumi: #1a1a1a;
+  --color-noukai: #666666;
+  --color-chukai: #999999;
+  --color-tankai: #dddddd;
+  --color-kinari: #fafaf5;
+
+  /* bizFlag (Crimson) */
+  --color-flag-deep: #6b1a1a;
+  --color-flag-base: #8b1e1e;
+  --color-flag-light: #a83232;
+
+  /* bizShip (Neon Blue) */
+  --color-ship-deep: #0095cc;
+  --color-ship-base: #00c8ff;
+  --color-ship-light: #5bd9ff;
+
+  /* bizLab (Neon Green) */
+  --color-lab-deep: #00c060;
+  --color-lab-base: #00ff7f;
+  --color-lab-light: #5dffab;
+
+  /* Font families */
+  --font-mincho: 'Shippori Mincho', serif;
+  --font-noto: 'Noto Serif JP', serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Spacing (8pt grid) */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 96px;
+  --spacing-5xl: 128px;
+  --spacing-6xl: 192px;
+
+  /* Easing */
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================================
+ * Base / Reset
+ *   静謐で文芸的な土台。背景は生成色、本文は墨。
+ * ============================================================ */
+html {
+  font-family: var(--font-noto);
+  color: var(--color-sumi);
+  background-color: var(--color-kinari);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.9;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mincho);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============================================================
+ * Accessibility — prefers-reduced-motion
+ *   仕様書 Section 6.5: 必須実装
+ * ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  video {
+    display: none;
+  }
+}
