@@ -11,7 +11,6 @@ interface Props {
     label: string;
     href: string;
   }>;
-  showServicesMenu?: boolean;
   navAriaLabel?: string;
 }
 
@@ -20,7 +19,6 @@ const {
   description = 'bizmoteは、BtoB企業のGTM支援、起業家コミュニティ、AI活用ナレッジを通じて、事業・人・環境が前に進む状態をつくる会社です。',
   ogImage = '/ogp.svg',
   navItems,
-  showServicesMenu = true,
   navAriaLabel = 'Global navigation',
 } = Astro.props;
 
@@ -57,7 +55,7 @@ const resolvedOgImage = new URL(ogImage, Astro.site ?? 'https://bizmote.jp').toS
   </head>
   <body>
     <div class="min-h-screen bg-white text-sumi">
-      <Header navItems={navItems} showServicesMenu={showServicesMenu} navAriaLabel={navAriaLabel} />
+      <Header navItems={navItems} navAriaLabel={navAriaLabel} />
       <main>
         <slot />
       </main>

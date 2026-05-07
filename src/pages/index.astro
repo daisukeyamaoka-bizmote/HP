@@ -6,8 +6,10 @@ import ContactForm from '../components/shared/ContactForm.astro';
 import HorizontalRail from '../components/shared/HorizontalRail.astro';
 import MemberCard from '../components/shared/MemberCard.astro';
 import NotesPreview from '../components/shared/NotesPreview.astro';
+import ResponsiveTable from '../components/shared/ResponsiveTable.astro';
 import Section from '../components/shared/Section.astro';
 import ServiceCard from '../components/shared/ServiceCard.astro';
+import SummaryCards from '../components/shared/SummaryCards.astro';
 
 const seo = {
   title: 'bizmote | 挑戦が、市場に届く仕組みをつくる',
@@ -20,8 +22,8 @@ const services = [
     name: 'bizFlag',
     copy: '仮説から、市場へ。',
     description: 'BtoB企業のターゲット、訴求、商談プロセスを整理し、売れる条件を見つけるGTM/ABM支援。',
-    cta: 'GTM・ABMを相談したい',
-    ctaHref: '/contact/?service=flag',
+    cta: 'bizFlagを見る',
+    ctaHref: '/flag/',
     accent: 'var(--color-flag-base)',
   },
   {
@@ -29,8 +31,8 @@ const services = [
     name: 'bizShip',
     copy: '孤独から、仲間へ。',
     description: '起業したい社会人・学生が集まり、学び、実践し、仲間と次の一歩をつくる無料・審査制コミュニティ。',
-    cta: 'bizShipに応募する',
-    ctaHref: '/contact/?service=ship',
+    cta: 'bizShipを見る',
+    ctaHref: '/ship/',
     accent: 'var(--color-ship-deep)',
   },
   {
@@ -38,9 +40,91 @@ const services = [
     name: 'bizLab',
     copy: '面倒から、創造へ。',
     description: '社内で試したAI活用ナレッジをもとに、企業ごとの面倒な作業を軽くするAI実装ラボ。',
-    cta: '業務の面倒を相談したい',
-    ctaHref: '/contact/?service=lab',
+    cta: 'bizLabを見る',
+    ctaHref: '/lab/',
     accent: 'var(--color-lab-deep)',
+  },
+];
+
+const heroSummary = [
+  {
+    label: 'FOR',
+    title: 'BtoB企業と挑戦者',
+    body: '市場開拓に向き合う企業、起業したい社会人・学生、AI活用を進めたい組織に向き合います。',
+  },
+  {
+    label: 'ISSUE',
+    title: '売り方・仲間・作業負荷',
+    body: 'ターゲットや訴求の未整理、孤独な挑戦、日々の面倒な作業を構造化します。',
+  },
+  {
+    label: 'OFFER',
+    title: '設計と実践の場',
+    body: 'GTM/ABM支援、無料・審査制コミュニティ、AI実装ラボを提供します。',
+  },
+  {
+    label: 'OUTCOME',
+    title: '前に進む状態',
+    body: '売れる条件が残り、仲間とつながり、創造に使える時間が増える状態をつくります。',
+  },
+];
+
+const businessFunctions = [
+  {
+    label: 'bizFlag',
+    title: '売れる条件を見つける',
+    body: 'BtoB企業のターゲット、訴求、商談プロセスを整理し、GTM/ABMの勝ち筋を残します。',
+  },
+  {
+    label: 'bizShip',
+    title: '挑戦する人を集める',
+    body: '起業したい社会人・学生が、仲間と学び、実践し、次の一歩をつくる場を運営します。',
+  },
+  {
+    label: 'bizLab',
+    title: '面倒な作業を軽くする',
+    body: '社内で試したAI活用ナレッジをもとに、現場で使えるAI実装と運用を行います。',
+  },
+];
+
+const themeRows = [
+  {
+    area: 'bizFlag',
+    target: 'BtoB企業',
+    value: 'GTM/ABM支援',
+  },
+  {
+    area: 'bizShip',
+    target: '起業したい社会人・学生',
+    value: '学び・仲間・実践機会',
+  },
+  {
+    area: 'bizLab',
+    target: '中小企業オーナー / 大手AI部門',
+    value: 'AI活用・業務改善',
+  },
+];
+
+const contactThemes = [
+  {
+    label: 'GTM',
+    title: '新規事業・営業',
+    body: 'ターゲット、訴求、商談プロセス、ABM施策の壁打ち。',
+  },
+  {
+    label: 'COMMUNITY',
+    title: '起業・仲間づくり',
+    body: 'bizShipへの応募、起業準備、スタートアップとの接点づくり。',
+  },
+  {
+    label: 'AI IMPLEMENTATION',
+    title: 'AI活用・業務改善',
+    body: '請求、契約、メール、営業管理など、面倒な作業の整理。',
+  },
+  {
+    label: 'OTHER',
+    title: 'まだ整理前の相談',
+    body: '言葉になりきっていない段階から、代表の山岡が確認します。',
   },
 ];
 
@@ -94,18 +178,47 @@ const company = [
           bizmoteは、BtoB企業のGTM支援、起業家コミュニティ、AI活用ナレッジを通じて、
           事業・人・環境が前に進む状態をつくる会社です。
         </p>
-        <div class="mt-10">
-          <CTAButton href="/contact/">まずは相談したい</CTAButton>
+        <div class="mt-10 flex flex-wrap gap-4">
+          <CTAButton href="#services">3つのサービスを見る</CTAButton>
+          <CTAButton href="#company" variant="text">bizmoteについて見る</CTAButton>
         </div>
       </div>
     </div>
   </section>
 
-  <Section id="services" label="事業について" title="3つの事業で、前に進む状態をつくる。" background="kinari">
-    <p class="mt-7 max-w-[760px] text-[17px] leading-[2] text-noukai">
-      bizFlagは売れる条件を見つける。bizShipは起業したい人が仲間と出会う場をつくる。
-      bizLabは業務で使えるAI実装を行う。bizmoteは、この3つで事業・人・環境を動かします。
-    </p>
+  <section class="border-y border-tankai bg-white px-6 py-10 md:px-12 xl:px-16" aria-label="bizmote overview">
+    <div class="mx-auto w-full max-w-[1120px]">
+      <SummaryCards items={heroSummary} />
+    </div>
+  </section>
+
+  <Section id="services" label="事業について" title="bizmoteがつくる3つの機能" background="kinari">
+    <div class="mt-10 grid gap-px bg-tankai md:grid-cols-3">
+      {businessFunctions.map((item, index) => (
+        <article class="grid min-h-[300px] content-between bg-white p-6">
+          <div>
+            <p class="font-mono text-xs text-noukai">FUNCTION {String(index + 1).padStart(2, '0')}</p>
+            <h3 class="mt-8 font-cormorant text-[40px] leading-none">{item.label}</h3>
+            <p class="mt-8 font-mincho text-[30px] font-medium leading-[1.45]">{item.title}</p>
+            <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{item.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-14">
+      <h3 class="font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">bizmoteが向き合うテーマ</h3>
+      <ResponsiveTable
+        className="mt-8"
+        caption="bizmoteの事業領域、主な対象、提供価値"
+        headers={[
+          { key: 'area', label: '領域' },
+          { key: 'target', label: '主な対象', muted: true },
+          { key: 'value', label: '提供価値' },
+        ]}
+        rows={themeRows}
+      />
+    </div>
 
     <HorizontalRail ariaLabel="Services list">
       {services.map((service) => <ServiceCard {...service} />)}
@@ -161,6 +274,15 @@ const company = [
             お問い合わせは、代表の山岡が対応いたします。<br />
             まだ言葉になっていない相談からで構いません。
           </p>
+        </div>
+        <div class="mt-10 grid gap-px bg-tankai sm:grid-cols-2">
+          {contactThemes.map((theme) => (
+            <article class="bg-white p-5">
+              <p class="font-mono text-[11px] text-noukai">{theme.label}</p>
+              <h3 class="mt-5 font-mincho text-[24px] font-medium leading-[1.45]">{theme.title}</h3>
+              <p class="mt-3 text-[13px] leading-[1.8] text-noukai">{theme.body}</p>
+            </article>
+          ))}
         </div>
       </div>
 

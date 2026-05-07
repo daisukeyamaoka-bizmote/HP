@@ -1,0 +1,31 @@
+---
+type NavItem = {
+  label: string;
+  href: string;
+};
+
+interface Props {
+  items: NavItem[];
+  accent?: string;
+  ariaLabel: string;
+}
+
+const {
+  items,
+  accent = 'var(--color-sumi)',
+  ariaLabel,
+} = Astro.props;
+---
+
+<nav class="border-y border-tankai bg-white px-6 py-4 md:px-12 xl:px-16" aria-label={ariaLabel} style={`--local-nav-accent: ${accent};`}>
+  <div class="smooth-rail mx-auto flex w-full max-w-[1120px] gap-3 overflow-x-auto pb-1">
+    {items.map((item) => (
+      <a
+        href={item.href}
+        class="flex-none rounded-full border border-tankai px-4 py-2 font-mono text-xs text-noukai outline-none transition-colors hover:border-[var(--local-nav-accent)] hover:text-[var(--local-nav-accent)] focus-visible:ring-2 focus-visible:ring-[var(--local-nav-accent)]"
+      >
+        {item.label}
+      </a>
+    ))}
+  </div>
+</nav>

@@ -1,18 +1,100 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/shared/Breadcrumbs.astro';
 import CTAButton from '../../components/shared/CTAButton.astro';
 import HorizontalRail from '../../components/shared/HorizontalRail.astro';
+import LocalNav from '../../components/shared/LocalNav.astro';
+import RelatedServices from '../../components/shared/RelatedServices.astro';
+import ResponsiveTable from '../../components/shared/ResponsiveTable.astro';
 import Section from '../../components/shared/Section.astro';
+import SummaryCards from '../../components/shared/SummaryCards.astro';
+import ThreeColumnFlow from '../../components/shared/ThreeColumnFlow.astro';
 
-const labNavItems = [
-  { label: 'ABOUT', href: '#about' },
-  { label: 'TARGET', href: '#target' },
-  { label: 'PROCESS', href: '#process' },
-  { label: 'SERVICE', href: '#service' },
-  { label: 'EXAMPLES', href: '#examples' },
-  { label: 'DIFFERENCE', href: '#difference' },
-  { label: 'KNOWLEDGE', href: '#knowledge' },
-  { label: 'CONTACT', href: '#contact' },
+const labLocalNavItems = [
+  { label: '対象', href: '#target' },
+  { label: 'できること', href: '#service' },
+  { label: '進め方', href: '#process' },
+  { label: '開発事例', href: '#examples' },
+  { label: '相談する', href: '#contact' },
+];
+
+const relatedServices = [
+  {
+    name: 'bizFlag',
+    body: 'BtoB企業のGTM/ABM支援',
+    href: '/flag/',
+    accent: 'var(--color-flag-base)',
+  },
+  {
+    name: 'bizShip',
+    body: '起業したい人のための無料・審査制コミュニティ',
+    href: '/ship/',
+    accent: 'var(--color-ship-deep)',
+  },
+];
+
+const labSummary = [
+  {
+    label: 'BASE',
+    title: '社内で試したナレッジ',
+    body: 'bizmote社内で実際に使い、業務で残せるものだけを整理します。',
+  },
+  {
+    label: 'FOR',
+    title: '中小企業 / AI部門',
+    body: '日々の面倒な作業から、大手企業のAI戦略の現場実装まで扱います。',
+  },
+  {
+    label: 'DECISION',
+    title: 'できる / できないを判断',
+    body: 'AI、既存ツール、人がやるべきことを最初に切り分けます。',
+  },
+  {
+    label: 'OUTPUT',
+    title: '運用まで残す',
+    body: '必要な場合だけ専用ツールを作り、使い方と保守まで支えます。',
+  },
+];
+
+const labOverview = [
+  {
+    label: 'INPUT',
+    title: '顧客の状態',
+    items: ['面倒な作業が多い', 'AI活用の優先順位が曖昧', 'ツール選定に迷う', 'PoCが現場に残らない'],
+  },
+  {
+    label: 'bizLab',
+    title: '整理・実装すること',
+    items: ['業務負荷の棚卸し', 'できる / できないの判断', '既存ツール選定', '必要な場合だけ開発'],
+  },
+  {
+    label: 'OUTPUT',
+    title: '得られる状態',
+    items: ['日々の作業が軽くなる', 'AI活用の判断基準が残る', '現場で使われる', '運用・保守まで続く'],
+  },
+];
+
+const targetCompareRows = [
+  {
+    theme: '主な悩み',
+    smb: '日々の面倒な事務作業',
+    enterprise: 'AI戦略の現場実装',
+  },
+  {
+    theme: '相談内容',
+    smb: '請求、契約、メール、営業管理',
+    enterprise: '業務棚卸し、選定、実装',
+  },
+  {
+    theme: '提供内容',
+    smb: '小さな改善、既存ツール活用',
+    enterprise: '設計、開発、運用支援',
+  },
+  {
+    theme: '目指す状態',
+    smb: 'まずは少し軽くする',
+    enterprise: '現場で使われるAI活用',
+  },
 ];
 
 const principles = [
@@ -227,13 +309,18 @@ const knowledgeCards = [
 <BaseLayout
   title="bizLab | 面倒から、創造へ。"
   description="bizLabは、bizmote社内で試したAI活用ナレッジをもとに、企業ごとの面倒な作業を軽くするAI実装ラボです。業務負荷のヒアリング、ツール選定、専用ツール開発、運用サポートまで行います。"
-  navItems={labNavItems}
-  showServicesMenu={false}
-  navAriaLabel="bizLab section navigation"
 >
   <section class="min-h-[calc(100vh-72px)] bg-white px-6 py-16 md:min-h-[calc(100vh-80px)] md:px-12 md:py-24 xl:px-16 xl:py-28" aria-labelledby="lab-title">
     <div class="mx-auto flex min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center">
       <div class="max-w-[1040px]">
+        <Breadcrumbs
+          accent="var(--color-lab-deep)"
+          items={[
+            { label: 'Top', href: '/' },
+            { label: 'Services', href: '/#services' },
+            { label: 'bizLab' },
+          ]}
+        />
         <p class="mb-8 font-cormorant text-[34px] leading-none text-[var(--color-lab-deep)]">bizLab</p>
         <h1 class="font-mincho text-[58px] font-medium leading-[1.08] md:text-[104px] xl:text-[126px]" id="lab-title">
           面倒から<br />
@@ -243,12 +330,24 @@ const knowledgeCards = [
           社内で試したAI活用を、<br />
           現場で使える仕組みへ。
         </p>
-        <div class="mt-10">
-          <CTAButton href="/contact/?service=lab" className="bg-[var(--color-lab-deep)] hover:bg-sumi">
-            業務の面倒を相談する
+        <div class="mt-10 flex flex-wrap gap-4">
+          <CTAButton href="#service" className="bg-[var(--color-lab-deep)] hover:bg-sumi">
+            できることを見る
+          </CTAButton>
+          <CTAButton href="#examples" variant="text" className="text-[var(--color-lab-deep)] hover:text-sumi">
+            開発事例を見る
           </CTAButton>
         </div>
       </div>
+    </div>
+  </section>
+
+  <LocalNav items={labLocalNavItems} accent="var(--color-lab-deep)" ariaLabel="bizLab page navigation" />
+
+  <section id="overview" class="border-y border-tankai bg-white px-6 py-10 md:px-12 xl:px-16" aria-labelledby="lab-overview-title">
+    <div class="mx-auto w-full max-w-[1120px]">
+      <h2 id="lab-overview-title" class="sr-only">bizLabの一目でわかる要約</h2>
+      <SummaryCards items={labSummary} accent="var(--color-lab-deep)" />
     </div>
   </section>
 
@@ -258,6 +357,12 @@ const knowledgeCards = [
       企業ごとの面倒な作業を軽くするAI実装ラボです。<br />
       流行のAIツールを入れることではなく、その会社の業務に本当に使えるかどうかを見極めます。
     </p>
+    <ThreeColumnFlow
+      className="mt-12"
+      ariaLabel="bizLab service overview"
+      columns={labOverview}
+      accent="var(--color-lab-deep)"
+    />
 
     <div class="mt-12 grid gap-px bg-tankai md:grid-cols-3">
       {principles.map((item) => (
@@ -277,6 +382,18 @@ const knowledgeCards = [
       bizLabは、中小企業の日々の面倒な作業から、大手企業のAI活用方針を現場へ落とし込む相談まで扱います。<br />
       共通しているのは、業務を見つめ、できること・できないことを判断することです。
     </p>
+
+    <ResponsiveTable
+      className="mt-12"
+      caption="bizLabが向き合う2つの相談"
+      accent="var(--color-lab-deep)"
+      headers={[
+        { key: 'theme', label: '' },
+        { key: 'smb', label: '中小企業オーナー' },
+        { key: 'enterprise', label: '大手企業AI戦略室', muted: true },
+      ]}
+      rows={targetCompareRows}
+    />
 
     <div class="mt-12 grid gap-px bg-tankai md:grid-cols-2">
       {targetSegments.map((segment) => (
@@ -343,6 +460,15 @@ const knowledgeCards = [
         </div>
       </div>
     </div>
+
+    <div class="mt-12 border-t border-tankai pt-10">
+      <p class="font-mincho text-[30px] leading-[1.5] md:text-[40px]">できることを見極めてから、実装に進む。</p>
+      <div class="mt-8">
+        <CTAButton href="/contact/?service=lab" className="bg-[var(--color-lab-deep)] hover:bg-sumi">
+          AI活用について相談する
+        </CTAButton>
+      </div>
+    </div>
   </Section>
 
   <Section id="service" background="white" label="SERVICE" title="bizLabで提供すること">
@@ -393,6 +519,18 @@ const knowledgeCards = [
           ))}
         </tbody>
       </table>
+    </div>
+
+    <div class="mt-12 grid gap-px bg-tankai md:grid-cols-2 xl:grid-cols-5">
+      {examples.map((example) => (
+        <article class="grid min-h-[270px] content-between bg-white p-5">
+          <div>
+            <p class="font-mono text-xs text-[var(--color-lab-deep)]">USE CASE</p>
+            <h3 class="mt-7 font-mincho text-[24px] font-medium leading-[1.45]">{example.name}</h3>
+          </div>
+          <p class="mt-8 border-t border-tankai pt-4 text-[13px] leading-[1.8] text-noukai">{example.effect}</p>
+        </article>
+      ))}
     </div>
 
     <div class="mt-10">
@@ -521,4 +659,6 @@ const knowledgeCards = [
       </CTAButton>
     </div>
   </Section>
+
+  <RelatedServices services={relatedServices} />
 </BaseLayout>

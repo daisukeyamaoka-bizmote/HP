@@ -1,0 +1,63 @@
+---
+type TableHeader = {
+  key: string;
+  label: string;
+  muted?: boolean;
+};
+
+interface Props {
+  headers: TableHeader[];
+  rows: Record<string, string>[];
+  caption: string;
+  accent?: string;
+  className?: string;
+}
+
+const {
+  headers,
+  rows,
+  caption,
+  accent = 'var(--color-sumi)',
+  className = '',
+} = Astro.props;
+---
+
+<div class:list={['overflow-hidden border border-tankai bg-white', className]} style={`--table-accent: ${accent};`}>
+  <table class="block w-full text-left md:table">
+    <caption class="sr-only">{caption}</caption>
+    <thead class="hidden md:table-header-group">
+      <tr class="border-b border-tankai">
+        {headers.map((header) => (
+          <th
+            class:list={[
+              'px-6 py-5 font-mono text-xs font-normal',
+              header.muted ? 'text-noukai' : 'text-[var(--table-accent)]',
+            ]}
+            scope="col"
+          >
+            {header.label}
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody class="grid gap-px bg-tankai md:table-row-group">
+      {rows.map((row) => (
+        <tr class="grid gap-px bg-tankai md:table-row md:border-b md:border-tankai md:last:border-b-0">
+          {headers.map((header) => (
+            <td class="block bg-white px-6 py-5 align-top text-[15px] leading-[1.8] text-noukai md:table-cell">
+              <span
+                class:list={[
+                  'mb-3 block font-mono text-xs md:hidden',
+                  header.muted ? 'text-noukai' : 'text-[var(--table-accent)]',
+                ]}
+              >
+                {header.label}
+              </span>
+              <span class={header.muted ? '' : 'text-sumi'}>{row[header.key]}</span>
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

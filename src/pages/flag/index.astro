@@ -1,8 +1,55 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/shared/Breadcrumbs.astro';
 import CTAButton from '../../components/shared/CTAButton.astro';
 import HorizontalRail from '../../components/shared/HorizontalRail.astro';
+import LocalNav from '../../components/shared/LocalNav.astro';
+import RelatedServices from '../../components/shared/RelatedServices.astro';
+import ResponsiveTable from '../../components/shared/ResponsiveTable.astro';
 import Section from '../../components/shared/Section.astro';
+import SummaryCards from '../../components/shared/SummaryCards.astro';
+import ThreeColumnFlow from '../../components/shared/ThreeColumnFlow.astro';
+
+const flagSummary = [
+  {
+    label: 'FOR',
+    title: 'BtoB企業',
+    body: '高単価商材、エンタープライズ開拓、PoC・稟議がある営業に向いています。',
+  },
+  {
+    label: 'ISSUE',
+    title: '売れる条件が曖昧',
+    body: 'ターゲット、訴求、商談プロセス、IS/FS連携のどこに詰まりがあるかを整理します。',
+  },
+  {
+    label: 'ACTION',
+    title: 'GTM/ABMを動かす',
+    body: '仮説設計、ABM施策、商談改善、失注理由分析を実行の中で回します。',
+  },
+  {
+    label: 'OUTPUT',
+    title: '勝ち筋を残す',
+    body: 'アポ数だけではなく、受注につながる条件と営業プレイブックを残します。',
+  },
+];
+
+const flagOverview = [
+  {
+    label: 'INPUT',
+    title: '顧客の状態',
+    items: ['ターゲットが広い', '訴求が定まらない', '商談後の改善が残らない', 'IS/FSの接続が弱い'],
+  },
+  {
+    label: 'bizFlag',
+    title: '整理すること',
+    items: ['顧客セグメント', 'ABM仮説', '商談プロセス', '失注理由と顧客反応'],
+  },
+  {
+    label: 'OUTPUT',
+    title: '得られる状態',
+    items: ['狙う市場が明確になる', '商談の質が上がる', 'PoC・受注への論点が見える', '社内に型が残る'],
+  },
+];
 
 const layers = [
   {
@@ -90,6 +137,7 @@ const fitRows = [
 const customerFlow = [
   {
     label: '課題',
+    title: 'よくある課題',
     items: [
       'どの企業群を狙うべきかわからない',
       'ターゲット部署や役職が曖昧',
@@ -100,6 +148,7 @@ const customerFlow = [
   },
   {
     label: 'bizFlagで整理すること',
+    title: '設計すること',
     items: [
       'ターゲット企業群の設計',
       '部署 / 役職 / 意思決定構造の整理',
@@ -110,6 +159,7 @@ const customerFlow = [
   },
   {
     label: '目指す状態',
+    title: '得られる状態',
     items: [
       '狙う市場が定まる',
       '商談の質が上がる',
@@ -117,6 +167,54 @@ const customerFlow = [
       '営業活動が学習資産として蓄積される',
       '再現性ある売り方が残る',
     ],
+  },
+];
+
+const fitMatrix = [
+  {
+    title: '最も向いている',
+    meta: '売り方が未確立 / 営業複雑性が高い',
+    body: 'エンタープライズ向け、PoCや稟議があり、ABMで勝ち筋を探す必要がある企業。',
+    highlight: true,
+  },
+  {
+    title: '設計余地がある',
+    meta: '売り方が確立 / 営業複雑性が高い',
+    body: '既存の営業型はあるが、大手開拓や部門横断の商談で改善余地がある企業。',
+  },
+  {
+    title: '初期検証に向く',
+    meta: '売り方が未確立 / 営業複雑性が低い',
+    body: 'まず顧客反応を取り、誰に何が刺さるかを小さく確かめたい企業。',
+  },
+  {
+    title: '主対象ではない',
+    meta: '売り方が確立 / 営業複雑性が低い',
+    body: '低単価SMB向けに、大量のアポイント獲得だけを求めるケース。',
+  },
+];
+
+const planRows = [
+  {
+    plan: 'Health Check',
+    fit: '営業課題を短期間で棚卸ししたい企業',
+    scope: 'ターゲット、訴求、商談ログ、IS/FS連携の診断',
+    period: '2〜4週間',
+    output: '課題整理 / 優先論点',
+  },
+  {
+    plan: 'GTM Playbook',
+    fit: '売り方を整理し、社内に型として残したい企業',
+    scope: 'GTM仮説、ABM設計、商談プロセス、プレイブック作成',
+    period: '1〜3ヶ月',
+    output: 'GTM設計 / 営業プレイブック',
+  },
+  {
+    plan: 'ABM Growth Partner',
+    fit: '実行しながら市場開拓と改善を進めたい企業',
+    scope: 'ABM施策、IS運用、FS接続、月次改善、内製化支援',
+    period: '3ヶ月〜',
+    output: '商談創出 / 改善基盤 / 内製化',
   },
 ];
 
@@ -195,6 +293,7 @@ const steps = [
 const cases = [
   {
     name: 'アシオット株式会社',
+    pain: '業界ごとのターゲット優先度と営業プロセスを、拡大前提で整理する必要があった。',
     theme: '業界別の勝ち筋整理・営業プレイブック化',
     support: '業界理解、セグメント設計、IS/FSプレイブック、パイプライン管理、成果整理。',
     change: 'ターゲットピボット、業務分担、拡大前提の提案により、受注率改善につながる営業プロセスを整理。',
@@ -202,24 +301,28 @@ const cases = [
   },
   {
     name: '株式会社ZENKIGEN',
+    pain: 'ABM型の商談創出を進めながら、IS運用とFS接続を改善する必要があった。',
     theme: 'ABM型の商談創出・IS運用改善',
     support: 'ターゲット設計、ABM施策、IS運用改善、FS接続、月次レポート、更新提案設計。',
     change: '営業活動をアポ獲得で終わらせず、次の施策に活かせる運用基盤へ整理。',
   },
   {
     name: '株式会社マネーフォワード',
+    pain: '新規領域で、どの顧客群にどの訴求を当てるべきかを検証する必要があった。',
     theme: '新規領域における市場開拓',
     support: 'ターゲット仮説の整理、アカウント開拓、商談化に向けた訴求検証。',
     change: '未開拓領域での接点づくりと、次に検証すべき顧客群の整理につなげる。',
   },
   {
     name: 'エピックベース株式会社',
+    pain: '初期営業の反応を集め、次の施策に活かせる論点として整理する必要があった。',
     theme: '営業仮説の検証と実行支援',
     support: 'ターゲット整理、初期アプローチ、商談反応の回収、次施策への論点整理。',
     change: '顧客反応をもとに、訴求と営業プロセスを見直すための材料を蓄積。',
   },
   {
     name: 'キャナルベンチャーズ株式会社',
+    pain: '投資先・共創先の成長に必要なGTM論点を、実行前に整理する必要があった。',
     theme: '投資先・共創先に向けたGTM論点整理',
     support: '市場仮説、営業テーマ、支援先の成長に必要なGTM観点の整理。',
     change: '事業成長に向けた優先論点を整理し、実行に移すための会話を前に進める。',
@@ -259,29 +362,45 @@ const flagNotes = [
   },
 ];
 
-const flagNavItems = [
-  { label: 'GTM', href: '#gtm' },
-  { label: 'ABOUT', href: '#about' },
-  { label: 'TARGET', href: '#target' },
-  { label: 'SUPPORT', href: '#support' },
-  { label: 'SERVICE', href: '#service' },
-  { label: 'PROCESS', href: '#process' },
-  { label: 'CASE', href: '#case' },
-  { label: 'KNOWLEDGE', href: '#knowledge' },
-  { label: 'CONTACT', href: '#contact' },
+const flagLocalNavItems = [
+  { label: '課題', href: '#about' },
+  { label: '対象顧客', href: '#target' },
+  { label: '支援内容', href: '#service' },
+  { label: '事例', href: '#case' },
+  { label: '相談する', href: '#contact' },
+];
+
+const relatedServices = [
+  {
+    name: 'bizShip',
+    body: '起業したい人が集まり、学び、実践するコミュニティ',
+    href: '/ship/',
+    accent: 'var(--color-ship-deep)',
+  },
+  {
+    name: 'bizLab',
+    body: 'AIと仕組みで、GTM活動の面倒を軽くするラボ',
+    href: '/lab/',
+    accent: 'var(--color-lab-deep)',
+  },
 ];
 ---
 
 <BaseLayout
   title="bizFlag | 売れる条件を、営業活動の中から見つける"
   description="bizFlagは、BtoB企業のターゲット、訴求、商談プロセスを整理し、受注につながる勝ち筋をつくるGTM/ABM支援です。"
-  navItems={flagNavItems}
-  showServicesMenu={false}
-  navAriaLabel="bizFlag section navigation"
 >
   <section class="min-h-[calc(100vh-72px)] bg-white px-6 py-16 md:min-h-[calc(100vh-80px)] md:px-12 md:py-24 xl:px-16 xl:py-28" aria-labelledby="flag-title">
     <div class="mx-auto flex min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center">
       <div class="max-w-[980px]">
+        <Breadcrumbs
+          accent="var(--color-flag-base)"
+          items={[
+            { label: 'Top', href: '/' },
+            { label: 'Services', href: '/#services' },
+            { label: 'bizFlag' },
+          ]}
+        />
         <p class="mb-8 font-cormorant text-[34px] leading-none text-[var(--color-flag-base)]">bizFlag</p>
         <h1 class="font-mincho text-[50px] font-medium leading-[1.13] md:text-[84px] xl:text-[104px]" id="flag-title">
           売れる条件を<br />
@@ -292,12 +411,24 @@ const flagNavItems = [
           BtoB企業のターゲット、訴求、商談プロセスを整理し、
           受注につながる勝ち筋をつくるGTM/ABM支援です。
         </p>
-        <div class="mt-10">
-          <CTAButton href="/contact/?service=flag" className="bg-[var(--color-flag-base)] hover:bg-[var(--color-flag-deep)]">
-            新規事業・営業の進め方を相談したい
+        <div class="mt-10 flex flex-wrap gap-4">
+          <CTAButton href="#target" className="bg-[var(--color-flag-base)] hover:bg-[var(--color-flag-deep)]">
+            対象顧客を見る
+          </CTAButton>
+          <CTAButton href="#service" variant="text" className="text-[var(--color-flag-base)] hover:text-sumi">
+            支援内容を見る
           </CTAButton>
         </div>
       </div>
+    </div>
+  </section>
+
+  <LocalNav items={flagLocalNavItems} accent="var(--color-flag-base)" ariaLabel="bizFlag page navigation" />
+
+  <section id="overview" class="border-y border-tankai bg-white px-6 py-10 md:px-12 xl:px-16" aria-labelledby="flag-overview-title">
+    <div class="mx-auto w-full max-w-[1120px]">
+      <h2 id="flag-overview-title" class="sr-only">bizFlagの一目でわかる要約</h2>
+      <SummaryCards items={flagSummary} accent="var(--color-flag-base)" />
     </div>
   </section>
 
@@ -325,6 +456,12 @@ const flagNavItems = [
       bizFlagは、営業活動をただの実行で終わらせません。<br />
       商談ログ、失注理由、顧客反応を整理し、どの市場・企業群・訴求に勝ち筋があるのかを見つけます。
     </p>
+    <ThreeColumnFlow
+      className="mt-12"
+      ariaLabel="bizFlag service overview"
+      columns={flagOverview}
+      accent="var(--color-flag-base)"
+    />
   </Section>
 
   <Section id="target" background="kinari" label="TARGET" title="売れる条件を、まだ探しているBtoB企業へ。">
@@ -332,6 +469,33 @@ const flagNavItems = [
       bizFlagは、ターゲット設計、訴求整理、商談プロセス改善を通じて、営業活動の中から勝ち筋を見つけるサービスです。<br />
       アポイント数だけを追うのではなく、再現性ある売り方をつくりたい企業に向いています。
     </p>
+
+    <div class="mt-14">
+      <h3 class="font-mono text-xs font-normal text-[var(--color-flag-base)]">2x2 FIT MATRIX</h3>
+      <div class="mt-6 border border-tankai bg-white p-5 md:p-6">
+        <div class="mb-4 flex items-center justify-between gap-4 font-mono text-[11px] text-noukai">
+          <span>縦軸：売り方の明確さ</span>
+          <span>横軸：営業複雑性</span>
+        </div>
+        <div class="grid gap-px bg-tankai md:grid-cols-2">
+          {fitMatrix.map((item) => (
+            <article class:list={[
+              'min-h-[220px] bg-white p-6',
+              item.highlight ? 'outline outline-1 -outline-offset-1 outline-[var(--color-flag-base)]' : '',
+            ]}>
+              <p class:list={[
+                'font-mono text-xs',
+                item.highlight ? 'text-[var(--color-flag-base)]' : 'text-noukai',
+              ]}>
+                {item.meta}
+              </p>
+              <h4 class="mt-7 font-mincho text-[28px] font-medium leading-[1.45]">{item.title}</h4>
+              <p class="mt-4 text-[14px] leading-[1.9] text-noukai">{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
 
     <div class="mt-16">
       <h3 class="font-mono text-xs font-normal text-[var(--color-flag-base)]">bizFlagが向いている会社</h3>
@@ -379,28 +543,12 @@ const flagNavItems = [
 
     <div class="mt-20">
       <h3 class="max-w-[840px] font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">よくある課題は、営業量ではなく設計にあります。</h3>
-      <div class="mt-8 grid gap-5 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-stretch">
-        {customerFlow.map((column, index) => (
-          <>
-            <article class="border border-tankai bg-white p-6">
-              <p class="font-mono text-xs text-[var(--color-flag-base)]">{column.label}</p>
-              <ul class="mt-7 grid gap-4">
-                {column.items.map((item) => (
-                  <li class="grid grid-cols-[12px_1fr] gap-3 text-[14px] leading-[1.8] text-noukai">
-                    <span class="mt-[0.72em] h-px bg-[var(--color-flag-base)]" aria-hidden="true"></span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-            {index < customerFlow.length - 1 && (
-              <div class="flex items-center justify-center py-1 text-[var(--color-flag-base)] md:px-1" aria-hidden="true">
-                <span class="font-mono text-lg md:text-2xl">→</span>
-              </div>
-            )}
-          </>
-        ))}
-      </div>
+      <ThreeColumnFlow
+        className="mt-8"
+        ariaLabel="bizFlag customer issue solution flow"
+        columns={customerFlow}
+        accent="var(--color-flag-base)"
+      />
     </div>
 
     <div class="mt-20">
@@ -447,6 +595,23 @@ const flagNavItems = [
       いま必要な論点に合わせて、設計から実行、内製化までを組み合わせて支援します。
     </p>
 
+    <div class="mt-12">
+      <h3 class="font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">提供プランの考え方</h3>
+      <ResponsiveTable
+        className="mt-8"
+        caption="bizFlagの提供プラン比較"
+        accent="var(--color-flag-base)"
+        headers={[
+          { key: 'plan', label: 'PLAN' },
+          { key: 'fit', label: '向いている企業', muted: true },
+          { key: 'scope', label: '内容', muted: true },
+          { key: 'period', label: '期間' },
+          { key: 'output', label: '成果物' },
+        ]}
+        rows={planRows}
+      />
+    </div>
+
     <div class="mt-12 overflow-x-auto border border-tankai bg-white">
       <table class="min-w-[860px] table-fixed text-left">
         <caption class="sr-only">bizFlagの対象サービス一覧</caption>
@@ -467,6 +632,15 @@ const flagNavItems = [
           ))}
         </tbody>
       </table>
+    </div>
+
+    <div class="mt-12 border-t border-tankai pt-10">
+      <p class="font-mincho text-[30px] leading-[1.5] md:text-[40px]">売り方の詰まりを、整理するところから。</p>
+      <div class="mt-8">
+        <CTAButton href="/contact/?service=flag" className="bg-[var(--color-flag-base)] hover:bg-[var(--color-flag-deep)]">
+          GTM/ABMについて相談する
+        </CTAButton>
+      </div>
     </div>
   </Section>
 
@@ -546,6 +720,10 @@ const flagNavItems = [
             <h2 class="mt-9 font-mincho text-[26px] font-medium leading-[1.45]">{item.name}</h2>
             <dl class="mt-7 grid gap-5 text-[14px] leading-[1.9] text-noukai">
               <div>
+                <dt class="font-mono text-[11px] text-[var(--color-flag-base)]">課題</dt>
+                <dd class="mt-2">{item.pain}</dd>
+              </div>
+              <div>
                 <dt class="font-mono text-[11px] text-[var(--color-flag-base)]">支援テーマ</dt>
                 <dd class="mt-2 font-mincho text-[21px] leading-[1.55] text-sumi">{item.theme}</dd>
               </div>
@@ -601,4 +779,6 @@ const flagNavItems = [
       </CTAButton>
     </div>
   </Section>
+
+  <RelatedServices services={relatedServices} />
 </BaseLayout>

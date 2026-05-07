@@ -1,0 +1,33 @@
+---
+type SummaryItem = {
+  label: string;
+  title: string;
+  body: string;
+};
+
+interface Props {
+  items: SummaryItem[];
+  accent?: string;
+  className?: string;
+  itemClassName?: string;
+}
+
+const {
+  items,
+  accent = 'var(--color-sumi)',
+  className = '',
+  itemClassName = '',
+} = Astro.props;
+---
+
+<div class:list={['grid gap-px bg-tankai md:grid-cols-2 xl:grid-cols-4', className]} style={`--summary-accent: ${accent};`}>
+  {items.map((item) => (
+    <article class:list={['grid min-h-[220px] content-between bg-white p-6', itemClassName]}>
+      <div>
+        <p class="font-mono text-xs text-[var(--summary-accent)]">{item.label}</p>
+        <h3 class="mt-7 font-mincho text-[28px] font-medium leading-[1.4]">{item.title}</h3>
+        <p class="mt-4 text-[14px] leading-[1.9] text-noukai">{item.body}</p>
+      </div>
+    </article>
+  ))}
+</div>

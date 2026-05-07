@@ -1,0 +1,50 @@
+---
+type FlowColumn = {
+  label: string;
+  title: string;
+  items: string[];
+};
+
+interface Props {
+  columns: FlowColumn[];
+  accent?: string;
+  ariaLabel: string;
+  className?: string;
+}
+
+const {
+  columns,
+  accent = 'var(--color-sumi)',
+  ariaLabel,
+  className = '',
+} = Astro.props;
+---
+
+<div
+  class:list={['grid gap-5 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-stretch', className]}
+  style={`--flow-accent: ${accent};`}
+  role="group"
+  aria-label={ariaLabel}
+>
+  {columns.map((column, index) => (
+    <>
+      <article class="border border-tankai bg-white p-6">
+        <p class="font-mono text-xs text-[var(--flow-accent)]">{column.label}</p>
+        <h3 class="mt-7 font-mincho text-[29px] font-medium leading-[1.4]">{column.title}</h3>
+        <ul class="mt-7 grid gap-4">
+          {column.items.map((item) => (
+            <li class="grid grid-cols-[12px_1fr] gap-3 text-[14px] leading-[1.8] text-noukai">
+              <span class="mt-[0.72em] h-px bg-[var(--flow-accent)]" aria-hidden="true"></span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </article>
+      {index < columns.length - 1 && (
+        <div class="flex items-center justify-center py-1 text-[var(--flow-accent)] md:px-1" aria-hidden="true">
+          <span class="font-mono text-lg md:text-2xl">→</span>
+        </div>
+      )}
+    </>
+  ))}
+</div>

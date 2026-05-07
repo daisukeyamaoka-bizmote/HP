@@ -1,0 +1,46 @@
+---
+type RelatedService = {
+  name: string;
+  body: string;
+  href: string;
+  accent?: string;
+};
+
+interface Props {
+  services: RelatedService[];
+  title?: string;
+}
+
+const {
+  services,
+  title = '関連するサービス',
+} = Astro.props;
+---
+
+<section class="border-t border-tankai bg-kinari px-6 py-20 md:px-12 md:py-28 xl:px-16" aria-labelledby="related-services-title">
+  <div class="mx-auto w-full max-w-[1120px]">
+    <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="mb-5 text-sm leading-relaxed text-noukai">回遊する</p>
+        <h2 id="related-services-title" class="font-mincho text-[38px] font-normal leading-[1.35] md:text-[52px]">{title}</h2>
+      </div>
+      <a class="font-mono text-xs text-noukai outline-none transition-colors hover:text-sumi focus-visible:text-sumi" href="/#services">
+        3つのサービスを見る
+      </a>
+    </div>
+
+    <div class="mt-10 grid gap-px bg-tankai md:grid-cols-2">
+      {services.map((service) => (
+        <article class="grid min-h-[260px] content-between bg-white p-6" style={`--related-accent: ${service.accent ?? 'var(--color-sumi)'};`}>
+          <div>
+            <p class="font-cormorant text-[40px] leading-none text-[var(--related-accent)]">{service.name}</p>
+            <p class="mt-8 font-mincho text-[28px] font-medium leading-[1.45]">{service.body}</p>
+          </div>
+          <a class="mt-8 font-mono text-xs text-noukai outline-none transition-colors hover:text-[var(--related-accent)] focus-visible:text-[var(--related-accent)]" href={service.href}>
+            詳しく見る
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

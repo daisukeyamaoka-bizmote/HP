@@ -1,17 +1,118 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/shared/Breadcrumbs.astro';
 import CTAButton from '../../components/shared/CTAButton.astro';
 import HorizontalRail from '../../components/shared/HorizontalRail.astro';
+import LocalNav from '../../components/shared/LocalNav.astro';
+import RelatedServices from '../../components/shared/RelatedServices.astro';
+import ResponsiveTable from '../../components/shared/ResponsiveTable.astro';
 import Section from '../../components/shared/Section.astro';
+import SummaryCards from '../../components/shared/SummaryCards.astro';
+import ThreeColumnFlow from '../../components/shared/ThreeColumnFlow.astro';
 
-const shipNavItems = [
-  { label: 'ABOUT', href: '#about' },
-  { label: 'VALUE', href: '#value' },
-  { label: 'PEOPLE', href: '#people' },
-  { label: 'FLOW', href: '#flow' },
-  { label: 'EXIT', href: '#exit' },
-  { label: 'KNOWLEDGE', href: '#knowledge' },
-  { label: 'CONTACT', href: '#contact' },
+const shipLocalNavItems = [
+  { label: 'できること', href: '#value' },
+  { label: '参加条件', href: '#value' },
+  { label: '参加者', href: '#people' },
+  { label: '出口', href: '#exit' },
+  { label: '応募する', href: '#contact' },
+];
+
+const relatedServices = [
+  {
+    name: 'bizFlag',
+    body: 'BtoB企業の売れる条件を見つけるGTM/ABM支援',
+    href: '/flag/',
+    accent: 'var(--color-flag-base)',
+  },
+  {
+    name: 'bizLab',
+    body: '社内で試したAI活用を、現場で使える仕組みにするラボ',
+    href: '/lab/',
+    accent: 'var(--color-lab-deep)',
+  },
+];
+
+const shipSummary = [
+  {
+    label: 'FOR',
+    title: '起業したい社会人・学生',
+    body: '事業アイデアが固まる前でも、次の挑戦を探している段階から参加できます。',
+  },
+  {
+    label: 'STYLE',
+    title: '無料・審査制',
+    body: '参加費は無料。場の熱量を守るため、応募内容をもとに参加可否を確認します。',
+  },
+  {
+    label: 'VALUE',
+    title: '学び・仲間・実践',
+    body: '壁打ち、勉強会、交流、GTM案件への参加機会を通じて視野を広げます。',
+  },
+  {
+    label: 'NEXT',
+    title: '出口はひとつじゃない',
+    body: '起業、スタートアップ転職、フリーランス、共同プロジェクトなどにつなげます。',
+  },
+];
+
+const shipOverview = [
+  {
+    label: 'INPUT',
+    title: '参加前の状態',
+    items: ['起業に関心がある', '仲間や壁打ち相手が少ない', '実践の場がほしい', '次の挑戦を探している'],
+  },
+  {
+    label: 'bizShip',
+    title: '提供する場',
+    items: ['学びと勉強会', 'VC/CVC壁打ち', '西新宿オフィス', 'GTM案件への接点'],
+  },
+  {
+    label: 'OUTPUT',
+    title: '生まれる次の一歩',
+    items: ['起業準備が具体になる', '仲間と出会う', 'キャリアの選択肢が広がる', '共同プロジェクトが生まれる'],
+  },
+];
+
+const communityNodes = [
+  {
+    label: 'LEARN',
+    title: '学び',
+    body: '事業づくり、GTM、資金調達、チームづくりの考え方を知る。',
+  },
+  {
+    label: 'PEERS',
+    title: '仲間との出会い',
+    body: '同じように挑戦したい人と出会い、相談できる関係をつくる。',
+  },
+  {
+    label: 'VC / CVC',
+    title: '壁打ち',
+    body: '投資家視点で、事業アイデアや仮説を見直す機会をつくる。',
+  },
+  {
+    label: 'OFFICE',
+    title: '西新宿オフィス',
+    body: '作業、交流、ミーティング、勉強会の場所として使える。',
+  },
+  {
+    label: 'PROJECT',
+    title: 'GTM案件',
+    body: '希望や適性に応じて、スタートアップの現場に触れる。',
+  },
+  {
+    label: 'EXIT',
+    title: '次の出口',
+    body: '起業、転職、フリーランス、共同プロジェクトへ進む。',
+  },
+];
+
+const participationRows = [
+  { item: '参加費', detail: '無料' },
+  { item: '参加形式', detail: '審査制' },
+  { item: '主な対象', detail: '社会人 / 学生' },
+  { item: '提供価値', detail: '学び / 仲間 / 実践 / 壁打ち' },
+  { item: '参加方法', detail: '応募フォームから申し込み' },
 ];
 
 const targetCards = [
@@ -226,13 +327,18 @@ const knowledgeNotes = [
 <BaseLayout
   title="bizShip | 起業したい人の無料・審査制コミュニティ"
   description="bizShipは、起業したい社会人・学生が集まり、学び、実践し、仲間と次の一歩をつくる無料・審査制コミュニティです。VC・CVCとの壁打ち、西新宿オフィス、GTM案件への参加機会を提供します。"
-  navItems={shipNavItems}
-  showServicesMenu={false}
-  navAriaLabel="bizShip section navigation"
 >
   <section class="min-h-[calc(100vh-72px)] bg-white px-6 py-16 md:min-h-[calc(100vh-80px)] md:px-12 md:py-24 xl:px-16 xl:py-28" aria-labelledby="ship-title">
     <div class="mx-auto flex min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center">
       <div class="max-w-[980px]">
+        <Breadcrumbs
+          accent="var(--color-ship-deep)"
+          items={[
+            { label: 'Top', href: '/' },
+            { label: 'Services', href: '/#services' },
+            { label: 'bizShip' },
+          ]}
+        />
         <p class="mb-8 font-cormorant text-[34px] leading-none text-[var(--color-ship-deep)]">bizShip</p>
         <h1 class="font-mincho text-[58px] font-medium leading-[1.08] md:text-[104px] xl:text-[126px]" id="ship-title">
           孤独から、<br />
@@ -246,12 +352,24 @@ const knowledgeNotes = [
             <span class="rounded-full border border-tankai px-4 py-2 font-mono text-xs text-noukai">{item}</span>
           ))}
         </div>
-        <div class="mt-10">
-          <CTAButton href="/contact/?service=ship" className="bg-[var(--color-ship-deep)] hover:bg-sumi">
-            bizShipに応募する
+        <div class="mt-10 flex flex-wrap gap-4">
+          <CTAButton href="#value" className="bg-[var(--color-ship-deep)] hover:bg-sumi">
+            参加条件を見る
+          </CTAButton>
+          <CTAButton href="#value" variant="text" className="text-[var(--color-ship-deep)] hover:text-sumi">
+            コミュニティ内容を見る
           </CTAButton>
         </div>
       </div>
+    </div>
+  </section>
+
+  <LocalNav items={shipLocalNavItems} accent="var(--color-ship-deep)" ariaLabel="bizShip page navigation" />
+
+  <section id="overview" class="border-y border-tankai bg-white px-6 py-10 md:px-12 xl:px-16" aria-labelledby="ship-overview-title">
+    <div class="mx-auto w-full max-w-[1120px]">
+      <h2 id="ship-overview-title" class="sr-only">bizShipの一目でわかる要約</h2>
+      <SummaryCards items={shipSummary} accent="var(--color-ship-deep)" />
     </div>
   </section>
 
@@ -263,6 +381,12 @@ const knowledgeNotes = [
     <p class="mt-10 max-w-[820px] border-t border-tankai pt-8 font-mincho text-[30px] leading-[1.55] md:text-[42px]">
       知識は手に入りやすくなった。だからこそ、誰と挑むかが問われる。
     </p>
+    <ThreeColumnFlow
+      className="mt-12"
+      ariaLabel="bizShip community overview"
+      columns={shipOverview}
+      accent="var(--color-ship-deep)"
+    />
   </Section>
 
   <Section id="value" background="white" label="VALUE" title="無料で参加し、仲間と事業の近くに入る。">
@@ -270,6 +394,50 @@ const knowledgeNotes = [
       bizShipは、誰でも入れる軽い場ではありません。<br />
       参加費は無料。ただし、挑戦に向き合う人が安心して動けるよう、応募内容をもとに審査を行います。
     </p>
+
+    <div class="mt-12">
+      <h3 class="font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">bizShipでできること</h3>
+      <div class="mt-8 grid gap-px bg-tankai md:grid-cols-3">
+        {communityNodes.slice(0, 3).map((node) => (
+          <article class="min-h-[230px] bg-white p-6">
+            <p class="font-mono text-xs text-[var(--color-ship-deep)]">{node.label}</p>
+            <h4 class="mt-7 font-mincho text-[28px] font-medium leading-[1.45]">{node.title}</h4>
+            <p class="mt-4 text-[14px] leading-[1.9] text-noukai">{node.body}</p>
+          </article>
+        ))}
+        <article class="grid min-h-[210px] content-center bg-[var(--color-ship-deep)] p-6 text-white md:col-span-3">
+          <p class="font-cormorant text-[52px] leading-none">bizShip</p>
+          <p class="mt-5 font-mincho text-[25px] leading-[1.45]">仲間と次の一歩をつくる場</p>
+        </article>
+        {communityNodes.slice(3).map((node) => (
+          <article class="min-h-[230px] bg-white p-6">
+            <p class="font-mono text-xs text-[var(--color-ship-deep)]">{node.label}</p>
+            <h4 class="mt-7 font-mincho text-[28px] font-medium leading-[1.45]">{node.title}</h4>
+            <p class="mt-4 text-[14px] leading-[1.9] text-noukai">{node.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <ResponsiveTable
+      className="mt-12"
+      caption="bizShipの参加条件"
+      accent="var(--color-ship-deep)"
+      headers={[
+        { key: 'item', label: '項目' },
+        { key: 'detail', label: '内容', muted: true },
+      ]}
+      rows={participationRows}
+    />
+
+    <div class="mt-12 border-t border-tankai pt-10">
+      <p class="font-mincho text-[30px] leading-[1.5] md:text-[40px]">参加の前提を見たうえで、興味があれば応募へ。</p>
+      <div class="mt-8">
+        <CTAButton href="/contact/?service=ship" className="bg-[var(--color-ship-deep)] hover:bg-sumi">
+          コミュニティ参加について見る
+        </CTAButton>
+      </div>
+    </div>
 
     <div class="mt-12 grid gap-px bg-tankai md:grid-cols-2 xl:grid-cols-3">
       {valueCards.map((card, index) => (
@@ -435,4 +603,6 @@ const knowledgeNotes = [
       </CTAButton>
     </div>
   </Section>
+
+  <RelatedServices services={relatedServices} />
 </BaseLayout>
