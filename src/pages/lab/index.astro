@@ -19,17 +19,17 @@ const principles = [
   {
     label: 'TEST',
     title: '社内で試す',
-    body: 'bizmote社内の業務で実際に試し、使えるかどうかを見極めます。',
+    body: 'bizmote社内の請求、採用、営業、資料作成などで実際に試し、業務で使えるかどうかを見極めます。',
   },
   {
     label: 'SELECT',
     title: '使えるものだけ残す',
-    body: '流行ではなく、業務の負荷を軽くできるものだけを厳選します。',
+    body: '流行ではなく、作業負荷を軽くできたものだけをナレッジとして残し、Notesでも公開していきます。',
   },
   {
     label: 'IMPLEMENT',
     title: '現場で使う形にする',
-    body: '既存ツールの活用から専用ツール開発、運用サポートまで行います。',
+    body: '既存ツールで足りるなら作らず、必要な場合だけ専用ツールを開発し、運用サポートまで行います。',
   },
 ];
 
@@ -87,8 +87,8 @@ const processSteps = [
 const serviceAreas = [
   {
     area: 'AI活用ナレッジの公開',
-    support: '社内で実際に試したAI活用例を、業務で使えたものだけに絞ってナレッジとして公開します。',
-    output: 'ユースケース / 失敗例 / ナレッジ',
+    support: '社内で実際に試したAI活用例を、業務で使えたものだけに絞ってNotes上で公開します。失敗例や向いていない使い方も残します。',
+    output: 'Notes / ユースケース / 失敗例',
   },
   {
     area: '業務負荷のヒアリング',
@@ -394,6 +394,12 @@ const knowledgeCards = [
         </tbody>
       </table>
     </div>
+
+    <div class="mt-10">
+      <CTAButton href="/notes/?category=bizLab" variant="text" className="text-[var(--color-lab-deep)] hover:text-sumi">
+        bizLabのナレッジを見る
+      </CTAButton>
+    </div>
   </Section>
 
   <Section id="difference" background="white" label="DIFFERENCE" title="AI導入でも、受託開発でも終わらせない。">
@@ -478,10 +484,10 @@ const knowledgeCards = [
     </div>
   </Section>
 
-  <Section id="knowledge" background="kinari" label="KNOWLEDGE" title="実験と検証を、ナレッジとして残す。">
+  <Section id="knowledge" background="kinari" label="KNOWLEDGE" title="社内で試したAI活用を、Notesに残す。">
     <p class="mt-8 max-w-[720px] text-[17px] leading-[2] text-noukai">
-      bizLabは、社内で試したAI活用ナレッジを公開していく場でもあります。<br />
-      使えたものだけでなく、向いていない使い方や運用で詰まった点も、現場の知見として残していきます。
+      bizLabは、社内で試したAI活用ナレッジをNotesで公開していく場でもあります。<br />
+      使えたもの、向いていない使い方、運用で詰まった点まで、現場で判断しやすい形で残します。
     </p>
 
     <HorizontalRail ariaLabel="bizLab knowledge articles">
@@ -507,11 +513,11 @@ const knowledgeCards = [
   <Section id="contact" background="white" label="CONTACT" title="まずは、どんな面倒を減らせそうか話しましょう。">
     <p class="mt-8 max-w-[760px] text-[17px] leading-[2] text-noukai">
       AIで何ができるかを、最初から決める必要はありません。<br />
-      いま時間を取られている作業、現場で面倒になっている業務、社内で試したいAI活用について、まずは気軽にご相談ください。
+      いま時間を取られている作業や、現場で面倒になっている業務について、まずは気軽にご相談ください。
     </p>
     <div class="mt-10">
       <CTAButton href="/contact/?service=lab" className="bg-[var(--color-lab-deep)] hover:bg-sumi">
-        業務の面倒を相談する
+        相談してみる
       </CTAButton>
     </div>
   </Section>

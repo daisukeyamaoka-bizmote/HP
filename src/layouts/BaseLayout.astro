@@ -6,6 +6,7 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
   navItems?: Array<{
     label: string;
     href: string;
@@ -15,14 +16,16 @@ interface Props {
 }
 
 const {
-  title = 'bizmote | 次の “常識” をつくる',
-  description = 'bizmoteは、事業をつくり、人をつなぎ、創造できる環境をつくる会社です。bizFlag、bizShip、bizLabを通じて、挑戦が生まれ続ける仕組みをつくります。',
+  title = 'bizmote | 挑戦が、市場に届く仕組みをつくる',
+  description = 'bizmoteは、BtoB企業のGTM支援、起業家コミュニティ、AI活用ナレッジを通じて、事業・人・環境が前に進む状態をつくる会社です。',
+  ogImage = '/ogp.svg',
   navItems,
   showServicesMenu = true,
   navAriaLabel = 'Global navigation',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://bizmote.jp').toString();
+const resolvedOgImage = new URL(ogImage, Astro.site ?? 'https://bizmote.jp').toString();
 ---
 
 <!doctype html>
@@ -32,6 +35,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://bizmote.jp'
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="bizmote" />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
     <link rel="canonical" href={canonical} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

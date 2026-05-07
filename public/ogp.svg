@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="bizmote">
+  <rect width="1200" height="630" fill="#FFFFFF"/>
+  <rect x="64" y="64" width="1072" height="502" fill="#FAFAF5" stroke="#DDDDDD"/>
+  <text x="104" y="160" font-family="Georgia, serif" font-size="72" fill="#1A1A1A">bizmote</text>
+  <text x="104" y="306" font-family="serif" font-size="74" fill="#1A1A1A">挑戦が、市場に届く仕組みをつくる。</text>
+  <text x="104" y="408" font-family="monospace" font-size="28" fill="#666666">GTM / COMMUNITY / AI IMPLEMENTATION</text>
+  <line x1="104" y1="474" x2="1096" y2="474" stroke="#1A1A1A" stroke-width="2"/>
+  <text x="104" y="526" font-family="monospace" font-size="24" fill="#666666">bizFlag  bizShip  bizLab</text>
+</svg>

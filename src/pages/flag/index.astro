@@ -7,18 +7,18 @@ import Section from '../../components/shared/Section.astro';
 const layers = [
   {
     name: '戦略設計',
-    title: '市場に届く仮説を描く',
-    body: '誰に、何を、どの順番で届けるのか。事業の前提を整理し、市場に出すための仮説に落とし込みます。',
+    title: '売れる条件を整理する',
+    body: 'ターゲット、訴求、導入理由、意思決定構造を整理し、検証すべき営業仮説に落とし込みます。',
   },
   {
     name: '市場実行',
-    title: '実行しながら確かめる',
-    body: '営業、マーケティング、商談設計を動かし、顧客の反応から勝ち筋を見つけていきます。',
+    title: '商談から反応を見る',
+    body: 'ABM施策、IS運用、商談設計を動かし、顧客反応や失注理由から勝ち筋を見つけます。',
   },
   {
     name: '内製移管',
-    title: '組織に渡して残す',
-    body: '属人的な動きで終わらせず、型、採用、育成まで含めて、社内で回る状態へ移管します。',
+    title: '社内に残る型へ移す',
+    body: 'アポ獲得で終わらせず、手順、判断基準、レポート、育成まで含めて社内で回る状態へ移管します。',
   },
 ];
 
@@ -195,23 +195,34 @@ const steps = [
 const cases = [
   {
     name: 'アシオット株式会社',
-    note: '市場開拓の仮説づくりと実行支援',
+    theme: '業界別の勝ち筋整理・営業プレイブック化',
+    support: '業界理解、セグメント設計、IS/FSプレイブック、パイプライン管理、成果整理。',
+    change: 'ターゲットピボット、業務分担、拡大前提の提案により、受注率改善につながる営業プロセスを整理。',
+    note: '受注台数や受注率など、公開可能な数字が確認できた場合は追記予定。',
   },
   {
     name: '株式会社ZENKIGEN',
-    note: 'BtoB事業のGTM推進支援',
+    theme: 'ABM型の商談創出・IS運用改善',
+    support: 'ターゲット設計、ABM施策、IS運用改善、FS接続、月次レポート、更新提案設計。',
+    change: '営業活動をアポ獲得で終わらせず、次の施策に活かせる運用基盤へ整理。',
   },
   {
     name: '株式会社マネーフォワード',
-    note: '新規領域における市場開拓支援',
+    theme: '新規領域における市場開拓',
+    support: 'ターゲット仮説の整理、アカウント開拓、商談化に向けた訴求検証。',
+    change: '未開拓領域での接点づくりと、次に検証すべき顧客群の整理につなげる。',
   },
   {
     name: 'エピックベース株式会社',
-    note: '営業仮説の検証と実行支援',
+    theme: '営業仮説の検証と実行支援',
+    support: 'ターゲット整理、初期アプローチ、商談反応の回収、次施策への論点整理。',
+    change: '顧客反応をもとに、訴求と営業プロセスを見直すための材料を蓄積。',
   },
   {
     name: 'キャナルベンチャーズ株式会社',
-    note: '事業成長に向けたGTM支援',
+    theme: '投資先・共創先に向けたGTM論点整理',
+    support: '市場仮説、営業テーマ、支援先の成長に必要なGTM観点の整理。',
+    change: '事業成長に向けた優先論点を整理し、実行に移すための会話を前に進める。',
   },
 ];
 
@@ -262,8 +273,8 @@ const flagNavItems = [
 ---
 
 <BaseLayout
-  title="bizFlag | 仮説から、市場へ"
-  description="bizFlagは、BtoB事業のGTMを、仮説設計から実行、内製化まで支援するbizmoteの事業です。"
+  title="bizFlag | 売れる条件を、営業活動の中から見つける"
+  description="bizFlagは、BtoB企業のターゲット、訴求、商談プロセスを整理し、受注につながる勝ち筋をつくるGTM/ABM支援です。"
   navItems={flagNavItems}
   showServicesMenu={false}
   navAriaLabel="bizFlag section navigation"
@@ -272,14 +283,14 @@ const flagNavItems = [
     <div class="mx-auto flex min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center">
       <div class="max-w-[980px]">
         <p class="mb-8 font-cormorant text-[34px] leading-none text-[var(--color-flag-base)]">bizFlag</p>
-        <h1 class="font-mincho text-[56px] font-medium leading-[1.08] md:text-[100px] xl:text-[124px]" id="flag-title">
-          描いて<br />
-          走って<br />
-          渡す
+        <h1 class="font-mincho text-[50px] font-medium leading-[1.13] md:text-[84px] xl:text-[104px]" id="flag-title">
+          売れる条件を<br />
+          営業活動の中から<br />
+          見つける
         </h1>
         <p class="mt-10 max-w-2xl font-mincho text-[28px] leading-[1.75] md:text-[34px]">
-          仮説から、市場へ。<br />
-          事業が届く道筋をつくる
+          BtoB企業のターゲット、訴求、商談プロセスを整理し、
+          受注につながる勝ち筋をつくるGTM/ABM支援です。
         </p>
         <div class="mt-10">
           <CTAButton href="/contact/?service=flag" className="bg-[var(--color-flag-base)] hover:bg-[var(--color-flag-deep)]">
@@ -290,12 +301,12 @@ const flagNavItems = [
     </div>
   </section>
 
-  <Section id="gtm" background="kinari" label="GTM" title="市場に出して、届く状態をつくること">
+  <Section id="gtm" background="kinari" label="GTM" title="GTMは、売れる条件を見つけるための設計です。">
     <div class="mt-8 grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-start">
       <p class="max-w-[620px] text-[17px] leading-[2] text-noukai">
         GTMは、Go To Marketの略です。<br />
-        つくった事業やサービスを、誰に、何を、どんな訴求で、どの順番で届けるのか。
-        その仮説を市場で確かめながら、売れる仕組みへ変えていく考え方です。
+        誰に、何を、どんな訴求で届けるのかを決め、営業活動の中で確かめる設計です。
+        bizFlagでは、その設計をABM施策、IS/FS連携、商談改善までつなげます。
       </p>
       <div class="grid gap-px bg-tankai sm:grid-cols-2">
         {gtmPoints.map((point) => (
@@ -309,11 +320,10 @@ const flagNavItems = [
     </div>
   </Section>
 
-  <Section id="about" background="white" label="ABOUT" title="GTMを、絵に描いたままで終わらせない">
+  <Section id="about" background="white" label="ABOUT" title="アポ獲得で終わらせない。">
     <p class="mt-8 max-w-[760px] text-[17px] leading-[2] text-noukai">
-      bizFlagは、BtoBスタートアップや成長企業のGTMを支援します。<br />
-      戦略をつくるだけでも、実行を代行するだけでもなく、
-      市場で確かめながら、事業が届く道筋を一緒につくります。
+      bizFlagは、営業活動をただの実行で終わらせません。<br />
+      商談ログ、失注理由、顧客反応を整理し、どの市場・企業群・訴求に勝ち筋があるのかを見つけます。
     </p>
   </Section>
 
@@ -527,15 +537,29 @@ const flagNavItems = [
 
     <HorizontalRail ariaLabel="bizFlag case list">
       {cases.map((item) => (
-        <article class="grid min-h-[250px] w-[82vw] max-w-[390px] flex-none snap-start content-between border border-tankai bg-white p-6 transition-colors hover:border-[var(--color-flag-base)] md:w-[320px]">
+        <article class="grid min-h-[520px] w-[86vw] max-w-[470px] flex-none snap-start content-between border border-tankai bg-white p-6 transition-colors hover:border-[var(--color-flag-base)] md:w-[410px]">
           <div>
             <!-- TODO: Replace this placeholder with the official company logo asset. -->
             <div class="flex h-16 w-32 items-center justify-center border border-tankai font-mono text-[11px] text-noukai" aria-hidden="true">
               LOGO
             </div>
             <h2 class="mt-9 font-mincho text-[26px] font-medium leading-[1.45]">{item.name}</h2>
+            <dl class="mt-7 grid gap-5 text-[14px] leading-[1.9] text-noukai">
+              <div>
+                <dt class="font-mono text-[11px] text-[var(--color-flag-base)]">支援テーマ</dt>
+                <dd class="mt-2 font-mincho text-[21px] leading-[1.55] text-sumi">{item.theme}</dd>
+              </div>
+              <div>
+                <dt class="font-mono text-[11px] text-[var(--color-flag-base)]">支援したこと</dt>
+                <dd class="mt-2">{item.support}</dd>
+              </div>
+              <div>
+                <dt class="font-mono text-[11px] text-[var(--color-flag-base)]">得られた変化</dt>
+                <dd class="mt-2">{item.change}</dd>
+              </div>
+            </dl>
           </div>
-          <p class="mt-6 text-[14px] leading-[1.9] text-noukai">{item.note}</p>
+          {item.note && <p class="mt-8 border-t border-tankai pt-4 text-[12px] leading-[1.8] text-noukai">{item.note}</p>}
         </article>
       ))}
     </HorizontalRail>
