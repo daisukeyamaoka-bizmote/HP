@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuthorProfile from '../../components/shared/AuthorProfile.astro';
+import CTAButton from '../../components/shared/CTAButton.astro';
+import HorizontalRail from '../../components/shared/HorizontalRail.astro';
+import NoteCard from '../../components/shared/NoteCard.astro';
+import Section from '../../components/shared/Section.astro';
+import { categoryMeta, getAdjacentNotes, getNoteAuthor, getRelatedNotes, notes, type NoteItem } from '../../data/notes';
+
+export function getStaticPaths() {
+  return notes.map((note) => ({
+    params: { slug: note.slug },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props as { note: NoteItem };
+const meta = categoryMeta[note.category];
+const relatedNotes = getRelatedNotes(note);
+const { previous, next } = getAdjacentNotes(note);
+const author = getNoteAuthor(note);
+---
+
+<BaseLayout
+  title={`${note.title} | Notes | bizmote`}
+  description={note.excerpt}
+>
+  <article style={`--accent: ${meta.accent};`}>
+    <header class="bg-white px-6 py-16 md:px-12 md:py-24 xl:px-16 xl:py-28">
+      <div class="mx-auto w-full max-w-[1180px]">
+        <a href={`/notes/?category=${note.category}`} class="font-mono text-xs text-noukai outline-none transition-colors hover:text-sumi focus-visible:ring-2 focus-visible:ring-sumi focus-visible:ring-offset-4">
+          BACK TO {meta.label}
+        </a>
+        <div class="mt-16 max-w-[980px]">
+          <p class="font-mono text-xs text-[var(--accent)]">{meta.label} / {note.meta}</p>
+          <h1 class="mt-8 font-mincho text-[48px] font-medium leading-[1.16] md:text-[78px] xl:text-[92px]">
+            {note.title}
+          </h1>
+          <p class="mt-10 max-w-[820px] font-mincho text-[24px] leading-[1.75] text-noukai md:text-[31px]">
+            {note.lead}
+          </p>
+          {note.coverImage && (
+            <figure class="mt-12 border border-tankai bg-kinari p-3">
+              <img src={note.coverImage.src} alt={note.coverImage.alt} class="aspect-[16/9] w-full object-cover" />
+              {note.coverImage.caption && (
+                <figcaption class="px-1 pt-3 font-mono text-[11px] leading-relaxed text-noukai">{note.coverImage.caption}</figcaption>
+              )}
+            </figure>
+          )}
+          <div class="mt-10 flex flex-wrap gap-2">
+            {note.tags.map((tag) => (
+              <span class="rounded-full border border-tankai px-3 py-1 font-mono text-[11px] leading-relaxed text-noukai">{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="border-y border-tankai bg-kinari px-6 py-14 md:px-12 md:py-20 xl:px-16" aria-label="Summary">
+      <div class="mx-auto grid w-full max-w-[1180px] gap-8 md:grid-cols-[0.72fr_1fr]">
+        <div>
+          <p class="font-mono text-xs text-[var(--accent)]">KEY POINTS</p>
+          <h2 class="mt-6 font-mincho text-[34px] font-medium leading-[1.35] md:text-[46px]">
+            この記事で扱うこと
+          </h2>
+        </div>
+        <ul class="grid gap-px bg-tankai">
+          {note.takeaways.map((takeaway, index) => (
+            <li class="grid grid-cols-[56px_1fr] bg-white">
+              <span class="border-r border-tankai px-5 py-5 font-mono text-xs text-[var(--accent)]">{String(index + 1).padStart(2, '0')}</span>
+              <span class="px-5 py-5 text-[15px] leading-[1.9] text-sumi">{takeaway}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="bg-white px-6 py-16 md:px-12 md:py-24 xl:px-16">
+      <div class="mx-auto grid w-full max-w-[1180px] gap-14 lg:grid-cols-[260px_1fr]">
+        <aside class="lg:sticky lg:top-28 lg:self-start">
+          <p class="font-mono text-xs text-[var(--accent)]">{note.status}</p>
+          <p class="mt-6 text-[14px] leading-[1.9] text-noukai">
+            bizmoteの現場で得た知見を、次の挑戦に使いやすい形で整理しています。
+          </p>
+        </aside>
+
+        <div class="max-w-[780px]">
+          {note.sections.map((section, index) => (
+            <section class={index === 0 ? '' : 'mt-16 border-t border-tankai pt-16'}>
+              <p class="font-mono text-xs text-[var(--accent)]">SECTION {String(index + 1).padStart(2, '0')}</p>
+              <h2 class="mt-5 font-mincho text-[32px] font-medium leading-[1.45] md:text-[42px]">
+                {section.heading}
+              </h2>
+              <div class="mt-8 grid gap-6">
+                {section.body.map((paragraph) => (
+                  <p class="text-[16px] leading-[2.05] text-noukai md:text-[17px]">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </section>
+          ))}
+
+          <div class="mt-16">
+            <AuthorProfile author={author} />
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <section class="border-y border-tankai bg-white px-6 py-10 md:px-12 xl:px-16" aria-label="Article navigation">
+    <div class="mx-auto grid w-full max-w-[1180px] gap-px bg-tankai md:grid-cols-2">
+      {previous ? (
+        <a
+          href={`/notes/${previous.slug}/`}
+          class="group bg-white p-6 outline-none transition-colors hover:bg-kinari focus-visible:ring-2 focus-visible:ring-sumi focus-visible:ring-offset-4"
+          aria-label={`前の記事 ${previous.title} を読む`}
+        >
+          <p class="font-mono text-xs text-noukai">PREVIOUS</p>
+          <h2 class="mt-5 font-mincho text-[26px] font-medium leading-[1.45] transition-colors group-hover:text-sumi">{previous.title}</h2>
+        </a>
+      ) : (
+        <div class="bg-white p-6 text-noukai">
+          <p class="font-mono text-xs">PREVIOUS</p>
+          <p class="mt-5 text-[14px] leading-[1.9]">この記事が最初の記事です。</p>
+        </div>
+      )}
+
+      {next ? (
+        <a
+          href={`/notes/${next.slug}/`}
+          class="group bg-white p-6 outline-none transition-colors hover:bg-kinari focus-visible:ring-2 focus-visible:ring-sumi focus-visible:ring-offset-4 md:text-right"
+          aria-label={`次の記事 ${next.title} を読む`}
+        >
+          <p class="font-mono text-xs text-noukai">NEXT</p>
+          <h2 class="mt-5 font-mincho text-[26px] font-medium leading-[1.45] transition-colors group-hover:text-sumi">{next.title}</h2>
+        </a>
+      ) : (
+        <div class="bg-white p-6 text-noukai md:text-right">
+          <p class="font-mono text-xs">NEXT</p>
+          <p class="mt-5 text-[14px] leading-[1.9]">この記事が最後の記事です。</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Section background="kinari" label="RELATED" title={`${meta.label}の関連記事`}>
+    <HorizontalRail ariaLabel="Related notes list">
+      {relatedNotes.map((related) => (
+        <NoteCard note={related} variant="related" showTags={false} />
+      ))}
+    </HorizontalRail>
+  </Section>
+
+  <section class="bg-sumi px-6 py-16 text-white md:px-12 md:py-20 xl:px-16">
+    <div class="mx-auto flex w-full max-w-[1180px] flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      <div class="max-w-[720px]">
+        <p class="font-mono text-xs text-white/60">CONTACT</p>
+        <h2 class="mt-6 font-mincho text-[38px] font-medium leading-[1.35] md:text-[54px]">
+          まだ整理できていない相談からで構いません。
+        </h2>
+      </div>
+      <CTAButton href="/contact/" className="border border-white bg-white text-sumi hover:bg-white/90">
+        まずは相談したい
+      </CTAButton>
+    </div>
+  </section>
+</BaseLayout>

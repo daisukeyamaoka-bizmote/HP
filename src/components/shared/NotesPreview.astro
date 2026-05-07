@@ -1,0 +1,26 @@
+---
+import CTAButton from './CTAButton.astro';
+import HorizontalRail from './HorizontalRail.astro';
+import NoteCard from './NoteCard.astro';
+import { notes } from '../../data/notes';
+
+const previewNotes = notes.filter((note) => note.featured);
+---
+
+<div>
+  <p class="mt-7 max-w-[680px] text-[17px] leading-[1.95] text-noukai">
+    Notesは完成された答えを並べる場所ではありません。<br />
+    GTM、コミュニティ、AI活用、会社づくりの現場で得た知見を、
+    次の挑戦につながるナレッジとして残します。
+  </p>
+  <!-- TODO: Connect Notes to the future CMS/content pipeline in a later phase. -->
+  <div class="mt-9">
+    <CTAButton href="/notes/">Notesを見る</CTAButton>
+  </div>
+
+  <HorizontalRail ariaLabel="Notes preview list">
+    {previewNotes.map((note) => (
+      <NoteCard note={note} variant="rail" showTags={false} />
+    ))}
+  </HorizontalRail>
+</div>

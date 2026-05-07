@@ -1,0 +1,62 @@
+---
+import { categoryMeta, type NoteItem } from '../../data/notes';
+
+interface Props {
+  note: NoteItem;
+  variant?: 'rail' | 'grid' | 'related';
+  filterable?: boolean;
+  showTags?: boolean;
+  className?: string;
+}
+
+const {
+  note,
+  variant = 'grid',
+  filterable = false,
+  showTags = true,
+  className = '',
+} = Astro.props;
+
+const meta = categoryMeta[note.category];
+const isGrid = variant === 'grid';
+const isRelated = variant === 'related';
+const sizeClass = isGrid
+  ? 'min-h-[360px]'
+  : isRelated
+    ? 'min-h-[310px] w-[82vw] max-w-[410px] flex-none snap-start md:w-[350px]'
+    : 'min-h-[340px] w-[82vw] max-w-[430px] flex-none snap-start md:w-[370px]';
+const titleClass = isGrid ? 'text-[29px]' : isRelated ? 'text-[28px]' : 'text-[31px]';
+const hoverClass = isGrid ? 'hover:bg-kinari' : 'hover:border-sumi';
+---
+
+<a
+  href={`/notes/${note.slug}/`}
+  data-note-card={filterable ? true : undefined}
+  data-category={filterable ? note.category : undefined}
+  class:list={[
+    'group grid content-between border border-tankai bg-white p-6 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-sumi focus-visible:ring-offset-4',
+    sizeClass,
+    hoverClass,
+    className,
+  ]}
+  style={`--accent: ${meta.accent};`}
+  aria-label={`${note.title} を読む`}
+>
+  <article class="grid h-full content-between">
+    <div>
+      <p class="font-mono text-xs text-[var(--accent)]">{meta.label} / {note.meta}</p>
+      <h3 class:list={['mt-8 font-mincho font-medium leading-[1.45]', titleClass]}>{note.title}</h3>
+      <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{note.excerpt}</p>
+      {showTags && (
+        <div class="mt-6 flex flex-wrap gap-2">
+          {note.tags.map((tag) => (
+            <span class="rounded-full border border-tankai px-3 py-1 font-mono text-[11px] leading-relaxed text-noukai">{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+    <p class="mt-8 border-t border-tankai pt-4 font-mono text-xs text-noukai transition-colors group-hover:text-sumi">
+      READ / {note.status}
+    </p>
+  </article>
+</a>

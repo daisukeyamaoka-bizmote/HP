@@ -1,0 +1,82 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@theme {
+  --color-sumi: #1A1A1A;
+  --color-noukai: #666666;
+  --color-chukai: #999999;
+  --color-tankai: #DDDDDD;
+  --color-kinari: #FAFAF5;
+  --font-mincho: 'Shippori Mincho', serif;
+  --font-noto: 'Noto Serif JP', serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html {
+  background: var(--color-white);
+  color: var(--color-sumi);
+  font-family: var(--font-noto);
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+[id] {
+  scroll-margin-top: 96px;
+}
+
+body {
+  min-width: 320px;
+  background: var(--color-white);
+  color: var(--color-sumi);
+  font-family: var(--font-noto);
+  font-size: 16px;
+  line-height: 1.9;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::selection {
+  background: var(--color-sumi);
+  color: var(--color-white);
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+.smooth-rail {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-color: #bdbdbd transparent;
+  scrollbar-width: thin;
+}
+
+.smooth-rail::-webkit-scrollbar {
+  height: 8px;
+}
+
+.smooth-rail::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.smooth-rail::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+}
+
+.smooth-rail.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

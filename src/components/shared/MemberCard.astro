@@ -1,0 +1,20 @@
+---
+interface Props {
+  initial: string;
+  name: string;
+  role: string;
+  bio: string;
+}
+
+const { initial, name, role, bio } = Astro.props;
+---
+
+<article class="w-[280px] flex-none snap-start border border-tankai bg-white p-5 transition-colors hover:border-sumi md:w-[300px]">
+  <!-- TODO: Replace portrait placeholders with finalized member images. -->
+  <div class="relative mb-6 h-36 w-28 border border-tankai bg-kinari md:h-40 md:w-32" aria-hidden="true">
+    <span class="absolute bottom-3 left-4 font-cormorant text-[40px] leading-none text-chukai">{initial}</span>
+  </div>
+  <h3 class="font-mincho text-[25px] font-normal leading-[1.45]">{name}</h3>
+  <p class="mt-2 font-mono text-xs text-noukai">{role}</p>
+  <p class="mt-5 text-[13px] leading-[1.9] text-noukai">{bio}</p>
+</article>

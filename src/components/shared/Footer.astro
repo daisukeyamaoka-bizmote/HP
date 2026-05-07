@@ -1,0 +1,37 @@
+---
+const services = [
+  { label: 'bizFlag', href: '/flag/' },
+  { label: 'bizShip', href: '/ship/' },
+  { label: 'bizLab', href: '/lab/' },
+];
+
+---
+
+<footer class="border-t border-tankai bg-white px-6 py-12 md:px-12 md:py-16 xl:px-16">
+  <div class="mx-auto grid w-full max-w-[1120px] gap-11 md:grid-cols-[minmax(240px,1fr)_minmax(420px,1fr)]">
+    <div>
+      <div class="font-cormorant text-[34px] leading-none">bizmote</div>
+      <p class="mt-6 max-w-md text-noukai">挑戦が生まれ続ける仕組みをつくる会社です。</p>
+    </div>
+
+    <div class="grid gap-8 sm:grid-cols-2">
+      <div>
+        <div class="font-mono text-xs text-noukai">SERVICES</div>
+        <div class="mt-3 grid gap-2.5 font-mono text-xs">
+          {services.map((link) => <a class="outline-none transition-colors hover:text-noukai focus-visible:text-noukai" href={link.href}>{link.label}</a>)}
+        </div>
+      </div>
+      <div>
+        <div class="font-mono text-xs text-noukai">LEGAL</div>
+        <div class="mt-3 grid gap-2.5 font-mono text-xs">
+          <a class="outline-none transition-colors hover:text-noukai focus-visible:text-noukai" href="/privacy-policy/">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-between gap-4 font-mono text-[11px] text-noukai md:col-span-2">
+      <span>© bizmote Inc.</span>
+      <span>Tokyo, Japan</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,30 @@
+---
+import type { NoteAuthor } from '../../data/notes';
+
+interface Props {
+  author: NoteAuthor;
+}
+
+const { author } = Astro.props;
+---
+
+<section class="border-t border-tankai pt-12" aria-labelledby="note-author-title">
+  <p class="font-mono text-xs text-noukai">AUTHOR</p>
+  <h2 class="mt-5 font-mincho text-[32px] font-medium leading-[1.35]" id="note-author-title">
+    この記事を書いた人
+  </h2>
+  <div class="mt-8 grid gap-6 border border-tankai bg-kinari p-6 md:grid-cols-[112px_1fr] md:p-8">
+    <div class="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border border-tankai bg-white">
+      {author.image ? (
+        <img src={author.image} alt={author.name} class="h-full w-full object-cover" loading="lazy" />
+      ) : (
+        <span class="font-cormorant text-[54px] leading-none text-noukai">{author.initial}</span>
+      )}
+    </div>
+    <div>
+      <p class="font-mincho text-[28px] font-medium leading-tight">{author.name}</p>
+      <p class="mt-2 font-mono text-xs text-[var(--accent)]">{author.role}</p>
+      <p class="mt-6 text-[15px] leading-[1.95] text-noukai">{author.profile}</p>
+    </div>
+  </div>
+</section>

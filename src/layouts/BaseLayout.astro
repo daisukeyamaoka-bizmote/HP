@@ -1,0 +1,121 @@
+---
+import Header from '../components/shared/Header.astro';
+import Footer from '../components/shared/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  navItems?: Array<{
+    label: string;
+    href: string;
+  }>;
+  showServicesMenu?: boolean;
+  navAriaLabel?: string;
+}
+
+const {
+  title = 'bizmote | 次の “常識” をつくる',
+  description = 'bizmoteは、事業をつくり、人をつなぎ、創造できる環境をつくる会社です。bizFlag、bizShip、bizLabを通じて、挑戦が生まれ続ける仕組みをつくります。',
+  navItems,
+  showServicesMenu = true,
+  navAriaLabel = 'Global navigation',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://bizmote.jp').toString();
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonical} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500&family=Noto+Serif+JP:wght@400;500;700&family=Shippori+Mincho:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="min-h-screen bg-white text-sumi">
+      <Header navItems={navItems} showServicesMenu={showServicesMenu} navAriaLabel={navAriaLabel} />
+      <main>
+        <slot />
+      </main>
+      <Footer />
+    </div>
+    <script>
+      const initAnchorScroll = () => {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const easeOutCubic = (value: number) => 1 - Math.pow(1 - value, 3);
+
+        const getHeaderOffset = () => {
+          const header = document.querySelector('header');
+          if (!(header instanceof HTMLElement)) return 96;
+          return header.getBoundingClientRect().height + 18;
+        };
+
+        const moveTo = (target: HTMLElement) => {
+          const start = window.scrollY;
+          const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - getHeaderOffset());
+          const distance = top - start;
+
+          if (reduceMotion || Math.abs(distance) < 4) {
+            window.scrollTo({ top, behavior: 'auto' });
+            return;
+          }
+
+          const duration = Math.min(1100, Math.max(520, Math.abs(distance) * 0.42));
+          const startedAt = performance.now();
+
+          const frame = (now: number) => {
+            const elapsed = now - startedAt;
+            const progress = Math.min(elapsed / duration, 1);
+            window.scrollTo(0, start + distance * easeOutCubic(progress));
+
+            if (progress < 1) {
+              window.requestAnimationFrame(frame);
+            }
+          };
+
+          window.requestAnimationFrame(frame);
+        };
+
+        document.addEventListener('click', (event) => {
+          const element = event.target;
+          if (!(element instanceof Element)) return;
+
+          const link = element.closest('a[href]');
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          const url = new URL(link.href);
+          const samePage = url.origin === window.location.origin && url.pathname === window.location.pathname;
+          if (!samePage || !url.hash) return;
+
+          const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+          if (!target) return;
+
+          event.preventDefault();
+          history.pushState(null, '', url.hash);
+          moveTo(target);
+
+          const menu = link.closest('details');
+          if (menu instanceof HTMLDetailsElement) {
+            menu.open = false;
+          }
+        });
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAnchorScroll, { once: true });
+      } else {
+        initAnchorScroll();
+      }
+    </script>
+  </body>
+</html>

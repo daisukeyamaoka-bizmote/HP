@@ -1,0 +1,518 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTAButton from '../../components/shared/CTAButton.astro';
+import HorizontalRail from '../../components/shared/HorizontalRail.astro';
+import Section from '../../components/shared/Section.astro';
+
+const labNavItems = [
+  { label: 'ABOUT', href: '#about' },
+  { label: 'TARGET', href: '#target' },
+  { label: 'PROCESS', href: '#process' },
+  { label: 'SERVICE', href: '#service' },
+  { label: 'EXAMPLES', href: '#examples' },
+  { label: 'DIFFERENCE', href: '#difference' },
+  { label: 'KNOWLEDGE', href: '#knowledge' },
+  { label: 'CONTACT', href: '#contact' },
+];
+
+const principles = [
+  {
+    label: 'TEST',
+    title: '社内で試す',
+    body: 'bizmote社内の業務で実際に試し、使えるかどうかを見極めます。',
+  },
+  {
+    label: 'SELECT',
+    title: '使えるものだけ残す',
+    body: '流行ではなく、業務の負荷を軽くできるものだけを厳選します。',
+  },
+  {
+    label: 'IMPLEMENT',
+    title: '現場で使う形にする',
+    body: '既存ツールの活用から専用ツール開発、運用サポートまで行います。',
+  },
+];
+
+const targetSegments = [
+  {
+    label: 'SMB OWNER',
+    title: '毎日の面倒を、少しずつ軽くする。',
+    lead: '請求、契約、メール、資料整理、顧客管理。日々の細かい作業に時間を取られている中小企業に向けて、業務の流れをヒアリングし、すぐに使えるAI活用や自動化を提案します。',
+    points: [
+      '事務作業が社長や一部メンバーに集中している',
+      'AIを使いたいが、何から始めればいいかわからない',
+      '大きなシステム開発ではなく、小さな改善から始めたい',
+    ],
+  },
+  {
+    label: 'AI / DX TEAM',
+    title: 'AI戦略を、現場で使える形へ。',
+    lead: 'AI活用の方針はある。しかし、現場のどの業務に、どのように組み込むべきかが見えない。bizLabは部門ごとの作業負荷をヒアリングし、優先順位を整理します。',
+    points: [
+      'PoCはあるが、現場実装まで進みきっていない',
+      '部門ごとの業務課題や負荷を棚卸ししたい',
+      'ツール導入だけで終わらせず、運用まで見たい',
+    ],
+  },
+];
+
+const processSteps = [
+  {
+    title: 'ヒアリング',
+    body: '業務内容、作業負荷、利用ツール、困っている業務を整理します。',
+    output: '業務棚卸し',
+  },
+  {
+    title: '判断する',
+    body: 'AIや自動化で解決できること、既存ツールで十分なこと、人が担うべきことを切り分けます。',
+    output: '可否判断',
+  },
+  {
+    title: '選定・設計',
+    body: 'AIツール、SaaS、Notion、Slack、Google Workspace、freee、スプレッドシート、APIなどから手段を選びます。',
+    output: '実装方針',
+  },
+  {
+    title: '開発・調整',
+    body: '必要に応じて、顧客独自の業務に合わせた専用ツールや自動化フローを開発します。',
+    output: 'プロトタイプ',
+  },
+  {
+    title: '運用・保守',
+    body: '導入して終わりにせず、実際に使えるように運用支援、改善、保守を行います。',
+    output: '運用定着',
+  },
+];
+
+const serviceAreas = [
+  {
+    area: 'AI活用ナレッジの公開',
+    support: '社内で実際に試したAI活用例を、業務で使えたものだけに絞ってナレッジとして公開します。',
+    output: 'ユースケース / 失敗例 / ナレッジ',
+  },
+  {
+    area: '業務負荷のヒアリング',
+    support: '現在の業務フロー、手作業が多い業務、AI化できる業務、自動化しない方がよい業務を整理します。',
+    output: '業務棚卸し / 優先順位',
+  },
+  {
+    area: 'AIツール選定',
+    support: '既存AIツールやSaaS、Notion、Slack、Google Workspace、freee、スプレッドシートの組み合わせを設計します。',
+    output: 'ツール選定 / 活用設計',
+  },
+  {
+    area: '専用ツール開発',
+    support: '顧客独自の業務に合わせたプロトタイプ、自動化フロー、社内DBやスプレッドシート連携を開発します。',
+    output: '専用ツール / 自動化フロー',
+  },
+  {
+    area: '運用サポート・保守',
+    support: '使い方、運用ルール、マニュアル、改善対応、保守、社内メンバーへの引き継ぎまで支援します。',
+    output: '運用ルール / 保守',
+  },
+];
+
+const examples = [
+  {
+    name: '手紙施策文面作成自動化',
+    pain: 'ABM施策で必要な1to1レターの文面作成に時間がかかる',
+    tools: '生成AI / スプレッドシート / 企業情報',
+    effect: '準備時間を削減し、個別化の質を高める',
+  },
+  {
+    name: '月次請求書発行からメール送付、消し込みまでの経理業務自動化',
+    pain: '月次の請求、送付、入金確認が手作業で重い',
+    tools: 'freee / メール / スプレッドシート',
+    effect: '経理業務の抜け漏れと作業時間を減らす',
+  },
+  {
+    name: '資料送付依頼メール一括送信',
+    pain: '対象者ごとの資料送付依頼を個別に送っている',
+    tools: 'Slack / スプレッドシート / メール',
+    effect: '依頼メールの作成と送信をまとめて行う',
+  },
+  {
+    name: '採用時契約書作成から採用者管理自動化',
+    pain: '採用者情報、契約書作成、進捗管理が分断されている',
+    tools: 'Notion / Google Workspace / 契約書テンプレート',
+    effect: '採用手続きと管理の流れを整理する',
+  },
+  {
+    name: 'スプレッドシートベースの簡易SFAから成果報告DBの開発',
+    pain: '営業活動や成果報告が散らばり、振り返りに時間がかかる',
+    tools: 'スプレッドシート / Apps Script / レポート',
+    effect: '活動管理と報告を一つの流れにまとめる',
+  },
+];
+
+const aiSupportRows = [
+  {
+    common: 'AIツール紹介が中心',
+    lab: '社内で試した実践ナレッジがベース',
+  },
+  {
+    common: '研修やPoCで終わりがち',
+    lab: '運用・保守まで支援',
+  },
+  {
+    common: 'AI活用が目的化しやすい',
+    lab: '作業負荷の削減が目的',
+  },
+  {
+    common: '汎用的な提案が多い',
+    lab: '顧客独自の業務に合わせて設計',
+  },
+  {
+    common: 'できる前提で話が進む',
+    lab: 'できること・できないことを最初に判断する',
+  },
+];
+
+const developmentRows = [
+  {
+    common: '要件定義から大きく作る',
+    lab: '業務負荷のヒアリングから始める',
+  },
+  {
+    common: '開発ありき',
+    lab: '既存ツールで足りる場合は作らない',
+  },
+  {
+    common: '完成物がゴール',
+    lab: '現場で使われることがゴール',
+  },
+  {
+    common: '開発後の運用が分断されがち',
+    lab: '運用サポート・保守まで行う',
+  },
+  {
+    common: 'システム中心',
+    lab: '業務と人の動き中心',
+  },
+];
+
+const notPrimary = [
+  'AIだけであらゆる業務を置き換えたい',
+  '大規模な基幹システム刷新だけを求めている',
+  '業務ヒアリングを省いて開発だけ進めたい',
+  '運用や保守を後回しにしたい',
+  'セキュリティや権限設計を軽く見たい',
+  '現場で使う人の協力が得られない',
+];
+
+const knowledgeCards = [
+  {
+    title: '業務で使えたAI活用だけを残す',
+    body: '試した結果、使えたもの、使いにくかったもの、向いていなかったものまでナレッジとして残します。',
+    meta: 'AI USECASE',
+  },
+  {
+    title: '面倒な作業の棚卸しから始める',
+    body: 'AI導入の前に、どの作業が重く、どこに時間が取られているのかを整理します。',
+    meta: 'WORKFLOW',
+  },
+  {
+    title: '作る前に、作らない選択肢を見る',
+    body: '既存ツールで足りるなら、無理に専用ツールを作らない。現場に合う手段を選びます。',
+    meta: 'DECISION',
+  },
+  {
+    title: '運用されて初めて、実装になる',
+    body: 'ツールを渡して終わりにせず、使い方、ルール、改善まで含めて現場に残します。',
+    meta: 'OPERATION',
+  },
+];
+---
+
+<BaseLayout
+  title="bizLab | 面倒から、創造へ。"
+  description="bizLabは、bizmote社内で試したAI活用ナレッジをもとに、企業ごとの面倒な作業を軽くするAI実装ラボです。業務負荷のヒアリング、ツール選定、専用ツール開発、運用サポートまで行います。"
+  navItems={labNavItems}
+  showServicesMenu={false}
+  navAriaLabel="bizLab section navigation"
+>
+  <section class="min-h-[calc(100vh-72px)] bg-white px-6 py-16 md:min-h-[calc(100vh-80px)] md:px-12 md:py-24 xl:px-16 xl:py-28" aria-labelledby="lab-title">
+    <div class="mx-auto flex min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center">
+      <div class="max-w-[1040px]">
+        <p class="mb-8 font-cormorant text-[34px] leading-none text-[var(--color-lab-deep)]">bizLab</p>
+        <h1 class="font-mincho text-[58px] font-medium leading-[1.08] md:text-[104px] xl:text-[126px]" id="lab-title">
+          面倒から<br />
+          創造へ
+        </h1>
+        <p class="mt-10 max-w-3xl font-mincho text-[27px] leading-[1.75] md:text-[34px]">
+          社内で試したAI活用を、<br />
+          現場で使える仕組みへ。
+        </p>
+        <div class="mt-10">
+          <CTAButton href="/contact/?service=lab" className="bg-[var(--color-lab-deep)] hover:bg-sumi">
+            業務の面倒を相談する
+          </CTAButton>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Section id="about" background="kinari" label="ABOUT" title="AIを、使える業務だけに。">
+    <p class="mt-8 max-w-[850px] text-[17px] leading-[2] text-noukai">
+      bizLabは、社内で試したAI活用ナレッジをもとに、
+      企業ごとの面倒な作業を軽くするAI実装ラボです。<br />
+      流行のAIツールを入れることではなく、その会社の業務に本当に使えるかどうかを見極めます。
+    </p>
+
+    <div class="mt-12 grid gap-px bg-tankai md:grid-cols-3">
+      {principles.map((item) => (
+        <article class="grid min-h-[280px] content-between bg-white p-6">
+          <div>
+            <p class="font-mono text-xs text-[var(--color-lab-deep)]">{item.label}</p>
+            <h2 class="mt-8 font-mincho text-[30px] font-medium leading-[1.45]">{item.title}</h2>
+            <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{item.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="target" background="white" label="TARGET" title="小さな改善にも、AI戦略にも。">
+    <p class="mt-8 max-w-[800px] text-[17px] leading-[2] text-noukai">
+      bizLabは、中小企業の日々の面倒な作業から、大手企業のAI活用方針を現場へ落とし込む相談まで扱います。<br />
+      共通しているのは、業務を見つめ、できること・できないことを判断することです。
+    </p>
+
+    <div class="mt-12 grid gap-px bg-tankai md:grid-cols-2">
+      {targetSegments.map((segment) => (
+        <article class="bg-white p-6 md:p-8">
+          <p class="font-mono text-xs text-[var(--color-lab-deep)]">{segment.label}</p>
+          <h2 class="mt-8 font-mincho text-[34px] font-medium leading-[1.35] md:text-[42px]">{segment.title}</h2>
+          <p class="mt-6 text-[15px] leading-[1.95] text-noukai">{segment.lead}</p>
+          <ul class="mt-8 grid gap-4">
+            {segment.points.map((point) => (
+              <li class="grid grid-cols-[12px_1fr] gap-3 text-[14px] leading-[1.8] text-noukai">
+                <span class="mt-[0.72em] h-px bg-[var(--color-lab-deep)]" aria-hidden="true"></span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="process" background="kinari" label="PROCESS" title="試して、選び、使える形にする。">
+    <p class="mt-8 max-w-[760px] text-[17px] leading-[2] text-noukai">
+      AIで何ができるかを、最初から決める必要はありません。<br />
+      業務を聞き、切り分け、必要な手段を選び、現場で使える形にしていきます。
+    </p>
+
+    <ol class="mt-12 grid gap-px bg-tankai md:grid-cols-5">
+      {processSteps.map((step, index) => (
+        <li class="grid min-h-[300px] content-between bg-white p-6">
+          <div>
+            <span class="font-mono text-xs text-[var(--color-lab-deep)]">{String(index + 1).padStart(2, '0')}</span>
+            <p class="mt-8 font-mincho text-[25px] leading-[1.45]">{step.title}</p>
+            <p class="mt-5 text-[13px] leading-[1.9] text-noukai">{step.body}</p>
+          </div>
+          <p class="mt-8 border-t border-tankai pt-4 font-mono text-xs text-noukai">{step.output}</p>
+        </li>
+      ))}
+    </ol>
+
+    <div class="mt-16 border border-tankai bg-white p-6 md:p-8">
+      <div class="grid gap-6 md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] md:items-center">
+        <div>
+          <span class="font-mono text-xs text-[var(--color-lab-deep)]">01</span>
+          <p class="mt-4 font-mincho text-[28px] leading-[1.35]">聞く</p>
+          <p class="mt-3 text-[13px] leading-[1.8] text-noukai">作業負荷と業務の流れを知る</p>
+        </div>
+        <div class="hidden h-px w-12 bg-[var(--color-lab-deep)] md:block"></div>
+        <div>
+          <span class="font-mono text-xs text-[var(--color-lab-deep)]">02</span>
+          <p class="mt-4 font-mincho text-[28px] leading-[1.35]">分ける</p>
+          <p class="mt-3 text-[13px] leading-[1.8] text-noukai">AI、既存ツール、人の役割を切り分ける</p>
+        </div>
+        <div class="hidden h-px w-12 bg-[var(--color-lab-deep)] md:block"></div>
+        <div>
+          <span class="font-mono text-xs text-[var(--color-lab-deep)]">03</span>
+          <p class="mt-4 font-mincho text-[28px] leading-[1.35]">作る</p>
+          <p class="mt-3 text-[13px] leading-[1.8] text-noukai">必要な形に設計・開発する</p>
+        </div>
+        <div class="hidden h-px w-12 bg-[var(--color-lab-deep)] md:block"></div>
+        <div>
+          <span class="font-mono text-xs text-[var(--color-lab-deep)]">04</span>
+          <p class="mt-4 font-mincho text-[28px] leading-[1.35]">支える</p>
+          <p class="mt-3 text-[13px] leading-[1.8] text-noukai">運用と改善まで見る</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="service" background="white" label="SERVICE" title="bizLabで提供すること">
+    <p class="mt-8 max-w-[760px] text-[17px] leading-[2] text-noukai">
+      既存ツールで足りるなら、無理に作りません。<br />
+      必要な場合だけ、専用ツールや自動化フローをつくり、運用まで支えます。
+    </p>
+
+    <HorizontalRail ariaLabel="bizLab service areas">
+      {serviceAreas.map((service) => (
+        <article class="grid min-h-[360px] w-[82vw] max-w-[430px] flex-none snap-start content-between border border-tankai bg-white p-6 transition-colors hover:border-[var(--color-lab-deep)] md:w-[370px]">
+          <div>
+            <p class="font-mono text-xs text-[var(--color-lab-deep)]">SERVICE</p>
+            <h2 class="mt-8 font-mincho text-[29px] font-medium leading-[1.45]">{service.area}</h2>
+            <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{service.support}</p>
+          </div>
+          <p class="mt-8 border-t border-tankai pt-4 font-mono text-xs leading-[1.8] text-noukai">{service.output}</p>
+        </article>
+      ))}
+    </HorizontalRail>
+  </Section>
+
+  <Section id="examples" background="kinari" label="EXAMPLES" title="開発・活用ナレッジ">
+    <p class="mt-8 max-w-[760px] text-[17px] leading-[2] text-noukai">
+      社内や現場で実際に作ったものを、開発・活用ナレッジとして整理していきます。<br />
+      成功例だけでなく、向いていなかった使い方や改善の余地も含めて公開します。
+    </p>
+
+    <div class="mt-12 overflow-x-auto border border-tankai bg-white">
+      <table class="min-w-[980px] table-fixed text-left">
+        <caption class="sr-only">bizLabの開発・活用例一覧</caption>
+        <thead>
+          <tr class="border-b border-tankai">
+            <th class="w-[28%] px-6 py-5 font-mono text-xs font-normal text-[var(--color-lab-deep)]" scope="col">開発したもの</th>
+            <th class="w-[30%] px-6 py-5 font-mono text-xs font-normal text-[var(--color-lab-deep)]" scope="col">解決した面倒</th>
+            <th class="w-[22%] px-6 py-5 font-mono text-xs font-normal text-[var(--color-lab-deep)]" scope="col">活用ツール</th>
+            <th class="w-[20%] px-6 py-5 font-mono text-xs font-normal text-[var(--color-lab-deep)]" scope="col">効果</th>
+          </tr>
+        </thead>
+        <tbody>
+          {examples.map((example) => (
+            <tr class="border-b border-tankai last:border-b-0">
+              <th class="px-6 py-6 align-top font-mincho text-[23px] font-medium leading-[1.45]" scope="row">{example.name}</th>
+              <td class="px-6 py-6 align-top text-[14px] leading-[1.9] text-noukai">{example.pain}</td>
+              <td class="px-6 py-6 align-top font-mono text-xs leading-[1.8] text-noukai">{example.tools}</td>
+              <td class="px-6 py-6 align-top text-[14px] leading-[1.9] text-noukai">{example.effect}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <Section id="difference" background="white" label="DIFFERENCE" title="AI導入でも、受託開発でも終わらせない。">
+    <p class="mt-8 max-w-[800px] text-[17px] leading-[2] text-noukai">
+      bizLabは、ツール紹介や開発そのものを目的にしません。<br />
+      作業負荷を減らし、現場で使われ続けることをゴールにします。
+    </p>
+
+    <div class="mt-12 grid gap-12">
+      <div>
+        <h2 class="font-mono text-xs font-normal text-[var(--color-lab-deep)]">AI SUPPORT</h2>
+        <div class="mt-5 overflow-hidden border border-tankai bg-white">
+          <table class="block w-full text-left md:table">
+            <caption class="sr-only">一般的なAI導入支援とbizLabの比較</caption>
+            <thead class="hidden md:table-header-group">
+              <tr class="border-b border-tankai">
+                <th class="w-1/2 px-6 py-5 font-mono text-xs font-normal text-noukai" scope="col">一般的なAI導入支援</th>
+                <th class="w-1/2 px-6 py-5 font-mono text-xs font-normal text-[var(--color-lab-deep)]" scope="col">bizLab</th>
+              </tr>
+            </thead>
+            <tbody class="grid gap-px bg-tankai md:table-row-group">
+              {aiSupportRows.map((row) => (
+                <tr class="grid gap-px bg-tankai md:table-row md:border-b md:border-tankai md:last:border-b-0">
+                  <td class="block bg-white px-6 py-5 align-top text-[15px] leading-[1.8] text-noukai md:table-cell">
+                    <span class="mb-3 block font-mono text-xs text-noukai md:hidden">一般的なAI導入支援</span>
+                    {row.common}
+                  </td>
+                  <td class="block bg-white px-6 py-5 align-top text-[15px] leading-[1.8] md:table-cell">
+                    <span class="mb-3 block font-mono text-xs text-[var(--color-lab-deep)] md:hidden">bizLab</span>
+                    {row.lab}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="font-mono text-xs font-normal text-[var(--color-lab-deep)]">DEVELOPMENT</h2>
+        <div class="mt-5 overflow-hidden border border-tankai bg-white">
+          <table class="block w-full text-left md:table">
+            <caption class="sr-only">受託開発とbizLabの比較</caption>
+            <thead class="hidden md:table-header-group">
+              <tr class="border-b border-tankai">
+                <th class="w-1/2 px-6 py-5 font-mono text-xs font-normal text-noukai" scope="col">受託開発</th>
+                <th class="w-1/2 px-6 py-5 font-mono text-xs font-normal text-[var(--color-lab-deep)]" scope="col">bizLab</th>
+              </tr>
+            </thead>
+            <tbody class="grid gap-px bg-tankai md:table-row-group">
+              {developmentRows.map((row) => (
+                <tr class="grid gap-px bg-tankai md:table-row md:border-b md:border-tankai md:last:border-b-0">
+                  <td class="block bg-white px-6 py-5 align-top text-[15px] leading-[1.8] text-noukai md:table-cell">
+                    <span class="mb-3 block font-mono text-xs text-noukai md:hidden">受託開発</span>
+                    {row.common}
+                  </td>
+                  <td class="block bg-white px-6 py-5 align-top text-[15px] leading-[1.8] md:table-cell">
+                    <span class="mb-3 block font-mono text-xs text-[var(--color-lab-deep)] md:hidden">bizLab</span>
+                    {row.lab}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16 border-t border-tankai pt-10">
+      <h2 class="font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">主対象ではないケース</h2>
+      <p class="mt-6 max-w-[760px] text-[16px] leading-[1.95] text-noukai">
+        bizLabは、AIだけで業務を置き換えるサービスではありません。<br />
+        業務を見つめ、できること・できないことを判断し、現場で使える形にしていくサービスです。
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        {notPrimary.map((item) => (
+          <span class="rounded-full border border-tankai bg-white px-4 py-2 font-mono text-xs leading-relaxed text-noukai">
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <Section id="knowledge" background="kinari" label="KNOWLEDGE" title="実験と検証を、ナレッジとして残す。">
+    <p class="mt-8 max-w-[720px] text-[17px] leading-[2] text-noukai">
+      bizLabは、社内で試したAI活用ナレッジを公開していく場でもあります。<br />
+      使えたものだけでなく、向いていない使い方や運用で詰まった点も、現場の知見として残していきます。
+    </p>
+
+    <HorizontalRail ariaLabel="bizLab knowledge articles">
+      {knowledgeCards.map((note) => (
+        <a
+          href="/notes/?category=bizLab"
+          class="group grid min-h-[310px] w-[82vw] max-w-[430px] flex-none snap-start content-between border border-tankai bg-white p-6 text-sumi transition-colors hover:border-[var(--color-lab-deep)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-lab-deep)] md:w-[360px]"
+        >
+          <div>
+            <!-- TODO: Replace these static cards with knowledge CMS content. -->
+            <p class="font-mono text-xs text-[var(--color-lab-deep)]">AI KNOWLEDGE / {note.meta}</p>
+            <h2 class="mt-8 font-mincho text-[29px] font-medium leading-[1.45]">{note.title}</h2>
+            <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{note.body}</p>
+          </div>
+          <p class="mt-8 font-mono text-xs text-noukai transition-colors group-hover:text-[var(--color-lab-deep)]">
+            READ KNOWLEDGE
+          </p>
+        </a>
+      ))}
+    </HorizontalRail>
+  </Section>
+
+  <Section id="contact" background="white" label="CONTACT" title="まずは、どんな面倒を減らせそうか話しましょう。">
+    <p class="mt-8 max-w-[760px] text-[17px] leading-[2] text-noukai">
+      AIで何ができるかを、最初から決める必要はありません。<br />
+      いま時間を取られている作業、現場で面倒になっている業務、社内で試したいAI活用について、まずは気軽にご相談ください。
+    </p>
+    <div class="mt-10">
+      <CTAButton href="/contact/?service=lab" className="bg-[var(--color-lab-deep)] hover:bg-sumi">
+        業務の面倒を相談する
+      </CTAButton>
+    </div>
+  </Section>
+</BaseLayout>

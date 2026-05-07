@@ -1,0 +1,21 @@
+---
+interface CompanyItem {
+  term: string;
+  description: string;
+}
+
+interface Props {
+  items: CompanyItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<dl class="grid border-t border-tankai">
+  {items.map((item) => (
+    <div class="grid gap-2 border-b border-tankai py-5 md:grid-cols-[140px_1fr] md:gap-6">
+      <dt class="font-mono text-xs text-noukai">{item.term}</dt>
+      <dd class="m-0">{item.description}</dd>
+    </div>
+  ))}
+</dl>

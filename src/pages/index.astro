@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTAButton from '../components/shared/CTAButton.astro';
+import CompanyTable from '../components/shared/CompanyTable.astro';
+import ContactForm from '../components/shared/ContactForm.astro';
+import HorizontalRail from '../components/shared/HorizontalRail.astro';
+import MemberCard from '../components/shared/MemberCard.astro';
+import NotesPreview from '../components/shared/NotesPreview.astro';
+import Section from '../components/shared/Section.astro';
+import ServiceCard from '../components/shared/ServiceCard.astro';
+
+const seo = {
+  title: 'bizmote | 次の “常識” をつくる',
+  description: 'bizmoteは、事業をつくり、人をつなぎ、創造できる環境をつくる会社です。bizFlag、bizShip、bizLabを通じて、挑戦が生まれ続ける仕組みをつくります。',
+};
+
+const services = [
+  {
+    number: '01',
+    name: 'bizFlag',
+    copy: '仮説から、市場へ。',
+    description: '事業が市場に届くまでの道筋を、実行しながら見つけていく。',
+    cta: '新規事業・営業の進め方を相談したい',
+    ctaHref: '/contact/?service=flag',
+    accent: 'var(--color-flag-base)',
+  },
+  {
+    number: '02',
+    name: 'bizShip',
+    copy: '孤独から、仲間へ。',
+    description: 'ひとりの挑戦を、仲間と進む挑戦へ変えていく。',
+    cta: '挑戦する仲間を見つけたい',
+    ctaHref: '/contact/?service=ship',
+    accent: 'var(--color-ship-deep)',
+  },
+  {
+    number: '03',
+    name: 'bizLab',
+    copy: '面倒から、創造へ。',
+    description: '人にしかできない仕事に、時間と思考を戻していく。',
+    cta: '面倒な作業をなくしたい',
+    ctaHref: '/contact/?service=lab',
+    accent: 'var(--color-lab-deep)',
+  },
+];
+
+const members = [
+  {
+    initial: 'D',
+    name: '山岡 大介',
+    role: 'CEO / Founder',
+    bio: 'BtoB営業、無形商材の販売、新規事業・新規市場開拓に従事。市場開拓チームで成果を重ね、そのノウハウをもとにbizmoteを創業。現在はGTM支援を軸に、挑戦が社会に届くまでの道筋づくりを担う。大手アパレル総合商社のファミリーオフィスでは、アソシエイトとして出資先探索にも携わる。',
+  },
+  {
+    initial: 'H',
+    name: '須藤 隼',
+    role: 'CHRO / bizShip',
+    bio: '東京海上の代理店で法人新規開拓を経験後、bizmoteに参画。SaaS営業支援やIS/FS組織構築に加え、インターン・フリーランスの採用、育成、定着にも従事。独自のマネジメントスタイルでメンバーの成長率と定着率向上に貢献し、bizShipでは挑戦者が仲間と前に進む場づくりを推進する。',
+  },
+  {
+    initial: 'D',
+    name: '奥居 大輝',
+    role: 'CRO / bizFlag',
+    bio: '明治大学卒業後、キーエンスに入社。営業経験を積んだ後、フリーランスとしてBtoB営業・事業開発支援に従事し、bizmoteへ参画。キーエンス流のマネジメントと新人育成カリキュラムをもとに、bizFlagで仮説を市場へ届けるGTM設計と実行を推進する。',
+  },
+  {
+    initial: 'K',
+    name: '渡邉 恭平',
+    role: 'CTO / bizLab',
+    bio: 'BtoB向けVRプラットフォーム企業に創業メンバー兼CTOとして参画。その後、デロイトでXR・AI領域のコンサルタントとして活動し、docomoのR&D事業にも従事。bizLabでは、技術実装と事業創出を軸に、創造・判断・対話に集中できる環境づくりを推進する。',
+  },
+];
+
+const company = [
+  { term: '会社名', description: 'bizmote株式会社' },
+  { term: '英文表記', description: 'bizmote, Inc.' },
+  { term: '設立', description: '2023年5月1日' },
+  { term: '代表者', description: '山岡 大介' },
+  { term: '所在地', description: '〒160-0023 東京都新宿区西新宿4-8-11 SHINJUKU NEW VILLA 203' },
+  { term: '事業内容', description: 'BtoB事業のGTM支援 / 起業家コミュニティ運営 / 業務設計・実装支援 / 新規事業創出' },
+  { term: '運営事業', description: 'bizFlag / bizShip / bizLab' },
+];
+---
+
+<BaseLayout title={seo.title} description={seo.description}>
+  <section class="grid min-h-[calc(100vh-72px)] bg-white px-6 py-16 md:min-h-[calc(100vh-80px)] md:px-12 md:py-24 xl:px-16 xl:py-28" aria-labelledby="hero-title">
+    <div class="mx-auto flex w-full max-w-[1180px] items-center">
+      <div class="max-w-[900px]">
+        <h1 class="font-mincho text-[58px] font-normal leading-[1.08] md:text-[96px] xl:text-[118px]" id="hero-title">
+          次の “常識” を<br />
+          つくる
+        </h1>
+        <p class="mt-10 max-w-xl font-mincho text-[28px] leading-[1.75] md:text-[34px]">
+          事業をつくる<br />
+          人をつなぐ<br />
+          創造できる環境をつくる
+        </p>
+        <div class="mt-10">
+          <CTAButton href="/contact/">まずは相談したい</CTAButton>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Section id="services" label="事業について" title="事業をつくる。人をつなぐ。環境を整える。" background="kinari">
+    <p class="mt-7 max-w-[680px] text-[17px] text-noukai">
+      bizmoteは、3つの事業で、<br />
+      挑戦が生まれ続ける仕組みをつくります。
+    </p>
+
+    <HorizontalRail ariaLabel="Services list">
+      {services.map((service) => <ServiceCard {...service} />)}
+    </HorizontalRail>
+  </Section>
+
+  <Section id="members" label="メンバー" title="挑戦者と共に、挑戦者であり続ける。" background="white">
+    <p class="mt-7 max-w-[680px] text-[17px] text-noukai">
+      事業をつくる人。<br />
+      人をつなぐ人。<br />
+      環境を整える人。
+    </p>
+    <p class="mt-7 max-w-[680px] text-[17px] text-noukai">
+      bizmoteは、それぞれの視点から、<br />
+      挑戦が生まれ続ける仕組みをつくっています。
+    </p>
+
+    <HorizontalRail ariaLabel="Members horizontal list">
+      {members.map((member) => <MemberCard {...member} />)}
+    </HorizontalRail>
+  </Section>
+
+  <Section id="notes" label="発信について" title="挑戦の途中を共有する" background="kinari">
+    <NotesPreview />
+  </Section>
+
+  <Section id="company" background="white">
+    <div class="grid gap-12 md:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)]">
+      <div>
+        <p class="mb-6 text-sm leading-relaxed text-noukai">会社について</p>
+        <h2 class="max-w-[900px] font-mincho text-[42px] font-normal leading-[1.35] md:text-[58px] xl:text-[66px]">挑戦が生まれ続ける仕組みをつくる。</h2>
+        <p class="mt-7 max-w-[680px] text-[17px] text-noukai">
+          bizmoteは、BtoB事業のGTM支援、起業家コミュニティ、業務設計・実装支援を通じて、<br />
+          事業・人・環境が循環する新しい挑戦の土壌をつくっています。
+        </p>
+      </div>
+
+      <CompanyTable items={company} />
+    </div>
+  </Section>
+
+  <Section id="contact" background="kinari">
+    <div class="grid gap-12 md:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)]">
+      <div>
+        <p class="mb-6 text-sm leading-relaxed text-noukai">お問い合わせ</p>
+        <h2 class="max-w-[900px] font-mincho text-[42px] font-normal leading-[1.35] md:text-[58px] xl:text-[66px]">まずは、話すところから。</h2>
+        <div class="mt-9 grid max-w-[700px] gap-6 text-[17px] text-noukai">
+          <p>
+            新規事業、営業、仲間づくり、作業の面倒。<br />
+            まだ整理できていない相談でも構いません。
+          </p>
+          <p>
+            お問い合わせは、代表の山岡が対応いたします。<br />
+            まだ言葉になっていない相談からで構いません。
+          </p>
+        </div>
+      </div>
+
+      <ContactForm />
+    </div>
+  </Section>
+</BaseLayout>

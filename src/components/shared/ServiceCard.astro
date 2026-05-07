@@ -1,0 +1,29 @@
+---
+import CTAButton from './CTAButton.astro';
+
+interface Props {
+  number: string;
+  name: string;
+  copy: string;
+  description: string;
+  cta: string;
+  ctaHref: string;
+  accent: string;
+}
+
+const { number, name, copy, description, cta, ctaHref, accent } = Astro.props;
+---
+
+<article class="grid min-h-[340px] w-[82vw] max-w-[420px] flex-none snap-start content-between border border-tankai bg-white p-6 transition-colors hover:border-sumi md:w-[360px]" style={`--accent: ${accent};`}>
+  <div>
+    <div class="font-mono text-xs text-[var(--accent)]">{number}</div>
+    <h3 class="mt-8 font-cormorant text-[36px] font-medium leading-none">{name}</h3>
+    <p class="mt-5 font-mincho text-[30px] leading-[1.45]">{copy}</p>
+    <p class="mt-5 text-[15px] leading-[1.9] text-noukai">{description}</p>
+  </div>
+  <div class="mt-10">
+    <CTAButton href={ctaHref} variant="text" className="text-left text-[var(--accent)] hover:text-sumi">
+      {cta}
+    </CTAButton>
+  </div>
+</article>

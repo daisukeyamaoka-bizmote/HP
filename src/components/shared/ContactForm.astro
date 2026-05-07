@@ -1,0 +1,31 @@
+---
+import CTAButton from './CTAButton.astro';
+---
+
+<form class="grid gap-5 border border-tankai bg-white p-7" aria-label="Contact form">
+  <!-- TODO: Implement submission logic in a later phase. This form is UI only for Phase 1. -->
+  <label class="grid gap-2 font-mono text-xs text-sumi">
+    <span>企業名</span>
+    <input class="w-full border-0 border-b border-tankai bg-white px-0 py-2.5 font-noto text-base leading-relaxed outline-none focus:border-sumi" type="text" name="company" autocomplete="organization" />
+  </label>
+  <label class="grid gap-2 font-mono text-xs text-sumi">
+    <span>氏名</span>
+    <input class="w-full border-0 border-b border-tankai bg-white px-0 py-2.5 font-noto text-base leading-relaxed outline-none focus:border-sumi" type="text" name="name" autocomplete="name" />
+  </label>
+  <label class="grid gap-2 font-mono text-xs text-sumi">
+    <span>メールアドレス</span>
+    <small class="font-noto text-xs leading-relaxed text-noukai">※コーポレートアドレスのみ</small>
+    <input class="w-full border-0 border-b border-tankai bg-white px-0 py-2.5 font-noto text-base leading-relaxed outline-none focus:border-sumi" type="email" name="email" autocomplete="email" />
+  </label>
+  <label class="grid gap-2 font-mono text-xs text-sumi">
+    <span>電話番号</span>
+    <input class="w-full border-0 border-b border-tankai bg-white px-0 py-2.5 font-noto text-base leading-relaxed outline-none focus:border-sumi" type="tel" name="tel" autocomplete="tel" />
+  </label>
+  <label class="grid gap-2 font-mono text-xs text-sumi">
+    <span>詳細欄</span>
+    <textarea class="min-h-[150px] w-full resize-y border-0 border-b border-tankai bg-white px-0 py-2.5 font-noto text-base leading-relaxed outline-none focus:border-sumi" name="message" rows="6"></textarea>
+  </label>
+  <div class="mt-2">
+    <CTAButton>まずは相談したい</CTAButton>
+  </div>
+</form>

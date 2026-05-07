@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactForm from '../../components/shared/ContactForm.astro';
+import Section from '../../components/shared/Section.astro';
+---
+
+<BaseLayout
+  title="Contact | bizmote"
+  description="まずは、話すところから。"
+>
+  <Section background="kinari">
+    <div class="grid gap-12 md:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)]">
+      <div>
+        <p class="mb-6 text-sm leading-relaxed text-noukai">お問い合わせ</p>
+        <h1 class="max-w-[900px] font-mincho text-[42px] font-normal leading-[1.35] md:text-[58px] xl:text-[66px]" id="contact-page-title">まずは、話すところから。</h1>
+        <div class="mt-9 grid max-w-[700px] gap-6 text-[17px] text-noukai">
+          <p>
+            新規事業、営業、仲間づくり、作業の面倒。<br />
+            まだ整理できていない相談でも構いません。
+          </p>
+          <p>
+            お問い合わせは、代表の山岡が対応いたします。<br />
+            まだ言葉になっていない相談からで構いません。
+          </p>
+        </div>
+      </div>
+
+      <ContactForm />
+    </div>
+  </Section>
+</BaseLayout>

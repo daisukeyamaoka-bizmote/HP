@@ -1,0 +1,45 @@
+:root {
+  /* Monotone */
+  --color-sumi: #1A1A1A;
+  --color-noukai: #666666;
+  --color-chukai: #999999;
+  --color-tankai: #DDDDDD;
+  --color-kinari: #FAFAF5;
+  --color-white: #FFFFFF;
+
+  /* bizFlag - Crimson */
+  --color-flag-deep: #6B1A1A;
+  --color-flag-base: #8B1E1E;
+  --color-flag-light: #A83232;
+
+  /* bizShip - Neon Blue */
+  --color-ship-deep: #0095CC;
+  --color-ship-base: #00C8FF;
+  --color-ship-light: #5BD9FF;
+
+  /* bizLab - Neon Green */
+  --color-lab-deep: #00C060;
+  --color-lab-base: #00FF7F;
+  --color-lab-light: #5DFFAB;
+
+  --font-mincho: 'Shippori Mincho', serif;
+  --font-noto: 'Noto Serif JP', serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+  --space-6xl: 192px;
+
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}

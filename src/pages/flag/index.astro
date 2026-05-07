@@ -1,0 +1,580 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTAButton from '../../components/shared/CTAButton.astro';
+import HorizontalRail from '../../components/shared/HorizontalRail.astro';
+import Section from '../../components/shared/Section.astro';
+
+const layers = [
+  {
+    name: '戦略設計',
+    title: '市場に届く仮説を描く',
+    body: '誰に、何を、どの順番で届けるのか。事業の前提を整理し、市場に出すための仮説に落とし込みます。',
+  },
+  {
+    name: '市場実行',
+    title: '実行しながら確かめる',
+    body: '営業、マーケティング、商談設計を動かし、顧客の反応から勝ち筋を見つけていきます。',
+  },
+  {
+    name: '内製移管',
+    title: '組織に渡して残す',
+    body: '属人的な動きで終わらせず、型、採用、育成まで含めて、社内で回る状態へ移管します。',
+  },
+];
+
+const gtmPoints = [
+  {
+    label: 'WHO',
+    title: '誰に届けるか',
+    body: '最初に向き合う顧客、課題、導入の理由を定めます。',
+  },
+  {
+    label: 'WHAT',
+    title: '何を届けるか',
+    body: '提供価値、価格、メッセージ、商談で伝える順番を整えます。',
+  },
+  {
+    label: 'HOW',
+    title: 'どう届けるか',
+    body: '営業、マーケティング、パートナーなど、市場に届く経路を決めて動かします。',
+  },
+  {
+    label: 'SYSTEM',
+    title: 'どう続けるか',
+    body: '勝ち筋を属人化させず、組織で再現できる型にしていきます。',
+  },
+];
+
+const idealCustomers = [
+  {
+    title: 'エンタープライズ開拓を強化したい',
+    body: '狙うべき企業群、部署、役職、意思決定構造を整理し、ABM型で営業活動を設計したい企業。',
+  },
+  {
+    title: '売り方がまだ固まりきっていない',
+    body: '商談はあるが、ターゲットや訴求、営業プロセスに確信が持てていない企業。',
+  },
+  {
+    title: 'PoC・トライアル後の受注率を高めたい',
+    body: '商談からPoC、稟議、受注、導入後拡張までの流れを可視化し、改善したい企業。',
+  },
+  {
+    title: '営業活動を学習資産に変えたい',
+    body: '商談ログ、失注理由、顧客反応を蓄積し、再現性ある営業プレイブックを作りたい企業。',
+  },
+];
+
+const fitRows = [
+  {
+    good: 'ターゲットを絞って勝ち筋を見つけたい',
+    less: '広く多くの企業へアプローチしたい',
+  },
+  {
+    good: '営業活動から学びを得たい',
+    less: 'アポイント数を最優先にしたい',
+  },
+  {
+    good: 'IS/FSの型を整えたい',
+    less: '既存の属人的な進め方を変える予定がない',
+  },
+  {
+    good: '商談からPoC・受注まで改善したい',
+    less: '商談獲得だけを切り出したい',
+  },
+  {
+    good: '売り方そのものを見直したい',
+    less: '営業リソースの補充だけを求めている',
+  },
+];
+
+const customerFlow = [
+  {
+    label: '課題',
+    items: [
+      'どの企業群を狙うべきかわからない',
+      'ターゲット部署や役職が曖昧',
+      '商談はあるが受注につながらない',
+      'ISとFSの連携が弱い',
+      '失注理由が次に活かされていない',
+    ],
+  },
+  {
+    label: 'bizFlagで整理すること',
+    items: [
+      'ターゲット企業群の設計',
+      '部署 / 役職 / 意思決定構造の整理',
+      '訴求仮説の設計',
+      '商談プロセスの改善',
+      '商談ログ / 失注理由 / PoC転換の整理',
+    ],
+  },
+  {
+    label: '目指す状態',
+    items: [
+      '狙う市場が定まる',
+      '商談の質が上がる',
+      '受注率やPoC転換率が改善する',
+      '営業活動が学習資産として蓄積される',
+      '再現性ある売り方が残る',
+    ],
+  },
+];
+
+const industries = [
+  'HR / 採用 / 人事',
+  'AI / DX',
+  'IoT / 現場DX',
+  'セキュリティ',
+  'SaaS',
+  '法務 / 経理 / 労務',
+  '製造 / 建設 / インフラ',
+  '新規事業',
+];
+
+const targetServices = [
+  {
+    area: '新規事業GTM設計',
+    support: '顧客セグメント、提供価値、導入シナリオ、初期チャネルを整理し、市場に出す順番を決めます。',
+    deliverable: 'GTM仮説 / 優先順位',
+  },
+  {
+    area: '営業戦略・実行支援',
+    support: 'ターゲット設計、アプローチ、商談設計、初期営業を動かしながら、顧客の反応を集めます。',
+    deliverable: '営業プロセス / 初期商談',
+  },
+  {
+    area: 'IS / FS組織立ち上げ',
+    support: 'インサイドセールスとフィールドセールスの役割、KPI、運用ルールを整理します。',
+    deliverable: '営業組織の型 / 管理項目',
+  },
+  {
+    area: '市場開拓・アカウント開拓',
+    support: '新しい業界、大手企業、未開拓アカウントに向けて、接点づくりと商談化を進めます。',
+    deliverable: '開拓リスト / 顧客反応',
+  },
+  {
+    area: 'パートナー・アライアンス開拓',
+    support: '共創先、紹介先、販売パートナー候補を整理し、事業が広がる接点をつくります。',
+    deliverable: '候補リスト / 提携仮説',
+  },
+  {
+    area: 'GTM内製化・採用育成',
+    support: '外部支援で終わらせず、手順、トーク、採用、育成まで含めて社内で回る状態にします。',
+    deliverable: '内製化ドキュメント / 育成設計',
+  },
+];
+
+const steps = [
+  {
+    title: '仮説を整理する',
+    body: '顧客、課題、提供価値、売り方を一度テーブルに広げ、何を検証すべきかを絞ります。',
+    output: '検証テーマ',
+  },
+  {
+    title: '市場に出す',
+    body: '想定顧客に向けて営業、接点づくり、商談を動かし、実際の反応を取りにいきます。',
+    output: '初期接点',
+  },
+  {
+    title: '反応を見る',
+    body: '刺さった言葉、詰まった理由、価格や導入条件の違和感を集め、仮説との差分を見ます。',
+    output: '市場の声',
+  },
+  {
+    title: '勝ち筋を磨く',
+    body: '商談設計、訴求、ターゲット、優先順位を更新し、再現できる動きに近づけます。',
+    output: 'GTMの型',
+  },
+  {
+    title: '組織に渡す',
+    body: '属人的な成功で終わらせず、社内で続けられる手順、採用、育成の形に落とします。',
+    output: '内製化',
+  },
+];
+
+const cases = [
+  {
+    name: 'アシオット株式会社',
+    note: '市場開拓の仮説づくりと実行支援',
+  },
+  {
+    name: '株式会社ZENKIGEN',
+    note: 'BtoB事業のGTM推進支援',
+  },
+  {
+    name: '株式会社マネーフォワード',
+    note: '新規領域における市場開拓支援',
+  },
+  {
+    name: 'エピックベース株式会社',
+    note: '営業仮説の検証と実行支援',
+  },
+  {
+    name: 'キャナルベンチャーズ株式会社',
+    note: '事業成長に向けたGTM支援',
+  },
+];
+
+const caseSummaries = [
+  '狙う企業群や部署が、まだ絞りきれていない',
+  '商談はあるが、PoC・稟議・受注までの流れに改善余地がある',
+  '顧客反応や失注理由が、次の仮説に残りきっていない',
+];
+
+const flagNotes = [
+  {
+    title: 'GTMは、何から始めるべきか',
+    body: '顧客、課題、提供価値、届け方を一度並べて、最初に検証する問いを決めるための考え方。',
+    meta: 'GTM',
+    href: '/notes/?category=bizFlag',
+  },
+  {
+    title: '新規事業の営業は、最初から型にしすぎない',
+    body: '市場の反応がまだ少ない段階で、営業の動きをどう設計し、どこから型化していくか。',
+    meta: 'SALES',
+    href: '/notes/?category=bizFlag',
+  },
+  {
+    title: '市場の声を、次の仮説に変える',
+    body: '商談で得た違和感、断られた理由、刺さった言葉を、次の打ち手に変えていく記録。',
+    meta: 'LEARNING',
+    href: '/notes/?category=bizFlag',
+  },
+  {
+    title: '外部支援を、社内の動きに変える',
+    body: '支援で終わらせず、手順、判断基準、育成まで含めて、社内に残るGTMの型へ移していく。',
+    meta: 'ENABLEMENT',
+    href: '/notes/?category=bizFlag',
+  },
+];
+
+const flagNavItems = [
+  { label: 'GTM', href: '#gtm' },
+  { label: 'ABOUT', href: '#about' },
+  { label: 'TARGET', href: '#target' },
+  { label: 'SUPPORT', href: '#support' },
+  { label: 'SERVICE', href: '#service' },
+  { label: 'PROCESS', href: '#process' },
+  { label: 'CASE', href: '#case' },
+  { label: 'KNOWLEDGE', href: '#knowledge' },
+  { label: 'CONTACT', href: '#contact' },
+];
+---
+
+<BaseLayout
+  title="bizFlag | 仮説から、市場へ"
+  description="bizFlagは、BtoB事業のGTMを、仮説設計から実行、内製化まで支援するbizmoteの事業です。"
+  navItems={flagNavItems}
+  showServicesMenu={false}
+  navAriaLabel="bizFlag section navigation"
+>
+  <section class="min-h-[calc(100vh-72px)] bg-white px-6 py-16 md:min-h-[calc(100vh-80px)] md:px-12 md:py-24 xl:px-16 xl:py-28" aria-labelledby="flag-title">
+    <div class="mx-auto flex min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center">
+      <div class="max-w-[980px]">
+        <p class="mb-8 font-cormorant text-[34px] leading-none text-[var(--color-flag-base)]">bizFlag</p>
+        <h1 class="font-mincho text-[56px] font-medium leading-[1.08] md:text-[100px] xl:text-[124px]" id="flag-title">
+          描いて<br />
+          走って<br />
+          渡す
+        </h1>
+        <p class="mt-10 max-w-2xl font-mincho text-[28px] leading-[1.75] md:text-[34px]">
+          仮説から、市場へ。<br />
+          事業が届く道筋をつくる
+        </p>
+        <div class="mt-10">
+          <CTAButton href="/contact/?service=flag" className="bg-[var(--color-flag-base)] hover:bg-[var(--color-flag-deep)]">
+            新規事業・営業の進め方を相談したい
+          </CTAButton>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Section id="gtm" background="kinari" label="GTM" title="市場に出して、届く状態をつくること">
+    <div class="mt-8 grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-start">
+      <p class="max-w-[620px] text-[17px] leading-[2] text-noukai">
+        GTMは、Go To Marketの略です。<br />
+        つくった事業やサービスを、誰に、何を、どんな訴求で、どの順番で届けるのか。
+        その仮説を市場で確かめながら、売れる仕組みへ変えていく考え方です。
+      </p>
+      <div class="grid gap-px bg-tankai sm:grid-cols-2">
+        {gtmPoints.map((point) => (
+          <article class="min-h-[210px] bg-white p-6">
+            <p class="font-mono text-xs text-[var(--color-flag-base)]">{point.label}</p>
+            <h2 class="mt-8 font-mincho text-[26px] font-medium leading-[1.4]">{point.title}</h2>
+            <p class="mt-4 text-[14px] leading-[1.9] text-noukai">{point.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <Section id="about" background="white" label="ABOUT" title="GTMを、絵に描いたままで終わらせない">
+    <p class="mt-8 max-w-[760px] text-[17px] leading-[2] text-noukai">
+      bizFlagは、BtoBスタートアップや成長企業のGTMを支援します。<br />
+      戦略をつくるだけでも、実行を代行するだけでもなく、
+      市場で確かめながら、事業が届く道筋を一緒につくります。
+    </p>
+  </Section>
+
+  <Section id="target" background="kinari" label="TARGET" title="売れる条件を、まだ探しているBtoB企業へ。">
+    <p class="mt-8 max-w-[820px] text-[17px] leading-[2] text-noukai">
+      bizFlagは、ターゲット設計、訴求整理、商談プロセス改善を通じて、営業活動の中から勝ち筋を見つけるサービスです。<br />
+      アポイント数だけを追うのではなく、再現性ある売り方をつくりたい企業に向いています。
+    </p>
+
+    <div class="mt-16">
+      <h3 class="font-mono text-xs font-normal text-[var(--color-flag-base)]">bizFlagが向いている会社</h3>
+      <div class="mt-6 grid gap-px bg-tankai md:grid-cols-2">
+        {idealCustomers.map((customer, index) => (
+          <article class="grid min-h-[250px] content-between bg-white p-6">
+            <div>
+              <p class="font-mono text-xs text-[var(--color-flag-base)]">{String(index + 1).padStart(2, '0')}</p>
+              <h4 class="mt-7 font-mincho text-[28px] font-medium leading-[1.45]">{customer.title}</h4>
+              <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{customer.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-20">
+      <h3 class="max-w-[760px] font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">こんな企業に、bizFlagは向いています。</h3>
+      <div class="mt-8 overflow-hidden border border-tankai bg-white">
+        <table class="block w-full text-left md:table">
+          <caption class="sr-only">bizFlagが向いている企業と主対象ではない企業の比較表</caption>
+          <thead class="hidden md:table-header-group">
+            <tr class="border-b border-tankai">
+              <th class="w-1/2 px-6 py-5 font-mono text-xs font-normal text-[var(--color-flag-base)]" scope="col">向いている企業</th>
+              <th class="w-1/2 px-6 py-5 font-mono text-xs font-normal text-noukai" scope="col">主対象ではない企業</th>
+            </tr>
+          </thead>
+          <tbody class="grid gap-px bg-tankai md:table-row-group">
+            {fitRows.map((row) => (
+              <tr class="grid gap-px bg-tankai md:table-row md:border-b md:border-tankai md:last:border-b-0">
+                <td class="block bg-white px-6 py-5 align-top text-[15px] leading-[1.8] md:table-cell">
+                  <span class="mb-3 block font-mono text-xs text-[var(--color-flag-base)] md:hidden">向いている企業</span>
+                  {row.good}
+                </td>
+                <td class="block bg-white px-6 py-5 align-top text-[15px] leading-[1.8] text-noukai md:table-cell">
+                  <span class="mb-3 block font-mono text-xs text-noukai md:hidden">主対象ではない企業</span>
+                  {row.less}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-20">
+      <h3 class="max-w-[840px] font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">よくある課題は、営業量ではなく設計にあります。</h3>
+      <div class="mt-8 grid gap-5 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-stretch">
+        {customerFlow.map((column, index) => (
+          <>
+            <article class="border border-tankai bg-white p-6">
+              <p class="font-mono text-xs text-[var(--color-flag-base)]">{column.label}</p>
+              <ul class="mt-7 grid gap-4">
+                {column.items.map((item) => (
+                  <li class="grid grid-cols-[12px_1fr] gap-3 text-[14px] leading-[1.8] text-noukai">
+                    <span class="mt-[0.72em] h-px bg-[var(--color-flag-base)]" aria-hidden="true"></span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+            {index < customerFlow.length - 1 && (
+              <div class="flex items-center justify-center py-1 text-[var(--color-flag-base)] md:px-1" aria-hidden="true">
+                <span class="font-mono text-lg md:text-2xl">→</span>
+              </div>
+            )}
+          </>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-20">
+      <h3 class="font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">特に相性の良い領域</h3>
+      <p class="mt-6 max-w-[720px] text-[16px] leading-[1.95] text-noukai">
+        業界ごとの課題や営業構造を踏まえ、ターゲット設計から商談プロセスまで整理します。
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        {industries.map((industry) => (
+          <span class="rounded-full border border-tankai bg-white px-4 py-2 font-mono text-xs leading-relaxed text-sumi">
+            {industry}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-20 border-t border-tankai pt-12">
+      <h3 class="font-mincho text-[38px] font-medium leading-[1.35] md:text-[52px]">アポ獲得だけでは、売り方は残らない。</h3>
+      <p class="mt-7 max-w-[780px] text-[17px] leading-[2] text-noukai">
+        bizFlagは、営業活動を通じて、どの市場に・どの訴求で・どう売るべきかを明らかにしていくサービスです。<br />
+        アポイント数だけではなく、次の勝ち筋が残る営業活動をつくります。
+      </p>
+    </div>
+  </Section>
+
+  <Section id="support" background="white" label="SUPPORT" title="設計、実行、移管まで">
+    <HorizontalRail ariaLabel="bizFlag support layers">
+      {layers.map((layer) => (
+        <article class="grid min-h-[340px] w-[82vw] max-w-[420px] flex-none snap-start content-between border border-tankai bg-white p-6 transition-colors hover:border-[var(--color-flag-base)] md:w-[360px]">
+          <div>
+            <p class="font-mono text-xs text-[var(--color-flag-base)]">{layer.name}</p>
+            <h2 class="mt-8 font-mincho text-[31px] font-medium leading-[1.45]">{layer.title}</h2>
+            <p class="mt-5 text-[15px] leading-[1.9] text-noukai">{layer.body}</p>
+          </div>
+        </article>
+      ))}
+    </HorizontalRail>
+  </Section>
+
+  <Section id="service" background="kinari" label="SERVICE" title="bizFlagで支援できること">
+    <p class="mt-8 max-w-[760px] text-[17px] leading-[2] text-noukai">
+      bizFlagは、新規事業や営業の一部だけを切り出すのではなく、
+      市場に届くまでの動きをまとめて設計します。<br />
+      いま必要な論点に合わせて、設計から実行、内製化までを組み合わせて支援します。
+    </p>
+
+    <div class="mt-12 overflow-x-auto border border-tankai bg-white">
+      <table class="min-w-[860px] table-fixed text-left">
+        <caption class="sr-only">bizFlagの対象サービス一覧</caption>
+        <thead>
+          <tr class="border-b border-tankai">
+            <th class="w-[24%] px-6 py-5 font-mono text-xs font-normal text-[var(--color-flag-base)]" scope="col">SERVICE</th>
+            <th class="w-[52%] px-6 py-5 font-mono text-xs font-normal text-[var(--color-flag-base)]" scope="col">SUPPORT</th>
+            <th class="w-[24%] px-6 py-5 font-mono text-xs font-normal text-[var(--color-flag-base)]" scope="col">OUTPUT</th>
+          </tr>
+        </thead>
+        <tbody>
+          {targetServices.map((service) => (
+            <tr class="border-b border-tankai last:border-b-0">
+              <th class="px-6 py-6 align-top font-mincho text-[23px] font-medium leading-[1.45]" scope="row">{service.area}</th>
+              <td class="px-6 py-6 align-top text-[14px] leading-[1.9] text-noukai">{service.support}</td>
+              <td class="px-6 py-6 align-top font-mono text-xs leading-[1.8] text-noukai">{service.deliverable}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </Section>
+
+  <Section id="process" background="kinari" label="PROCESS" title="小さく始めて勝ち筋を見極める">
+    <p class="mt-8 max-w-[760px] text-[17px] leading-[2] text-noukai">
+      bizFlagは、最初から大きな正解を決めにいきません。<br />
+      小さく市場に出し、反応を見て、仮説を磨き、
+      最後は社内で続けられる形にして渡します。
+    </p>
+
+    <ol class="mt-12 grid gap-px bg-tankai md:grid-cols-5">
+      {steps.map((step, index) => (
+        <li class="grid min-h-[280px] content-between bg-white p-6">
+          <div>
+            <span class="font-mono text-xs text-[var(--color-flag-base)]">{String(index + 1).padStart(2, '0')}</span>
+            <p class="mt-8 font-mincho text-[25px] leading-[1.45]">{step.title}</p>
+            <p class="mt-5 text-[13px] leading-[1.9] text-noukai">{step.body}</p>
+          </div>
+          <p class="mt-8 border-t border-tankai pt-4 font-mono text-xs text-noukai">{step.output}</p>
+        </li>
+      ))}
+    </ol>
+
+    <div class="mt-16 border border-tankai bg-white p-6 md:p-8">
+      <div class="grid gap-6 md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] md:items-center">
+        <div>
+          <span class="font-mono text-xs text-[var(--color-flag-base)]">01</span>
+          <p class="mt-4 font-mincho text-[28px] leading-[1.35]">仮説</p>
+          <p class="mt-3 text-[13px] leading-[1.8] text-noukai">誰に、何を届けるかを決める</p>
+        </div>
+        <div class="hidden h-px w-12 bg-[var(--color-flag-base)] md:block"></div>
+        <div>
+          <span class="font-mono text-xs text-[var(--color-flag-base)]">02</span>
+          <p class="mt-4 font-mincho text-[28px] leading-[1.35]">市場</p>
+          <p class="mt-3 text-[13px] leading-[1.8] text-noukai">顧客の反応を取りにいく</p>
+        </div>
+        <div class="hidden h-px w-12 bg-[var(--color-flag-base)] md:block"></div>
+        <div>
+          <span class="font-mono text-xs text-[var(--color-flag-base)]">03</span>
+          <p class="mt-4 font-mincho text-[28px] leading-[1.35]">学習</p>
+          <p class="mt-3 text-[13px] leading-[1.8] text-noukai">勝ち筋と違和感を見つける</p>
+        </div>
+        <div class="hidden h-px w-12 bg-[var(--color-flag-base)] md:block"></div>
+        <div>
+          <span class="font-mono text-xs text-[var(--color-flag-base)]">04</span>
+          <p class="mt-4 font-mincho text-[28px] leading-[1.35]">型化</p>
+          <p class="mt-3 text-[13px] leading-[1.8] text-noukai">社内で続く動きに変える</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="case" background="white" label="CASE" title="これまでの支援事例">
+    <p class="mt-8 max-w-[720px] text-[17px] leading-[2] text-noukai">
+      公開可能な支援先のみ掲載しています。<br />
+      支援前は、ターゲットや訴求、商談プロセスに未整理な部分があり、
+      どこに勝ち筋があるかを見極める必要がありました。
+    </p>
+
+    <div class="mt-10 grid gap-px bg-tankai md:grid-cols-3">
+      {caseSummaries.map((summary, index) => (
+        <div class="bg-white p-5">
+          <p class="font-mono text-xs text-[var(--color-flag-base)]">BEFORE {String(index + 1).padStart(2, '0')}</p>
+          <p class="mt-5 font-mincho text-[22px] leading-[1.55]">{summary}</p>
+        </div>
+      ))}
+    </div>
+
+    <HorizontalRail ariaLabel="bizFlag case list">
+      {cases.map((item) => (
+        <article class="grid min-h-[250px] w-[82vw] max-w-[390px] flex-none snap-start content-between border border-tankai bg-white p-6 transition-colors hover:border-[var(--color-flag-base)] md:w-[320px]">
+          <div>
+            <!-- TODO: Replace this placeholder with the official company logo asset. -->
+            <div class="flex h-16 w-32 items-center justify-center border border-tankai font-mono text-[11px] text-noukai" aria-hidden="true">
+              LOGO
+            </div>
+            <h2 class="mt-9 font-mincho text-[26px] font-medium leading-[1.45]">{item.name}</h2>
+          </div>
+          <p class="mt-6 text-[14px] leading-[1.9] text-noukai">{item.note}</p>
+        </article>
+      ))}
+    </HorizontalRail>
+  </Section>
+
+  <Section id="knowledge" background="kinari" label="KNOWLEDGE" title="現場で磨いたGTMナレッジ">
+    <p class="mt-8 max-w-[680px] text-[17px] leading-[2] text-noukai">
+      GTM支援や市場開拓の現場で見えてきた論点を、実践に使える知見としてNotesに残していきます。
+    </p>
+
+    <HorizontalRail ariaLabel="GTM knowledge notes">
+      {flagNotes.map((note) => (
+        <a
+          href={note.href}
+          class="group grid min-h-[310px] w-[82vw] max-w-[430px] flex-none snap-start content-between border border-tankai bg-white p-6 text-sumi transition-colors hover:border-[var(--color-flag-base)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-flag-base)] md:w-[360px]"
+        >
+          <div>
+            <!-- TODO: Replace these static cards with Notes CMS content. -->
+            <p class="font-mono text-xs text-[var(--color-flag-base)]">GTM KNOWLEDGE / {note.meta}</p>
+            <h2 class="mt-8 font-mincho text-[29px] font-medium leading-[1.45]">{note.title}</h2>
+            <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{note.body}</p>
+          </div>
+          <p class="mt-8 font-mono text-xs text-noukai transition-colors group-hover:text-[var(--color-flag-base)]">
+            READ KNOWLEDGE
+          </p>
+        </a>
+      ))}
+    </HorizontalRail>
+  </Section>
+
+  <Section id="contact" background="white" label="CONTACT" title="まずは壁打ちからでもご相談ください">
+    <p class="mt-8 max-w-[680px] text-[17px] leading-[2] text-noukai">
+      まだ事業や営業の論点が整理できていなくても構いません。<br />
+      ターゲット、訴求、進め方の壁打ちから始められます。
+    </p>
+    <div class="mt-10">
+      <CTAButton href="/contact/?service=flag" className="bg-[var(--color-flag-base)] hover:bg-[var(--color-flag-deep)]">
+        新規事業・営業の進め方を相談したい
+      </CTAButton>
+    </div>
+  </Section>
+</BaseLayout>

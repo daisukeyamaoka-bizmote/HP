@@ -1,0 +1,89 @@
+---
+const serviceLinks = [
+  { label: 'bizFlag', href: '/flag/' },
+  { label: 'bizShip', href: '/ship/' },
+  { label: 'bizLab', href: '/lab/' },
+];
+
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  navItems?: NavItem[];
+  showServicesMenu?: boolean;
+  navAriaLabel?: string;
+}
+
+const defaultNavLinks = [
+  { label: 'Notes', href: '/notes/' },
+  { label: 'Members', href: '/members/' },
+  { label: 'Company', href: '/company/' },
+  { label: 'Contact', href: '/contact/' },
+];
+
+const {
+  navItems = defaultNavLinks,
+  showServicesMenu = true,
+  navAriaLabel = 'Global navigation',
+} = Astro.props;
+---
+
+<header class="sticky top-0 z-50 border-b border-tankai/80 bg-white">
+  <div class="mx-auto flex min-h-[72px] w-full max-w-[1280px] items-center justify-between px-6 md:min-h-20 md:px-12 xl:px-16">
+    <a class="inline-flex items-center font-cormorant text-2xl leading-none outline-none transition-opacity hover:opacity-70 focus-visible:ring-2 focus-visible:ring-sumi focus-visible:ring-offset-4" href="/" aria-label="bizmote home">
+      <span>bizmote</span>
+    </a>
+
+    <nav class="hidden items-center gap-5 font-mono text-xs leading-none lg:flex xl:gap-7" aria-label={navAriaLabel}>
+      {showServicesMenu && (
+        <div class="group relative">
+          <a class="block py-8 outline-none transition-colors hover:text-noukai focus-visible:text-noukai" href="/#services">Services</a>
+          <div class="invisible absolute left-[-24px] top-[64px] min-w-44 translate-y-[-4px] border border-tankai bg-white p-4 opacity-0 transition group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100" aria-label="Services">
+            {serviceLinks.map((link) => (
+              <a class="block py-2.5 outline-none transition-colors hover:text-noukai focus-visible:text-noukai" href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+      {navItems.map((link) => (
+        <a class="outline-none transition-colors hover:text-noukai focus-visible:text-noukai" href={link.href}>
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <details class="relative lg:hidden">
+      <summary class="flex size-11 cursor-pointer list-none items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-sumi focus-visible:ring-offset-4" aria-label="Open navigation menu">
+        <span class="sr-only">Menu</span>
+        <span class="grid w-5 gap-1.5" aria-hidden="true">
+          <span class="h-px bg-sumi"></span>
+          <span class="h-px bg-sumi"></span>
+          <span class="h-px bg-sumi"></span>
+        </span>
+      </summary>
+      <nav class="absolute right-0 top-12 w-[min(280px,calc(100vw-48px))] border border-tankai bg-white p-5 font-mono text-xs" aria-label="Mobile navigation">
+        {showServicesMenu && (
+          <>
+            <a class="block py-2.5 outline-none transition-colors hover:text-noukai focus-visible:text-noukai" href="/#services">Services</a>
+            <div class="mb-2 ml-4 text-noukai">
+              {serviceLinks.map((link) => (
+                <a class="block py-2.5 outline-none transition-colors hover:text-sumi focus-visible:text-sumi" href={link.href}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </>
+        )}
+        {navItems.map((link) => (
+          <a class="block py-2.5 outline-none transition-colors hover:text-noukai focus-visible:text-noukai" href={link.href}>
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    </details>
+  </div>
+</header>

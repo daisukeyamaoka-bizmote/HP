@@ -1,0 +1,88 @@
+---
+interface Props {
+  ariaLabel: string;
+  className?: string;
+}
+
+const { ariaLabel, className = '' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'smooth-rail -mx-6 mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-6 pb-6 md:-mx-12 md:px-12 xl:-mx-16 xl:px-16',
+    className,
+  ]}
+  tabindex="0"
+  aria-label={ariaLabel}
+  data-smooth-rail
+>
+  <slot />
+</div>
+
+<script>
+  const initSmoothRails = () => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rails = document.querySelectorAll('[data-smooth-rail]');
+
+    rails.forEach((rail) => {
+      if (!(rail instanceof HTMLElement) || rail.dataset.smoothReady === 'true') return;
+
+      rail.dataset.smoothReady = 'true';
+
+      rail.addEventListener(
+        'wheel',
+        (event) => {
+          if (rail.scrollWidth <= rail.clientWidth) return;
+
+          const mostlyVertical = Math.abs(event.deltaY) > Math.abs(event.deltaX);
+          if (!mostlyVertical) return;
+
+          const maxScroll = rail.scrollWidth - rail.clientWidth;
+          const atStart = rail.scrollLeft <= 0;
+          const atEnd = rail.scrollLeft >= maxScroll - 1;
+          if ((event.deltaY < 0 && atStart) || (event.deltaY > 0 && atEnd)) return;
+
+          event.preventDefault();
+          rail.scrollBy({ left: event.deltaY, behavior: reduceMotion ? 'auto' : 'smooth' });
+        },
+        { passive: false },
+      );
+
+      let dragging = false;
+      let startX = 0;
+      let startLeft = 0;
+
+      rail.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        dragging = true;
+        startX = event.clientX;
+        startLeft = rail.scrollLeft;
+        rail.classList.add('is-dragging');
+        rail.setPointerCapture(event.pointerId);
+      });
+
+      rail.addEventListener('pointermove', (event) => {
+        if (!dragging) return;
+        rail.scrollLeft = startLeft - (event.clientX - startX);
+      });
+
+      const stopDragging = (event: PointerEvent) => {
+        if (!dragging) return;
+        dragging = false;
+        rail.classList.remove('is-dragging');
+        if (rail.hasPointerCapture(event.pointerId)) {
+          rail.releasePointerCapture(event.pointerId);
+        }
+      };
+
+      rail.addEventListener('pointerup', stopDragging);
+      rail.addEventListener('pointercancel', stopDragging);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSmoothRails, { once: true });
+  } else {
+    initSmoothRails();
+  }
+</script>
