@@ -6,58 +6,58 @@ import Section from '../components/shared/Section.astro';
 import SummaryCards from '../components/shared/SummaryCards.astro';
 
 const seo = {
-  title: 'bizmote | 挑戦が、市場に届く仕組みをつくる',
-  description: 'bizmoteは、BtoB企業のGTM支援、起業家コミュニティ、AI活用ナレッジを通じて、事業・人・環境が前に進む状態をつくる会社です。',
+  title: 'bizmote | 次の "常識" をつくる',
+  description: 'bizmoteはBtoB 事業の GTM パートナーです。事業を売れる形にし、挑戦する人を孤独にせず、面倒を AI に渡すことで次の常識をつくります。',
 };
 
 const topSummary = [
   {
-    label: 'FOR',
-    title: 'BtoB企業のGTM支援',
-    body: 'ターゲット、訴求、商談プロセスを整理し、売れる条件を見つけます。',
+    label: '共にいる者たち',
+    title: '挑戦者のそばにいる',
+    body: '事業を動かそうとする企業。仲間を求める起業家。創造の時間を取り戻したい組織。',
   },
   {
-    label: 'COMMUNITY',
-    title: '起業家コミュニティ',
-    body: '起業したい社会人・学生が、仲間と学び、実践する場をつくります。',
+    label: '向き合う問い',
+    title: '迷いを設計に変える',
+    body: '売れる条件はどこにあるか。挑戦はどうすれば孤独にならないか。面倒はどこまで AI に渡せるか。',
   },
   {
-    label: 'AI',
-    title: 'AI活用・業務改善',
-    body: '社内で試したAI活用をもとに、現場で使える業務改善を行います。',
+    label: '差し出すもの',
+    title: '設計と実践を渡す',
+    body: 'GTM 設計と実行の場。学びと仲間が交わるコミュニティ。社内で試した AI 実装の知恵。',
   },
   {
-    label: 'COMPANY',
-    title: '挑戦を支える会社',
-    body: '事業、人、環境が前に進む状態を、3つの機能で支えます。',
+    label: '描く景色',
+    title: '次の常識が生まれる',
+    body: '事業が市場に届き、人が仲間に出会い、時間が創造に向かう状態をつくる。',
   },
 ];
 
 const businessFunctions = [
   {
     label: 'bizFlag',
-    title: '売れる条件を見つける',
-    definition: 'BtoB企業のGTM/ABM支援',
-    target: 'BtoB企業',
-    body: 'ターゲット、訴求、商談プロセスを整理し、受注につながる勝ち筋を残します。',
+    title: '描いて、走って、渡す。',
+    definition: 'Design. Drive. Transfer.',
+    target: 'BtoB スタートアップ / 成長企業',
+    body: '仮説を立て、市場で確かめ、社内に残す。BtoB 事業の GTM を設計から実行、移管まで担う。',
     href: '/flag/',
     accent: 'var(--color-flag-base)',
   },
   {
     label: 'bizShip',
-    title: '挑戦する人が集まる',
-    definition: '無料・審査制コミュニティ',
-    target: '社会人 / 学生',
-    body: '起業したい人が、仲間と学び、実践し、次の一歩をつくる場を運営します。',
+    title: 'たどりつく、みんなで。',
+    definition: 'Together, We Arrive.',
+    target: '起業家 / 起業家候補',
+    body: 'AI 時代に "人間力" で生きる。起業したい社会人と学生が学び、実践し、仲間と次の一歩をつくる場。',
     href: '/ship/',
     accent: 'var(--color-ship-deep)',
   },
   {
     label: 'bizLab',
-    title: '面倒な作業を軽くする',
-    definition: 'AI活用・業務改善ラボ',
-    target: '中小企業 / 大手AI部門',
-    body: '社内で試したAI活用ナレッジをもとに、現場で使える実装と運用を行います。',
+    title: '試す、残す、渡す。',
+    definition: 'Try. Keep. Hand Over.',
+    target: '中小企業 / レガシー産業 / 大手AI部門',
+    body: '社内で使い、残せたものだけをナレッジとして渡す。面倒を AI に渡し、創造の時間を人間に返す。',
     href: '/lab/',
     accent: 'var(--color-lab-deep)',
   },
@@ -66,41 +66,41 @@ const businessFunctions = [
 const themeRows = [
   {
     area: 'bizFlag',
-    target: 'BtoB企業',
-    value: 'GTM/ABM支援',
+    target: 'BtoB スタートアップ / 成長企業',
+    value: 'GTM(市場開拓)の設計 / 実行 / 移管',
   },
   {
     area: 'bizShip',
-    target: '起業したい社会人・学生',
-    value: '学び・仲間・実践機会',
+    target: '起業したい社会人 / 学生',
+    value: '学び / 仲間 / 実践 / 出口',
   },
   {
     area: 'bizLab',
-    target: '中小企業オーナー / 大手AI部門',
-    value: 'AI活用・業務改善',
+    target: '中小企業オーナー / レガシー産業 / 大手AI部門',
+    value: 'AI 活用 / AX 支援 / 業務改善',
   },
 ];
 
 const contactThemes = [
   {
-    label: 'GTM',
+    label: '売れる条件',
     title: 'GTM / ABM',
-    body: 'ターゲット、訴求、商談プロセス、ABM施策の整理。',
+    body: '売り方が見えない。市場に届かない。そんな詰まりを一緒にほどく。',
   },
   {
-    label: 'COMMUNITY',
+    label: '仲間',
     title: '起業・仲間づくり',
-    body: 'bizShipへの応募、起業準備、スタートアップとの接点づくり。',
+    body: 'ひとりでは遠い場所へ、みんなでたどりつくための相談。',
   },
   {
-    label: 'AI IMPLEMENTATION',
-    title: 'AI活用',
-    body: '請求、契約、メール、営業管理など、面倒な作業の整理。',
+    label: '創造の時間',
+    title: 'AI 活用',
+    body: '面倒を AI に渡し、人間が考える時間を取り戻す。',
   },
   {
-    label: 'WORKFLOW',
+    label: '現場',
     title: '業務改善',
-    body: '属人的な作業、分断された管理、手作業の棚卸し。',
+    body: '属人的な作業、分断された管理、手作業の負荷を見つめ直す。',
   },
 ];
 ---
@@ -110,12 +110,13 @@ const contactThemes = [
     <div class="mx-auto grid w-full max-w-[1180px] items-center gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.55fr)]">
       <div>
         <h1 class="font-mincho text-[58px] font-normal leading-[1.08] md:text-[96px] xl:text-[118px]" id="hero-title">
-          挑戦が、市場に届く<br />
-          仕組みをつくる
+          次の "常識" を<br />
+          つくる。
         </h1>
         <p class="mt-10 max-w-[760px] font-mincho text-[24px] leading-[1.75] md:text-[31px]">
-          bizmoteは、BtoB企業のGTM支援、起業家コミュニティ、AI活用ナレッジを通じて、
-          事業・人・環境が前に進む状態をつくる会社です。
+          挑戦者と共に挑戦者であり続ける。<br />
+          事業を売れる形にし、人を孤独にせず、創造の時間を取り戻す。<br />
+          私たちは BtoB 事業の GTM パートナーです。
         </p>
         <div class="mt-10 flex flex-wrap gap-4">
           <CTAButton href="#services">3つのサービスを見る</CTAButton>
@@ -140,7 +141,7 @@ const contactThemes = [
             </a>
           ))}
         </div>
-        <p class="mt-5 font-mono text-[11px] leading-relaxed text-noukai">GTM / COMMUNITY / AI IMPLEMENTATION</p>
+        <p class="mt-5 font-mono text-[11px] leading-relaxed text-noukai">BtoB GTM / COMMUNITY / AI IMPLEMENTATION</p>
       </div>
     </div>
   </section>
@@ -151,21 +152,21 @@ const contactThemes = [
     </div>
   </section>
 
-  <Section id="services" label="事業について" title="bizmoteがつくる3つの機能" background="kinari">
+  <Section id="services" label="3つの事業" title="事業を売れる形にし、人を孤独にせず、面倒を AI に渡す" background="kinari">
     <div class="mt-10 grid gap-px bg-tankai md:grid-cols-3">
       {businessFunctions.map((item, index) => (
         <article class="grid min-h-[360px] content-between bg-white p-6" style={`--service-accent: ${item.accent};`}>
           <div>
-            <p class="font-mono text-xs text-[var(--service-accent)]">FUNCTION {String(index + 1).padStart(2, '0')}</p>
+            <p class="font-mono text-xs text-[var(--service-accent)]">事業 {String(index + 1).padStart(2, '0')}</p>
             <h3 class="mt-8 font-cormorant text-[40px] leading-none text-[var(--service-accent)]">{item.label}</h3>
             <p class="mt-8 font-mincho text-[30px] font-medium leading-[1.45]">{item.title}</p>
             <dl class="mt-6 grid gap-3 border-t border-tankai pt-5 text-[13px] leading-[1.8] text-noukai">
               <div>
-                <dt class="font-mono text-[11px] text-[var(--service-accent)]">DEFINE</dt>
+                <dt class="font-mono text-[11px] text-[var(--service-accent)]">英訳</dt>
                 <dd class="mt-1">{item.definition}</dd>
               </div>
               <div>
-                <dt class="font-mono text-[11px] text-[var(--service-accent)]">TARGET</dt>
+                <dt class="font-mono text-[11px] text-[var(--service-accent)]">対象</dt>
                 <dd class="mt-1">{item.target}</dd>
               </div>
             </dl>
@@ -179,7 +180,7 @@ const contactThemes = [
     </div>
 
     <div class="mt-14">
-      <h3 class="font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">bizmoteが向き合うテーマ</h3>
+      <h3 class="font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">私たちが動かすもの</h3>
       <ResponsiveTable
         className="mt-8"
         caption="bizmoteの事業領域、主な対象、提供価値"
@@ -193,7 +194,7 @@ const contactThemes = [
     </div>
   </Section>
 
-  <Section id="contact" background="white" label="相談テーマ" title="こんなテーマから相談できます">
+  <Section id="contact" background="white" label="はじめの会話" title="まだ言葉にならない相談からはじめませんか。">
     <div class="mt-10 grid gap-px bg-tankai md:grid-cols-4">
       {contactThemes.map((theme) => (
         <article class="grid min-h-[230px] content-between bg-white p-5">
@@ -208,10 +209,10 @@ const contactThemes = [
 
     <div class="mt-16 border-t border-tankai pt-10">
       <h2 class="max-w-[880px] font-mincho text-[38px] font-normal leading-[1.35] md:text-[54px]">
-        まだ整理しきれていない段階から、ご相談ください。
+        売り方、仲間、創造の時間。どれかにもやもやしているなら話しましょう。
       </h2>
       <div class="mt-8 flex flex-wrap gap-4">
-        <CTAButton href="#services">サービスを見る</CTAButton>
+        <CTAButton href="#services">3つの事業を見る</CTAButton>
         <CTAButton href="/contact/" variant="text">お問い合わせ</CTAButton>
       </div>
     </div>
