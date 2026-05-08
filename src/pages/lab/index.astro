@@ -74,6 +74,24 @@ const labOverview = [
   },
 ];
 
+const heroStructure = [
+  {
+    label: 'BUSINESS',
+    title: '業務',
+    body: '請求、契約、採用、営業管理',
+  },
+  {
+    label: 'TOOLS',
+    title: 'SaaS / API',
+    body: 'Notion、Slack、freee、Sheets',
+  },
+  {
+    label: 'AI',
+    title: 'AI実装',
+    body: '選定、開発、運用サポート',
+  },
+];
+
 const targetCompareRows = [
   {
     theme: '主な悩み',
@@ -304,6 +322,25 @@ const knowledgeCards = [
     meta: 'OPERATION',
   },
 ];
+
+const useCases = [
+  {
+    title: '月次請求業務を軽くしたい',
+    body: '請求書発行、メール送付、入金確認の流れを整理し、抜け漏れと作業時間を減らします。',
+  },
+  {
+    title: 'ABM施策の準備を早くしたい',
+    body: '企業情報やターゲット情報をもとに、個別文面やリスト整備の負荷を軽くします。',
+  },
+  {
+    title: '採用事務を整えたい',
+    body: '採用者情報、契約書作成、進捗管理を一つの流れとして扱えるようにします。',
+  },
+  {
+    title: '営業成果報告を楽にしたい',
+    body: '活動報告、成果管理、振り返りをスプレッドシートやDBに集約します。',
+  },
+];
 ---
 
 <BaseLayout
@@ -311,8 +348,8 @@ const knowledgeCards = [
   description="bizLabは、bizmote社内で試したAI活用ナレッジをもとに、企業ごとの面倒な作業を軽くするAI実装ラボです。業務負荷のヒアリング、ツール選定、専用ツール開発、運用サポートまで行います。"
 >
   <section class="min-h-[calc(100vh-72px)] bg-white px-6 py-16 md:min-h-[calc(100vh-80px)] md:px-12 md:py-24 xl:px-16 xl:py-28" aria-labelledby="lab-title">
-    <div class="mx-auto flex min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center">
-      <div class="max-w-[1040px]">
+    <div class="mx-auto grid min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.55fr)]">
+      <div>
         <Breadcrumbs
           accent="var(--color-lab-deep)"
           items={[
@@ -338,6 +375,23 @@ const knowledgeCards = [
             開発事例を見る
           </CTAButton>
         </div>
+      </div>
+      <div class="border border-tankai bg-kinari p-5" aria-label="AI SaaS workflow diagram">
+        <div class="grid gap-px bg-tankai">
+          {heroStructure.map((item, index) => (
+            <div class="grid grid-cols-[72px_1fr] items-center gap-5 bg-white p-5">
+              <span class="flex size-14 items-center justify-center border border-tankai font-mono text-xs text-[var(--color-lab-deep)]">
+                0{index + 1}
+              </span>
+              <span>
+                <span class="block font-mono text-[11px] text-[var(--color-lab-deep)]">{item.label}</span>
+                <span class="mt-2 block font-mincho text-[27px] leading-[1.35]">{item.title}</span>
+                <span class="mt-1 block text-[13px] leading-[1.8] text-noukai">{item.body}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+        <p class="mt-5 font-mono text-[11px] leading-relaxed text-noukai">WORKFLOW → TOOL SELECTION → AI IMPLEMENTATION → OPERATION</p>
       </div>
     </div>
   </section>
@@ -491,7 +545,7 @@ const knowledgeCards = [
     </HorizontalRail>
   </Section>
 
-  <Section id="examples" background="kinari" label="EXAMPLES" title="開発・活用ナレッジ">
+  <Section id="examples" background="kinari" label="EXAMPLES" title="これまでの実験・開発例">
     <p class="mt-8 max-w-[760px] text-[17px] leading-[2] text-noukai">
       社内や現場で実際に作ったものを、開発・活用ナレッジとして整理していきます。<br />
       成功例だけでなく、向いていなかった使い方や改善の余地も含めて公開します。
@@ -622,6 +676,20 @@ const knowledgeCards = [
     </div>
   </Section>
 
+  <Section id="usecase" background="kinari" label="USE CASE" title="利用シーン">
+    <div class="mt-10 grid gap-px bg-tankai md:grid-cols-2 xl:grid-cols-4">
+      {useCases.map((item, index) => (
+        <article class="grid min-h-[280px] content-between bg-white p-6">
+          <div>
+            <p class="font-mono text-xs text-[var(--color-lab-deep)]">SCENE {String(index + 1).padStart(2, '0')}</p>
+            <h3 class="mt-8 font-mincho text-[28px] font-medium leading-[1.45]">{item.title}</h3>
+            <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{item.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </Section>
+
   <Section id="knowledge" background="kinari" label="KNOWLEDGE" title="社内で試したAI活用を、Notesに残す。">
     <p class="mt-8 max-w-[720px] text-[17px] leading-[2] text-noukai">
       bizLabは、社内で試したAI活用ナレッジをNotesで公開していく場でもあります。<br />
@@ -655,7 +723,7 @@ const knowledgeCards = [
     </p>
     <div class="mt-10">
       <CTAButton href="/contact/?service=lab" className="bg-[var(--color-lab-deep)] hover:bg-sumi">
-        相談してみる
+        業務の面倒を相談する
       </CTAButton>
     </div>
   </Section>

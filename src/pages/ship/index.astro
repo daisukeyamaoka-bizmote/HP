@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/shared/Breadcrumbs.astro';
 import CTAButton from '../../components/shared/CTAButton.astro';
-import HorizontalRail from '../../components/shared/HorizontalRail.astro';
 import LocalNav from '../../components/shared/LocalNav.astro';
 import RelatedServices from '../../components/shared/RelatedServices.astro';
 import ResponsiveTable from '../../components/shared/ResponsiveTable.astro';
@@ -173,13 +172,13 @@ type MemberProfile = {
   comment: string;
 };
 
-const showMemberProfiles = false;
+const showMemberProfiles = true;
 
 const memberProfiles: MemberProfile[] = [
   {
     category: 'intern',
-    name: '山田 太郎',
-    title: '〇〇大学 3年',
+    name: '掲載準備中 01',
+    title: 'インターン生 / 学生',
     interests: ['スタートアップ', 'BtoB営業', 'AI'],
     reason: '将来起業したいと思い、実際の事業づくりに近い環境で学びたかった。',
     activities: '市場リサーチ、ターゲット企業調査、GTM案件の運用補助',
@@ -187,8 +186,8 @@ const memberProfiles: MemberProfile[] = [
   },
   {
     category: 'intern',
-    name: '鈴木 美咲',
-    title: '〇〇大学 2年',
+    name: '掲載準備中 02',
+    title: 'インターン生 / 学生',
     interests: ['新規事業', 'コミュニティ', '採用'],
     reason: '同じ温度で動く仲間と出会える環境に身を置きたかった。',
     activities: 'イベント運営、参加者ヒアリング、コミュニティ企画',
@@ -196,8 +195,8 @@ const memberProfiles: MemberProfile[] = [
   },
   {
     category: 'intern',
-    name: '高橋 蓮',
-    title: '〇〇大学 4年',
+    name: '掲載準備中 03',
+    title: 'インターン生 / 学生',
     interests: ['SaaS', '営業企画', '事業づくり'],
     reason: '就職前にBtoB事業の現場を経験し、事業を前に進める感覚を持ちたかった。',
     activities: '営業リスト作成、商談準備、顧客課題の整理',
@@ -205,8 +204,8 @@ const memberProfiles: MemberProfile[] = [
   },
   {
     category: 'freelance',
-    name: '佐藤 花子',
-    title: 'マーケティング / リサーチ',
+    name: '掲載準備中 04',
+    title: 'フリーランス / マーケティング',
     interests: ['BtoBマーケティング', '営業資料', 'スタートアップ支援'],
     reason: 'スタートアップ支援の現場に関わりながら、事業づくりの経験を増やしたかった。',
     activities: 'ABM施策、営業リスト作成、提案資料作成',
@@ -214,8 +213,8 @@ const memberProfiles: MemberProfile[] = [
   },
   {
     category: 'freelance',
-    name: '中村 健',
-    title: '営業 / 事業開発',
+    name: '掲載準備中 05',
+    title: 'フリーランス / 事業開発',
     interests: ['BtoB営業', '事業開発', 'コミュニティ'],
     reason: '個人で動きながらも、事業の現場に深く関われる接点を増やしたかった。',
     activities: '初期営業、商談同席、営業プロセスの整理',
@@ -223,8 +222,8 @@ const memberProfiles: MemberProfile[] = [
   },
   {
     category: 'freelance',
-    name: '小林 彩',
-    title: 'デザイン / コンテンツ',
+    name: '掲載準備中 06',
+    title: 'フリーランス / コンテンツ',
     interests: ['ブランド設計', 'コンテンツ', '事業づくり'],
     reason: '次の挑戦を見据えて、事業づくりの近くで自分の専門性を磨きたかった。',
     activities: 'サービス資料、記事企画、コミュニティ発信',
@@ -300,28 +299,6 @@ const exitCards = [
   },
 ];
 
-const knowledgeNotes = [
-  {
-    title: 'BtoB営業を経験する意味',
-    body: '顧客の課題を聞き、価値を届ける経験は、事業づくりの基礎になる。',
-    meta: 'SALES',
-  },
-  {
-    title: '次の挑戦までの時間を、ただの待ち時間にしない',
-    body: '学ぶ、動く、出会う。その時間をどう使うかで、次の一歩は変わる。',
-    meta: 'PREP',
-  },
-  {
-    title: '仲間がいると、挑戦は続きやすくなる',
-    body: '同じ方向を向く人との壁打ちや情報交換が、孤独な準備期間を前に進める。',
-    meta: 'COMMUNITY',
-  },
-  {
-    title: '営業経験は、事業アイデアを強くする',
-    body: '顧客と話すことで、机上の仮説が現実の課題や購買行動に近づいていく。',
-    meta: 'STARTUP',
-  },
-];
 ---
 
 <BaseLayout
@@ -329,8 +306,8 @@ const knowledgeNotes = [
   description="bizShipは、起業したい社会人・学生が集まり、学び、実践し、仲間と次の一歩をつくる無料・審査制コミュニティです。VC・CVCとの壁打ち、西新宿オフィス、GTM案件への参加機会を提供します。"
 >
   <section class="min-h-[calc(100vh-72px)] bg-white px-6 py-16 md:min-h-[calc(100vh-80px)] md:px-12 md:py-24 xl:px-16 xl:py-28" aria-labelledby="ship-title">
-    <div class="mx-auto flex min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center">
-      <div class="max-w-[980px]">
+    <div class="mx-auto grid min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.55fr)]">
+      <div>
         <Breadcrumbs
           accent="var(--color-ship-deep)"
           items={[
@@ -357,8 +334,22 @@ const knowledgeNotes = [
             参加条件を見る
           </CTAButton>
           <CTAButton href="#value" variant="text" className="text-[var(--color-ship-deep)] hover:text-sumi">
-            コミュニティ内容を見る
+            できることを見る
           </CTAButton>
+        </div>
+      </div>
+      <div class="border border-tankai bg-kinari p-5" aria-label="bizShip network diagram">
+        <div class="grid gap-px bg-tankai sm:grid-cols-2">
+          {communityNodes.map((node) => (
+            <div class="min-h-[130px] bg-white p-4">
+              <p class="font-mono text-[11px] text-[var(--color-ship-deep)]">{node.label}</p>
+              <p class="mt-5 font-mincho text-[24px] leading-[1.35]">{node.title}</p>
+            </div>
+          ))}
+        </div>
+        <div class="mt-5 border border-tankai bg-white p-5 text-center">
+          <p class="font-cormorant text-[44px] leading-none text-[var(--color-ship-deep)]">bizShip</p>
+          <p class="mt-3 font-mono text-[11px] leading-relaxed text-noukai">LEARN / PEERS / PROJECT / EXIT</p>
         </div>
       </div>
     </div>
@@ -387,6 +378,20 @@ const knowledgeNotes = [
       columns={shipOverview}
       accent="var(--color-ship-deep)"
     />
+  </Section>
+
+  <Section id="target" background="white" label="TARGET" title="こんな人に向いています">
+    <div class="grid gap-px bg-tankai md:grid-cols-2">
+      {targetCards.map((card, index) => (
+        <article class="grid min-h-[250px] content-between bg-white p-6">
+          <div>
+            <p class="font-mono text-xs text-[var(--color-ship-deep)]">{String(index + 1).padStart(2, '0')}</p>
+            <h2 class="mt-7 font-mincho text-[28px] font-medium leading-[1.45]">{card.title}</h2>
+            <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{card.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
   </Section>
 
   <Section id="value" background="white" label="VALUE" title="無料で参加し、仲間と事業の近くに入る。">
@@ -462,7 +467,8 @@ const knowledgeNotes = [
 
     {showMemberProfiles ? (
       <>
-        <div class="mt-16 grid gap-px bg-tankai md:grid-cols-3">
+        <h3 class="mt-16 font-mono text-xs font-normal text-[var(--color-ship-deep)]">インターン生</h3>
+        <div class="mt-6 grid gap-px bg-tankai md:grid-cols-3">
           {internProfiles.map((profile) => (
             <article class="grid min-h-[520px] content-between bg-white p-5">
               <div>
@@ -471,13 +477,23 @@ const knowledgeNotes = [
                 </div>
                 <p class="mt-6 font-mincho text-[28px] font-medium leading-[1.35]">{profile.name}</p>
                 <p class="mt-2 font-mono text-xs leading-relaxed text-noukai">{profile.title}</p>
-                <p class="mt-6 text-[13px] leading-[1.85] text-noukai">{profile.reason}</p>
+                <dl class="mt-6 grid gap-4 text-[13px] leading-[1.85] text-noukai">
+                  <div>
+                    <dt class="font-mono text-[11px] text-[var(--color-ship-deep)]">目指していること</dt>
+                    <dd class="mt-1">{profile.reason}</dd>
+                  </div>
+                  <div>
+                    <dt class="font-mono text-[11px] text-[var(--color-ship-deep)]">関わっていること</dt>
+                    <dd class="mt-1">{profile.activities}</dd>
+                  </div>
+                </dl>
               </div>
               <p class="mt-8 border-t border-tankai pt-5 font-mincho text-[20px] leading-[1.65]">{profile.comment}</p>
             </article>
           ))}
         </div>
-        <div class="mt-8 grid gap-px bg-tankai md:grid-cols-3">
+        <h3 class="mt-12 font-mono text-xs font-normal text-[var(--color-ship-deep)]">フリーランス</h3>
+        <div class="mt-6 grid gap-px bg-tankai md:grid-cols-3">
           {freelanceProfiles.map((profile) => (
             <article class="grid min-h-[520px] content-between bg-white p-5">
               <div>
@@ -486,7 +502,16 @@ const knowledgeNotes = [
                 </div>
                 <p class="mt-6 font-mincho text-[28px] font-medium leading-[1.35]">{profile.name}</p>
                 <p class="mt-2 font-mono text-xs leading-relaxed text-noukai">{profile.title}</p>
-                <p class="mt-6 text-[13px] leading-[1.85] text-noukai">{profile.reason}</p>
+                <dl class="mt-6 grid gap-4 text-[13px] leading-[1.85] text-noukai">
+                  <div>
+                    <dt class="font-mono text-[11px] text-[var(--color-ship-deep)]">目指していること</dt>
+                    <dd class="mt-1">{profile.reason}</dd>
+                  </div>
+                  <div>
+                    <dt class="font-mono text-[11px] text-[var(--color-ship-deep)]">関わっていること</dt>
+                    <dd class="mt-1">{profile.activities}</dd>
+                  </div>
+                </dl>
               </div>
               <p class="mt-8 border-t border-tankai pt-5 font-mincho text-[20px] leading-[1.65]">{profile.comment}</p>
             </article>
@@ -509,22 +534,8 @@ const knowledgeNotes = [
 
     <p class="mt-12 max-w-[760px] border-t border-tankai pt-8 text-[15px] leading-[1.9] text-noukai">
       参加者プロフィールは、本人確認と掲載許可が取れたものから公開します。
-      ダミーデータは本番表示しない設定にしています。
+      写真と実名は、公開許諾後に差し替えます。
     </p>
-  </Section>
-
-  <Section id="target" background="white" label="TARGET" title="起業に向けて、動きながら探している人へ。">
-    <div class="grid gap-px bg-tankai md:grid-cols-2">
-      {targetCards.map((card, index) => (
-        <article class="grid min-h-[250px] content-between bg-white p-6">
-          <div>
-            <p class="font-mono text-xs text-[var(--color-ship-deep)]">{String(index + 1).padStart(2, '0')}</p>
-            <h2 class="mt-7 font-mincho text-[28px] font-medium leading-[1.45]">{card.title}</h2>
-            <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{card.body}</p>
-          </div>
-        </article>
-      ))}
-    </div>
   </Section>
 
   <Section id="flow" background="kinari" label="FLOW" title="応募から参加まで">
@@ -566,36 +577,24 @@ const knowledgeNotes = [
     </div>
   </Section>
 
-  <Section id="knowledge" background="kinari" label="KNOWLEDGE" title="起業と実践のナレッジを残す。">
-    <p class="mt-8 max-w-[680px] text-[17px] leading-[2] text-noukai">
-      コミュニティ運営、起業準備、GTM案件、仲間づくりの現場で見えた論点を、Notesに残していきます。
-    </p>
-
-    <HorizontalRail ariaLabel="bizShip knowledge notes">
-      {knowledgeNotes.map((note) => (
-        <a
-          href="/notes/?category=bizShip"
-          class="group grid min-h-[310px] w-[82vw] max-w-[430px] flex-none snap-start content-between border border-tankai bg-white p-6 text-sumi transition-colors hover:border-[var(--color-ship-deep)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ship-deep)] md:w-[360px]"
-        >
-          <div>
-            <!-- TODO: Replace these static cards with Notes CMS content. -->
-            <p class="font-mono text-xs text-[var(--color-ship-deep)]">COMMUNITY KNOWLEDGE / {note.meta}</p>
-            <h2 class="mt-8 font-mincho text-[29px] font-medium leading-[1.45]">{note.title}</h2>
-            <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{note.body}</p>
-          </div>
-          <p class="mt-8 font-mono text-xs text-noukai transition-colors group-hover:text-[var(--color-ship-deep)]">
-            READ KNOWLEDGE
-          </p>
-        </a>
+  <Section id="philosophy" background="kinari" label="PHILOSOPHY" title="知識は手に入りやすくなった。だからこそ、誰と挑むかが問われる。">
+    <div class="mt-10 grid gap-px bg-tankai md:grid-cols-3">
+      {[
+        { label: 'KNOWLEDGE', text: '知識は、検索やAIで手に入りやすくなった。' },
+        { label: 'PEERS', text: 'それでも、壁打ちできる仲間や現場の接点は自然には増えない。' },
+        { label: 'ACTION', text: 'bizShipは、人と実践の近くで次の一歩をつくる場です。' },
+      ].map((item) => (
+        <article class="bg-white p-6">
+          <p class="font-mono text-xs text-[var(--color-ship-deep)]">{item.label}</p>
+          <p class="mt-8 font-mincho text-[26px] leading-[1.5]">{item.text}</p>
+        </article>
       ))}
-    </HorizontalRail>
+    </div>
   </Section>
 
-  <Section id="contact" background="white" label="CONTACT" title="まずは、興味がある段階からご応募ください">
+  <Section id="contact" background="white" label="CONTACT" title="まずは、参加してみませんか。">
     <p class="mt-8 max-w-[700px] text-[17px] leading-[2] text-noukai">
-      起業アイデアが固まっていなくても構いません。<br />
-      仲間と出会いたい、事業づくりに触れたい、次の挑戦を探したい。
-      その段階から応募できます。
+      参加費無料 / 審査制 / 社会人・学生歓迎
     </p>
     <div class="mt-10">
       <CTAButton href="/contact/?service=ship" className="bg-[var(--color-ship-deep)] hover:bg-sumi">

@@ -92,6 +92,25 @@ const gtmPoints = [
   },
 ];
 
+const conceptCycle = [
+  {
+    title: 'ターゲット',
+    body: 'どの企業群を狙うか',
+  },
+  {
+    title: '訴求',
+    body: '何を伝えるか',
+  },
+  {
+    title: '商談',
+    body: 'どう前に進めるか',
+  },
+  {
+    title: '学習',
+    body: '何を次に残すか',
+  },
+];
+
 const idealCustomers = [
   {
     title: 'エンタープライズ開拓を強化したい',
@@ -329,6 +348,9 @@ const cases = [
   },
 ];
 
+const primaryCases = cases.slice(0, 2);
+const secondaryCases = cases.slice(2);
+
 const caseSummaries = [
   '狙う企業群や部署が、まだ絞りきれていない',
   '商談はあるが、PoC・稟議・受注までの流れに改善余地がある',
@@ -362,6 +384,25 @@ const flagNotes = [
   },
 ];
 
+const faqItems = [
+  {
+    question: '営業代行との違いは？',
+    answer: 'アポイント獲得だけを目的にせず、ターゲット、訴求、商談プロセス、失注理由を整理し、売れる条件が社内に残る状態を目指します。',
+  },
+  {
+    question: 'どの段階の企業に向いている？',
+    answer: 'BtoB商材があり、ターゲットや売り方を検証している段階、またはエンタープライズ開拓やPoC後の受注率に課題がある段階に向いています。',
+  },
+  {
+    question: 'まず何から始まる？',
+    answer: '現状の営業活動、商談ログ、ターゲット仮説、失注理由を確認し、最初に整理すべき論点を特定します。',
+  },
+  {
+    question: 'どれくらいの期間が必要？',
+    answer: '課題整理だけなら2〜4週間、プレイブック化やABM実行まで含める場合は1〜3ヶ月以上を目安に設計します。',
+  },
+];
+
 const flagLocalNavItems = [
   { label: '課題', href: '#about' },
   { label: '対象顧客', href: '#target' },
@@ -391,8 +432,8 @@ const relatedServices = [
   description="bizFlagは、BtoB企業のターゲット、訴求、商談プロセスを整理し、受注につながる勝ち筋をつくるGTM/ABM支援です。"
 >
   <section class="min-h-[calc(100vh-72px)] bg-white px-6 py-16 md:min-h-[calc(100vh-80px)] md:px-12 md:py-24 xl:px-16 xl:py-28" aria-labelledby="flag-title">
-    <div class="mx-auto flex min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center">
-      <div class="max-w-[980px]">
+    <div class="mx-auto grid min-h-[calc(100vh-220px)] w-full max-w-[1180px] items-center gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.55fr)]">
+      <div>
         <Breadcrumbs
           accent="var(--color-flag-base)"
           items={[
@@ -418,6 +459,23 @@ const relatedServices = [
           <CTAButton href="#service" variant="text" className="text-[var(--color-flag-base)] hover:text-sumi">
             支援内容を見る
           </CTAButton>
+        </div>
+      </div>
+      <div class="border border-tankai bg-kinari p-5" aria-label="GTM ABM concept diagram">
+        <div class="grid gap-px bg-tankai sm:grid-cols-2">
+          {conceptCycle.map((item, index) => (
+            <div class="grid min-h-[170px] content-between bg-white p-5">
+              <p class="font-mono text-xs text-[var(--color-flag-base)]">0{index + 1}</p>
+              <div>
+                <p class="font-mincho text-[28px] leading-[1.35]">{item.title}</p>
+                <p class="mt-3 text-[13px] leading-[1.8] text-noukai">{item.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="mt-5 flex items-center justify-between gap-3 font-mono text-[11px] text-noukai">
+          <span>GTM / ABM LOOP</span>
+          <span aria-hidden="true">TARGET → MESSAGE → DEAL → LEARNING</span>
         </div>
       </div>
     </div>
@@ -588,15 +646,28 @@ const relatedServices = [
     </HorizontalRail>
   </Section>
 
-  <Section id="service" background="kinari" label="SERVICE" title="bizFlagで支援できること">
+  <Section id="service" background="kinari" label="SERVICE" title="提供すること">
     <p class="mt-8 max-w-[760px] text-[17px] leading-[2] text-noukai">
       bizFlagは、新規事業や営業の一部だけを切り出すのではなく、
       市場に届くまでの動きをまとめて設計します。<br />
       いま必要な論点に合わせて、設計から実行、内製化までを組み合わせて支援します。
     </p>
 
-    <div class="mt-12">
-      <h3 class="font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">提供プランの考え方</h3>
+    <div class="mt-12 grid gap-px bg-tankai md:grid-cols-2 xl:grid-cols-3">
+      {targetServices.map((service, index) => (
+        <article class="grid min-h-[300px] content-between bg-white p-6">
+          <div>
+            <p class="font-mono text-xs text-[var(--color-flag-base)]">SERVICE {String(index + 1).padStart(2, '0')}</p>
+            <h3 class="mt-8 font-mincho text-[28px] font-medium leading-[1.45]">{service.area}</h3>
+            <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{service.support}</p>
+          </div>
+          <p class="mt-8 border-t border-tankai pt-4 font-mono text-xs leading-[1.8] text-noukai">{service.deliverable}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-16">
+      <h3 class="font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">支援の入り方</h3>
       <ResponsiveTable
         className="mt-8"
         caption="bizFlagの提供プラン比較"
@@ -604,34 +675,12 @@ const relatedServices = [
         headers={[
           { key: 'plan', label: 'PLAN' },
           { key: 'fit', label: '向いている企業', muted: true },
-          { key: 'scope', label: '内容', muted: true },
           { key: 'period', label: '期間' },
+          { key: 'scope', label: '内容', muted: true },
           { key: 'output', label: '成果物' },
         ]}
         rows={planRows}
       />
-    </div>
-
-    <div class="mt-12 overflow-x-auto border border-tankai bg-white">
-      <table class="min-w-[860px] table-fixed text-left">
-        <caption class="sr-only">bizFlagの対象サービス一覧</caption>
-        <thead>
-          <tr class="border-b border-tankai">
-            <th class="w-[24%] px-6 py-5 font-mono text-xs font-normal text-[var(--color-flag-base)]" scope="col">SERVICE</th>
-            <th class="w-[52%] px-6 py-5 font-mono text-xs font-normal text-[var(--color-flag-base)]" scope="col">SUPPORT</th>
-            <th class="w-[24%] px-6 py-5 font-mono text-xs font-normal text-[var(--color-flag-base)]" scope="col">OUTPUT</th>
-          </tr>
-        </thead>
-        <tbody>
-          {targetServices.map((service) => (
-            <tr class="border-b border-tankai last:border-b-0">
-              <th class="px-6 py-6 align-top font-mincho text-[23px] font-medium leading-[1.45]" scope="row">{service.area}</th>
-              <td class="px-6 py-6 align-top text-[14px] leading-[1.9] text-noukai">{service.support}</td>
-              <td class="px-6 py-6 align-top font-mono text-xs leading-[1.8] text-noukai">{service.deliverable}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
 
     <div class="mt-12 border-t border-tankai pt-10">
@@ -693,13 +742,7 @@ const relatedServices = [
     </div>
   </Section>
 
-  <Section id="case" background="white" label="CASE" title="これまでの支援事例">
-    <p class="mt-8 max-w-[720px] text-[17px] leading-[2] text-noukai">
-      公開可能な支援先のみ掲載しています。<br />
-      支援前は、ターゲットや訴求、商談プロセスに未整理な部分があり、
-      どこに勝ち筋があるかを見極める必要がありました。
-    </p>
-
+  <Section id="case" background="white" label="CASE" title="支援事例">
     <div class="mt-10 grid gap-px bg-tankai md:grid-cols-3">
       {caseSummaries.map((summary, index) => (
         <div class="bg-white p-5">
@@ -709,15 +752,15 @@ const relatedServices = [
       ))}
     </div>
 
-    <HorizontalRail ariaLabel="bizFlag case list">
-      {cases.map((item) => (
-        <article class="grid min-h-[520px] w-[86vw] max-w-[470px] flex-none snap-start content-between border border-tankai bg-white p-6 transition-colors hover:border-[var(--color-flag-base)] md:w-[410px]">
+    <div class="mt-12 grid gap-px bg-tankai lg:grid-cols-2">
+      {primaryCases.map((item) => (
+        <article class="grid min-h-[620px] content-between bg-white p-6 md:p-8">
           <div>
             <!-- TODO: Replace this placeholder with the official company logo asset. -->
             <div class="flex h-16 w-32 items-center justify-center border border-tankai font-mono text-[11px] text-noukai" aria-hidden="true">
               LOGO
             </div>
-            <h2 class="mt-9 font-mincho text-[26px] font-medium leading-[1.45]">{item.name}</h2>
+            <h2 class="mt-9 font-mincho text-[34px] font-medium leading-[1.35]">{item.name}</h2>
             <dl class="mt-7 grid gap-5 text-[14px] leading-[1.9] text-noukai">
               <div>
                 <dt class="font-mono text-[11px] text-[var(--color-flag-base)]">課題</dt>
@@ -737,10 +780,39 @@ const relatedServices = [
               </div>
             </dl>
           </div>
-          {item.note && <p class="mt-8 border-t border-tankai pt-4 text-[12px] leading-[1.8] text-noukai">{item.note}</p>}
+          <div class="mt-8 grid gap-px bg-tankai sm:grid-cols-3">
+            {['課題整理', '実行改善', '型化'].map((label) => (
+              <div class="bg-kinari p-4">
+                <p class="font-mono text-[11px] text-[var(--color-flag-base)]">KPI</p>
+                <p class="mt-3 font-mincho text-[22px] leading-[1.35]">{label}</p>
+              </div>
+            ))}
+          </div>
         </article>
       ))}
-    </HorizontalRail>
+    </div>
+
+    <div class="mt-10 flex flex-wrap gap-3">
+      {secondaryCases.map((item) => (
+        <span class="rounded-full border border-tankai px-4 py-2 font-mono text-xs leading-relaxed text-noukai">
+          {item.name}
+        </span>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="faq" background="kinari" label="FAQ" title="よくある質問">
+    <div class="mt-10 grid gap-px bg-tankai">
+      {faqItems.map((item) => (
+        <details class="group bg-white p-6">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-flag-base)]">
+            <span class="font-mincho text-[25px] leading-[1.45]">{item.question}</span>
+            <span class="font-mono text-xl text-[var(--color-flag-base)] group-open:rotate-45" aria-hidden="true">+</span>
+          </summary>
+          <p class="mt-5 max-w-[760px] text-[14px] leading-[1.9] text-noukai">{item.answer}</p>
+        </details>
+      ))}
+    </div>
   </Section>
 
   <Section id="knowledge" background="kinari" label="KNOWLEDGE" title="現場で磨いたGTMナレッジ">
@@ -768,14 +840,14 @@ const relatedServices = [
     </HorizontalRail>
   </Section>
 
-  <Section id="contact" background="white" label="CONTACT" title="まずは壁打ちからでもご相談ください">
+  <Section id="contact" background="white" label="CONTACT" title="売り方の詰まりを、一度整理しませんか。">
     <p class="mt-8 max-w-[680px] text-[17px] leading-[2] text-noukai">
       まだ事業や営業の論点が整理できていなくても構いません。<br />
       ターゲット、訴求、進め方の壁打ちから始められます。
     </p>
     <div class="mt-10">
       <CTAButton href="/contact/?service=flag" className="bg-[var(--color-flag-base)] hover:bg-[var(--color-flag-deep)]">
-        新規事業・営業の進め方を相談したい
+        GTM/ABMについて相談する
       </CTAButton>
     </div>
   </Section>
