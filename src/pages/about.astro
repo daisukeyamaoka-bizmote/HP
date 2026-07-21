@@ -2,10 +2,15 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import site from '../data/site.json';
+import { services } from '../data/services';
+import { getPublishedNews, newsTypeLabels } from '../lib/content';
+import { fmtDate, toISODate } from '../lib/format';
 
 const members = (await getCollection('authors', ({ data }) => data.member)).sort(
   (a, b) => a.data.order - b.data.order
 );
+
+const news = await getPublishedNews();
 
 const values = [
   { title: 'ファーストペンギンでいよう', body: '誰よりも先に経験し感じることが人間に残された価値' },
@@ -32,7 +37,7 @@ const schema = {
 ---
 <BaseLayout
   title="運営元について"
-  description="このメディアは、bizmote株式会社が運営しています。哲学・ミッション・ビジョン・バリュー、メンバー、会社概要をご紹介します。"
+  description="このメディアは、bizmote株式会社が運営しています。哲学・ミッション・ビジョン・バリュー、事業内容、メンバー、会社概要、お知らせをご紹介します。"
   schema={schema}
 >
   <div style="max-width:760px; margin:0 auto; padding:64px 0 24px 0;">
@@ -71,6 +76,28 @@ const schema = {
     </div>
   </section>
 
+  <section style="max-width:760px; margin:0 auto; padding:0 0 24px 0;">
+    <div style="border-top:1px solid var(--ink); padding-top:28px; margin-bottom:32px;">
+      <h2 class="section-title">事業内容</h2>
+      <p style="font-size:13px; line-height:1.9; color:var(--ink-sub); margin:10px 0 0 0; text-wrap:pretty;">
+        このメディアで公開している知見は、いずれも次の3事業の現場で私たち自身が確かめたものです。
+      </p>
+    </div>
+    <div style="display:flex; flex-direction:column;">
+      {services.map((s, i) => (
+        <div style={`border-top:${i === 0 ? 'none' : '1px solid var(--line-soft)'}; padding:${i === 0 ? '0' : '28px'} 0 28px 0;`}>
+          <div class="eyebrow" style="margin-bottom:12px;">{s.label}</div>
+          <h3 style="font-family:var(--serif); font-size:22px; font-weight:700; line-height:1.7; margin:0 0 12px 0;">{s.name}</h3>
+          <p style="font-size:14px; line-height:2; color:var(--ink-soft); margin:0 0 14px 0; text-wrap:pretty;">{s.description}</p>
+          <div style="display:flex; gap:24px; align-items:baseline; flex-wrap:wrap;">
+            {s.url && <a href={s.url} style="font-size:13px; font-weight:700; color:var(--ink);">サービス紹介ページ →</a>}
+            <a href={`/category/${s.catSlug}/`} style="font-size:13px; color:var(--ink-sub);">関連カテゴリ:{s.catName} →</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
   <section style="max-width:760px; margin:0 auto; padding:0 0 56px 0;">
     <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--ink); padding-top:28px; margin-bottom:32px;">
       <h2 class="section-title">メンバー</h2>
@@ -94,7 +121,7 @@ const schema = {
     </div>
   </section>
 
-  <section style="max-width:760px; margin:0 auto; padding:0 0 80px 0;">
+  <section style="max-width:760px; margin:0 auto; padding:0 0 56px 0;">
     <h2 class="section-title" style="margin:0 0 28px 0; border-top:1px solid var(--ink); padding-top:28px;">会社概要</h2>
     <div style="display:flex; flex-direction:column; font-size:14px;">
       {facts.map((f) => (
@@ -102,6 +129,22 @@ const schema = {
           <span style="color:var(--ink-sub);">{f.k}</span>
           <span>{f.v}</span>
         </div>
+      ))}
+    </div>
+  </section>
+
+  <section style="max-width:760px; margin:0 auto; padding:0 0 80px 0;">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--ink); padding-top:28px; margin-bottom:8px;">
+      <h2 class="section-title">お知らせ</h2>
+      <a href="/news/" style="font-size:13px; color:var(--ink-sub);">一覧へ →</a>
+    </div>
+    <div style="display:flex; flex-direction:column;">
+      {news.map((n) => (
+        <a href={`/news/${n.id}/`} style="display:grid; grid-template-columns:110px 150px 1fr; gap:20px; align-items:baseline; padding:18px 4px; border-bottom:1px solid var(--line-soft);">
+          <span style="font-size:12px; color:var(--ink-muted); font-family:var(--latin);"><time datetime={toISODate(n.data.date)}>{fmtDate(n.data.date)}</time></span>
+          <span class="cat-label">{newsTypeLabels[n.data.type]}</span>
+          <span style="font-family:var(--serif); font-size:16px; font-weight:600; line-height:1.7;">{n.data.title}</span>
+        </a>
       ))}
     </div>
   </section>
