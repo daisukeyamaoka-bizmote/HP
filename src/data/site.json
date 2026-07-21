@@ -1,0 +1,16 @@
+{
+  "siteName": "bizmote",
+  "companyName": "bizmote株式会社",
+  "siteUrl": "https://bizmote.jp",
+  "title": "bizmote｜現場で確かめた知見を、実名で記録するメディア",
+  "description": "bizmote株式会社が運営するオウンドメディア。エンタープライズ攻略・業務の仕組み化・AI活用・起業の現場で私たち自身が確かめた知見を、実名で記録し公開しています。",
+  "shijukuName": "私塾",
+  "twitter": "@bizmoteinc",
+  "foundingDate": "2023-05-01",
+  "address": {
+    "postalCode": "160-0022",
+    "region": "東京都",
+    "locality": "新宿区",
+    "street": "新宿2丁目8番15号 パークフロント新宿 202号室"
+  }
+}

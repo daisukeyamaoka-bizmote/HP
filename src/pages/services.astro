@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import site from '../data/site.json';
+
+const services = [
+  {
+    name: 'bizU',
+    label: 'エンタープライズ攻略支援',
+    description:
+      '大手企業の役員宛アプローチから初回商談までを、工程として設計・実行するエンタープライズ攻略支援サービスです。宛先の選定、CXOレターによる接点づくり、初回商談の設計までを一貫して支援し、個人の腕に頼らない商談創出の仕組みを社内に残します。',
+    catSlug: 'gtm',
+    catName: 'GTM',
+  },
+  {
+    name: 'いつでも番頭さん',
+    label: 'AX支援',
+    description:
+      '中小企業・レガシー産業の現場に残る手作業と属人化した判断を分解し、AI・専用ツールによる仕組みに置き換えて定着まで並走するAX支援サービスです。ツールの導入ではなく、業務の分解から始めることを大切にしています。',
+    catSlug: 'ax',
+    catName: '業務の仕組み化・AI活用',
+  },
+  {
+    name: site.shijukuName,
+    label: '起業家輩出コミュニティ',
+    description:
+      '座学ではなく、実案件への参画を通じて起業家候補の最初の数歩を支援する起業家輩出コミュニティです。小さくても意思決定を伴う役割を実戦で経験し、挑戦の初速を上げることを目指します。',
+    catSlug: 'startup',
+    catName: '起業・事業づくり',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: '事業について', item: new URL('/services/', Astro.site).href },
+  ],
+};
+---
+<BaseLayout
+  title="事業について"
+  description={`bizmote株式会社の3つの事業。エンタープライズ攻略支援「bizU」、AX支援「いつでも番頭さん」、起業家輩出コミュニティ「${site.shijukuName}」をご紹介します。`}
+  schema={schema}
+>
+  <div style="max-width:760px; margin:0 auto; padding:64px 0 24px 0;">
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+      <a href="/">トップ</a>　／　事業について
+    </nav>
+    <h1 class="page-title" style="margin-bottom:24px;">事業について</h1>
+    <p style="font-size:15px; line-height:2.1; color:var(--ink-soft); margin:0 0 12px 0; text-wrap:pretty;">
+      {site.companyName}は、3つの事業を通じて挑戦者と共に走っています。このメディアで公開している知見は、いずれも各事業の現場で私たち自身が確かめたものです。
+    </p>
+  </div>
+
+  <section style="max-width:760px; margin:0 auto; padding:32px 0 80px 0;">
+    {services.map((s, i) => (
+      <div style={`border-top:${i === 0 ? '2px solid var(--ink)' : '1px solid var(--line)'}; padding-top:28px; margin-bottom:48px;`}>
+        <div class="eyebrow" style="margin-bottom:14px;">{s.label}</div>
+        <h2 style="font-family:var(--serif); font-size:26px; font-weight:700; line-height:1.7; margin:0 0 16px 0;">{s.name}</h2>
+        <p style="font-size:14px; line-height:2; color:var(--ink-soft); margin:0 0 16px 0; max-width:44em; text-wrap:pretty;">{s.description}</p>
+        <a href={`/category/${s.catSlug}/`} style="font-size:13px; color:var(--ink-sub);">関連カテゴリ:{s.catName} →</a>
+      </div>
+    ))}
+  </section>
+</BaseLayout>

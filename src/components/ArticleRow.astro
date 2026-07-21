@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCategory } from '../data/categories';
+import { fmtDate, isNew } from '../lib/format';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  authorName: string;
+  showBadge?: boolean;
+}
+const { article, authorName, showBadge = false } = Astro.props;
+const cat = getCategory(article.data.category);
+---
+<a href={`/articles/${article.id}/`} class="article-row">
+  <div class="thumb">
+    {article.data.image && <img src={article.data.image} alt="" loading="lazy" />}
+  </div>
+  <div>
+    <div class="row-meta">
+      {showBadge && isNew(article.data.date) && <span class="badge-new">新着</span>}
+      <span class="cat-label">{cat.name}</span>
+    </div>
+    <h2>{article.data.title}</h2>
+    <p class="lead">{article.data.description}</p>
+    <div class="byline">{authorName}　{fmtDate(article.data.date)}</div>
+  </div>
+</a>

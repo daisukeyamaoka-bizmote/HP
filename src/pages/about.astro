@@ -1,0 +1,108 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import site from '../data/site.json';
+
+const members = (await getCollection('authors', ({ data }) => data.member)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const values = [
+  { title: 'ファーストペンギンでいよう', body: '誰よりも先に経験し感じることが人間に残された価値' },
+  { title: '失敗を賞賛しよう', body: '凹んでる暇があれば次にどう活かすか考えながら動く' },
+  { title: 'ギブアンドギブしよう', body: 'あげ続ける人は将来的に「ヒト持ち」になる' },
+];
+
+const facts = [
+  { k: '社名', v: site.companyName },
+  { k: '設立', v: '2023年5月' },
+  { k: '代表者', v: '代表取締役 山岡 大介' },
+  { k: '所在地', v: `〒${site.address.postalCode} ${site.address.region}${site.address.locality}${site.address.street}` },
+  { k: '事業内容', v: `エンタープライズ攻略支援「bizU」／AX支援「いつでも番頭さん」／起業家輩出コミュニティ「${site.shijukuName}」` },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: '運営元について', item: new URL('/about/', Astro.site).href },
+  ],
+};
+---
+<BaseLayout
+  title="運営元について"
+  description="このメディアは、bizmote株式会社が運営しています。哲学・ミッション・ビジョン・バリュー、メンバー、会社概要をご紹介します。"
+  schema={schema}
+>
+  <div style="max-width:760px; margin:0 auto; padding:64px 0 24px 0;">
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+      <a href="/">トップ</a>　／　運営元について
+    </nav>
+    <h1 class="page-title" style="margin-bottom:24px;">運営元について</h1>
+    <p style="font-size:15px; line-height:2.1; color:var(--ink-soft); margin:0 0 12px 0; text-wrap:pretty;">
+      このメディアは、{site.companyName}が運営しています。エンタープライズ攻略・業務の仕組み化・AI活用・起業の現場で私たち自身が確かめた知見を、実名で記録し公開しています。書き手は、すべて当社のメンバーです。
+    </p>
+  </div>
+
+  <section style="max-width:760px; margin:0 auto; padding:32px 0 8px 0;">
+    <div style="border-top:2px solid var(--ink); padding-top:28px; margin-bottom:48px;">
+      <div class="eyebrow" style="margin-bottom:16px;">PHILOSOPHY</div>
+      <p style="font-family:var(--serif); font-size:30px; font-weight:700; line-height:1.7; margin:0; text-wrap:pretty;">次の“常識”をつくる</p>
+    </div>
+    <div style="border-top:1px solid var(--line); padding-top:28px; margin-bottom:48px;">
+      <div class="eyebrow" style="margin-bottom:16px;">MISSION</div>
+      <p style="font-family:var(--serif); font-size:24px; font-weight:700; line-height:1.8; margin:0; text-wrap:pretty;">挑戦者と共に挑戦者であり続ける</p>
+    </div>
+    <div style="border-top:1px solid var(--line); padding-top:28px; margin-bottom:48px;">
+      <div class="eyebrow" style="margin-bottom:16px;">VISION</div>
+      <p style="font-family:var(--serif); font-size:24px; font-weight:700; line-height:1.8; margin:0; text-wrap:pretty;">世界から“模倣される”国へ</p>
+    </div>
+    <div style="border-top:1px solid var(--line); padding-top:28px; margin-bottom:56px;">
+      <div class="eyebrow" style="margin-bottom:24px;">VALUES</div>
+      <div style="display:flex; flex-direction:column; gap:28px;">
+        {values.map((v) => (
+          <div>
+            <p style="font-family:var(--serif); font-size:19px; font-weight:700; line-height:1.8; margin:0 0 6px 0;">{v.title}</p>
+            <p style="font-size:14px; line-height:2; color:var(--ink-soft); margin:0;">{v.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:760px; margin:0 auto; padding:0 0 56px 0;">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--ink); padding-top:28px; margin-bottom:32px;">
+      <h2 class="section-title">メンバー</h2>
+      <span style="font-size:13px; color:var(--ink-sub);">このメディアの書き手</span>
+    </div>
+    <div style="display:flex; flex-direction:column;">
+      {members.map((m) => (
+        <div style="display:flex; gap:24px; align-items:flex-start; padding:24px 0; border-bottom:1px solid var(--line-soft);">
+          <div class="avatar" style="width:72px; height:72px;">
+            {m.data.avatar && <img src={m.data.avatar} alt={m.data.name} />}
+          </div>
+          <div>
+            <div style="display:flex; gap:12px; align-items:baseline; margin-bottom:8px;">
+              <a href={`/authors/${m.id}/`} style="font-family:var(--serif); font-size:18px; font-weight:700;">{m.data.name}</a>
+              <span style="font-size:12px; color:var(--ink-sub);">{m.data.role}</span>
+            </div>
+            <p style="font-size:13px; line-height:1.9; color:var(--ink-soft); margin:0; text-wrap:pretty;">{m.data.bio}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section style="max-width:760px; margin:0 auto; padding:0 0 80px 0;">
+    <h2 class="section-title" style="margin:0 0 28px 0; border-top:1px solid var(--ink); padding-top:28px;">会社概要</h2>
+    <div style="display:flex; flex-direction:column; font-size:14px;">
+      {facts.map((f) => (
+        <div style="display:grid; grid-template-columns:160px 1fr; gap:24px; padding:14px 4px; border-bottom:1px solid var(--line-soft);">
+          <span style="color:var(--ink-sub);">{f.k}</span>
+          <span>{f.v}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

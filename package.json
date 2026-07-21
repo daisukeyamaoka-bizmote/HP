@@ -10,9 +10,9 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@tailwindcss/postcss": "^4.0.0",
-    "astro": "^6.2.2",
-    "tailwindcss": "^4.0.0"
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^6.2.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.0",

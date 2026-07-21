@@ -1,220 +1,110 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import CTAButton from '../components/shared/CTAButton.astro';
-import ResponsiveTable from '../components/shared/ResponsiveTable.astro';
-import Section from '../components/shared/Section.astro';
-import SummaryCards from '../components/shared/SummaryCards.astro';
+import ArticleRow from '../components/ArticleRow.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import site from '../data/site.json';
+import { categories } from '../data/categories';
+import { getPublishedArticles, getPublishedNews, getAuthorsMap, newsTypeLabels } from '../lib/content';
+import { fmtDate, toISODate } from '../lib/format';
 
-const seo = {
-  title: 'bizmote | 次の "常識" をつくる',
-  description: 'bizmoteはBtoB 事業の GTM パートナーです。事業を売れる形にし、挑戦する人を孤独にせず、面倒を AI に渡すことで次の常識をつくります。',
+const articles = await getPublishedArticles();
+const news = (await getPublishedNews()).slice(0, 4);
+const authors = await getAuthorsMap();
+const latest = articles.slice(0, 3);
+const authorName = (id: string) => authors.get(id)?.data.name ?? id;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.siteName,
+  url: site.siteUrl,
+  description: site.description,
+  publisher: { '@type': 'Organization', name: site.companyName, url: site.siteUrl },
 };
-
-const topSummary = [
-  {
-    label: '共にいる者たち',
-    title: '挑戦者のそばにいる',
-    body: '事業を動かそうとする企業。仲間を求める起業家。創造の時間を取り戻したい組織。',
-  },
-  {
-    label: '向き合う問い',
-    title: '迷いを設計に変える',
-    body: '売れる条件はどこにあるか。挑戦はどうすれば孤独にならないか。面倒はどこまで AI に渡せるか。',
-  },
-  {
-    label: '差し出すもの',
-    title: '設計と実践を渡す',
-    body: 'GTM 設計と実行の場。学びと仲間が交わるコミュニティ。社内で試した AI 実装の知恵。',
-  },
-  {
-    label: '描く景色',
-    title: '次の常識が生まれる',
-    body: '事業が市場に届き、人が仲間に出会い、時間が創造に向かう状態をつくる。',
-  },
-];
-
-const businessFunctions = [
-  {
-    label: 'bizFlag',
-    title: '描いて、走って、渡す。',
-    definition: 'Design. Drive. Transfer.',
-    target: 'BtoB スタートアップ / 成長企業',
-    body: '仮説を立て、市場で確かめ、社内に残す。BtoB 事業の GTM を設計から実行、移管まで担う。',
-    href: '/flag/',
-    accent: 'var(--color-flag-base)',
-  },
-  {
-    label: 'bizShip',
-    title: 'たどりつく、みんなで。',
-    definition: 'Together, We Arrive.',
-    target: '起業家 / 起業家候補',
-    body: 'AI 時代に "人間力" で生きる。起業したい社会人と学生が学び、実践し、仲間と次の一歩をつくる場。',
-    href: '/ship/',
-    accent: 'var(--color-ship-deep)',
-  },
-  {
-    label: 'bizLab',
-    title: '試す、残す、渡す。',
-    definition: 'Try. Keep. Hand Over.',
-    target: '中小企業 / レガシー産業 / 大手AI部門',
-    body: '社内で使い、残せたものだけをナレッジとして渡す。面倒を AI に渡し、創造の時間を人間に返す。',
-    href: '/lab/',
-    accent: 'var(--color-lab-deep)',
-  },
-];
-
-const themeRows = [
-  {
-    area: 'bizFlag',
-    target: 'BtoB スタートアップ / 成長企業',
-    value: 'GTM(市場開拓)の設計 / 実行 / 移管',
-  },
-  {
-    area: 'bizShip',
-    target: '起業したい社会人 / 学生',
-    value: '学び / 仲間 / 実践 / 出口',
-  },
-  {
-    area: 'bizLab',
-    target: '中小企業オーナー / レガシー産業 / 大手AI部門',
-    value: 'AI 活用 / AX 支援 / 業務改善',
-  },
-];
-
-const contactThemes = [
-  {
-    label: '売れる条件',
-    title: 'GTM / ABM',
-    body: '売り方が見えない。市場に届かない。そんな詰まりを一緒にほどく。',
-  },
-  {
-    label: '仲間',
-    title: '起業・仲間づくり',
-    body: 'ひとりでは遠い場所へ、みんなでたどりつくための相談。',
-  },
-  {
-    label: '創造の時間',
-    title: 'AI 活用',
-    body: '面倒を AI に渡し、人間が考える時間を取り戻す。',
-  },
-  {
-    label: '現場',
-    title: '業務改善',
-    body: '属人的な作業、分断された管理、手作業の負荷を見つめ直す。',
-  },
-];
 ---
+<BaseLayout schema={schema}>
+  <section style="max-width:860px; padding:72px 0 56px 0;">
+    <div class="eyebrow" style="margin-bottom:20px;">bizmote OWNED MEDIA</div>
+    <h1 style="font-family:var(--serif); font-size:42px; font-weight:700; line-height:1.7; margin:0 0 24px 0; letter-spacing:0.01em; text-wrap:pretty;">
+      現場で確かめた知見だけを、実名で。
+    </h1>
+    <p style="font-size:15px; line-height:2.1; color:var(--ink-soft); margin:0; max-width:44em; text-wrap:pretty;">
+      エンタープライズ攻略・業務の仕組み化・AI活用・起業の現場で私たち自身が確かめた知見を、実名で記録し公開しています。書き手は、すべて{site.companyName}のメンバーです。
+    </p>
+  </section>
 
-<BaseLayout title={seo.title} description={seo.description}>
-  <section class="grid min-h-[calc(100vh-72px)] bg-white px-6 py-16 md:min-h-[calc(100vh-80px)] md:px-12 md:py-24 xl:px-16 xl:py-28" aria-labelledby="hero-title">
-    <div class="mx-auto grid w-full max-w-[1180px] items-center gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.55fr)]">
-      <div>
-        <h1 class="font-mincho text-[58px] font-normal leading-[1.08] md:text-[96px] xl:text-[118px]" id="hero-title">
-          次の "常識" を<br />
-          つくる。
-        </h1>
-        <p class="mt-10 max-w-[760px] font-mincho text-[24px] leading-[1.75] md:text-[31px]">
-          挑戦者と共に挑戦者であり続ける。<br />
-          事業を売れる形にし、人を孤独にせず、創造の時間を取り戻す。<br />
-          私たちは BtoB 事業の GTM パートナーです。
-        </p>
-        <div class="mt-10 flex flex-wrap gap-4">
-          <CTAButton href="#services">3つのサービスを見る</CTAButton>
-          <CTAButton href="#overview" variant="text">bizmoteについて見る</CTAButton>
+  <section style="padding:0 0 24px 0;">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--ink); padding-top:28px; margin-bottom:4px;">
+      <h2 class="section-title">最新記事</h2>
+      <a href="/articles/" style="font-size:13px; color:var(--ink-sub);">記事一覧へ →</a>
+    </div>
+    <div style="display:flex; flex-direction:column; margin-bottom:32px;">
+      {latest.map((article) => (
+        <ArticleRow article={article} authorName={authorName(article.data.author)} showBadge />
+      ))}
+    </div>
+  </section>
+
+  {categories.map((cat) => {
+    const catArticles = articles.filter((a) => a.data.category === cat.slug).slice(0, 3);
+    return (
+      <section id={cat.anchor} style="padding:8px 0 40px 0;">
+        <div style="border-top:1px solid var(--ink); padding-top:28px; margin-bottom:24px;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;">
+            <h2 style="font-family:var(--serif); font-size:24px; font-weight:700; margin:0;">{cat.name}</h2>
+            <a href={`/category/${cat.slug}/`} style="font-size:13px; color:var(--ink-sub);">すべて見る →</a>
+          </div>
+          <p style="font-size:13px; line-height:1.9; color:var(--ink-sub); margin:10px 0 0 0; max-width:44em; text-wrap:pretty;">
+            {cat.description}
+          </p>
         </div>
-      </div>
-      <div class="border border-tankai bg-kinari p-5" aria-label="3事業の関係図">
-        <div class="grid gap-px bg-tankai">
-          {businessFunctions.map((item) => (
-            <a
-              href={item.href}
-              class="group grid grid-cols-[88px_1fr] items-center gap-5 bg-white p-5 outline-none transition-colors hover:bg-kinari focus-visible:ring-2 focus-visible:ring-sumi"
-              style={`--top-accent: ${item.accent};`}
-            >
-              <span class="flex size-16 items-center justify-center border border-tankai font-mono text-xs text-[var(--top-accent)]">
-                {item.label.replace('biz', '')}
-              </span>
-              <span>
-                <span class="block font-mincho text-[24px] leading-[1.4]">{item.title}</span>
-                <span class="mt-1 block font-mono text-[11px] leading-relaxed text-noukai">{item.definition}</span>
-              </span>
-            </a>
+        <div class="card-grid">
+          {catArticles.map((a) => (
+            <ArticleCard article={a} authorName={authorName(a.data.author)} />
           ))}
         </div>
-        <p class="mt-5 font-mono text-[11px] leading-relaxed text-noukai">BtoB GTM / COMMUNITY / AI IMPLEMENTATION</p>
-      </div>
+      </section>
+    );
+  })}
+
+  <section style="padding:8px 0 48px 0;">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--ink); padding-top:28px; margin-bottom:4px;">
+      <h2 class="section-title">お知らせ</h2>
+      <a href="/news/" style="font-size:13px; color:var(--ink-sub);">一覧へ →</a>
+    </div>
+    <div style="display:flex; flex-direction:column;">
+      {news.map((n) => (
+        <a href={`/news/${n.id}/`} class="compact-row">
+          <span class="date"><time datetime={toISODate(n.data.date)}>{fmtDate(n.data.date)}</time></span>
+          <span class="cat-label">{newsTypeLabels[n.data.type]}</span>
+          <span class="title">{n.data.title}</span>
+        </a>
+      ))}
     </div>
   </section>
 
-  <section id="overview" class="border-y border-tankai bg-white px-6 py-10 md:px-12 xl:px-16" aria-label="bizmote overview">
-    <div class="mx-auto w-full max-w-[1120px]">
-      <SummaryCards items={topSummary} />
-    </div>
-  </section>
-
-  <Section id="services" label="3つの事業" title="事業を売れる形にし、人を孤独にせず、面倒を AI に渡す" background="kinari">
-    <div class="mt-10 grid gap-px bg-tankai md:grid-cols-3">
-      {businessFunctions.map((item, index) => (
-        <article class="grid min-h-[360px] content-between bg-white p-6" style={`--service-accent: ${item.accent};`}>
-          <div>
-            <p class="font-mono text-xs text-[var(--service-accent)]">事業 {String(index + 1).padStart(2, '0')}</p>
-            <h3 class="mt-8 font-cormorant text-[40px] leading-none text-[var(--service-accent)]">{item.label}</h3>
-            <p class="mt-8 font-mincho text-[30px] font-medium leading-[1.45]">{item.title}</p>
-            <dl class="mt-6 grid gap-3 border-t border-tankai pt-5 text-[13px] leading-[1.8] text-noukai">
-              <div>
-                <dt class="font-mono text-[11px] text-[var(--service-accent)]">英訳</dt>
-                <dd class="mt-1">{item.definition}</dd>
-              </div>
-              <div>
-                <dt class="font-mono text-[11px] text-[var(--service-accent)]">対象</dt>
-                <dd class="mt-1">{item.target}</dd>
-              </div>
-            </dl>
-            <p class="mt-5 text-[14px] leading-[1.9] text-noukai">{item.body}</p>
-          </div>
-          <CTAButton href={item.href} variant="text" className="mt-8 text-[var(--service-accent)] hover:text-sumi">
-            詳しく見る
-          </CTAButton>
-        </article>
-      ))}
-    </div>
-
-    <div class="mt-14">
-      <h3 class="font-mincho text-[34px] font-medium leading-[1.45] md:text-[42px]">私たちが動かすもの</h3>
-      <ResponsiveTable
-        className="mt-8"
-        caption="bizmoteの事業領域、主な対象、提供価値"
-        headers={[
-          { key: 'area', label: '領域' },
-          { key: 'target', label: '主な対象', muted: true },
-          { key: 'value', label: '提供価値' },
-        ]}
-        rows={themeRows}
-      />
-    </div>
-  </Section>
-
-  <Section id="contact" background="white" label="はじめの会話" title="まだ言葉にならない相談からはじめませんか。">
-    <div class="mt-10 grid gap-px bg-tankai md:grid-cols-4">
-      {contactThemes.map((theme) => (
-        <article class="grid min-h-[230px] content-between bg-white p-5">
-          <div>
-            <p class="font-mono text-[11px] text-noukai">{theme.label}</p>
-            <h3 class="mt-7 font-mincho text-[26px] font-medium leading-[1.45]">{theme.title}</h3>
-            <p class="mt-4 text-[13px] leading-[1.8] text-noukai">{theme.body}</p>
-          </div>
-        </article>
-      ))}
-    </div>
-
-    <div class="mt-16 border-t border-tankai pt-10">
-      <h2 class="max-w-[880px] font-mincho text-[38px] font-normal leading-[1.35] md:text-[54px]">
-        売り方、仲間、創造の時間。どれかにもやもやしているなら話しましょう。
-      </h2>
-      <div class="mt-8 flex flex-wrap gap-4">
-        <CTAButton href="#services">3つの事業を見る</CTAButton>
-        <CTAButton href="/contact/" variant="text">お問い合わせ</CTAButton>
+  <section style="padding:8px 0 80px 0;">
+    <div style="border-top:2px solid var(--ink); padding-top:28px; display:grid; grid-template-columns:1fr 1fr; gap:48px;" class="about-strip">
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px;">PHILOSOPHY</div>
+        <p style="font-family:var(--serif); font-size:28px; font-weight:700; line-height:1.7; margin:0 0 16px 0;">次の“常識”をつくる</p>
+        <a href="/about/" style="font-size:13px; color:var(--ink-sub);">運営元について →</a>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px;">SERVICES</div>
+        <p style="font-size:14px; line-height:2.1; color:var(--ink-soft); margin:0 0 16px 0; text-wrap:pretty;">
+          エンタープライズ攻略支援「bizU」、AX支援「いつでも番頭さん」、起業家輩出コミュニティ「{site.shijukuName}」の3つの事業を運営しています。
+        </p>
+        <a href="/services/" style="font-size:13px; color:var(--ink-sub);">事業について →</a>
       </div>
     </div>
-  </Section>
+  </section>
 </BaseLayout>
+
+<style>
+  @media (max-width: 900px) {
+    .about-strip {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
