@@ -58,7 +58,29 @@ img { max-width: 100%; }
   flex: 1;
 }
 
-/* Header */
+/* Header (追従バー:下スクロールで隠れ、上スクロールで出る) */
+.header-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+.header-bar.is-hidden {
+  transform: translateY(-100%);
+}
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .header-bar {
+    transition: none;
+  }
+}
+
 .site-header {
   display: flex;
   justify-content: space-between;
@@ -331,6 +353,7 @@ img { max-width: 100%; }
 /* Responsive */
 @media (max-width: 900px) {
   .container { padding: 0 24px; }
+  .header-inner { padding: 0 24px; }
   .site-footer .inner { padding: 0 24px; }
   .card-grid { grid-template-columns: 1fr; }
   .card-grid .card {
