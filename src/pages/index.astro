@@ -3,14 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleRow from '../components/ArticleRow.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import site from '../data/site.json';
-import { categories } from '../data/categories';
+import { categories, getCategory } from '../data/categories';
 import { getPublishedArticles, getPublishedNews, getAuthorsMap, newsTypeLabels } from '../lib/content';
-import { fmtDate, toISODate } from '../lib/format';
+import { fmtDate, toISODate, isNew } from '../lib/format';
 
 const articles = await getPublishedArticles();
 const news = (await getPublishedNews()).slice(0, 4);
 const authors = await getAuthorsMap();
-const latest = articles.slice(0, 3);
+const featured = articles[0];
+const latest = articles.slice(1, 5);
 const authorName = (id: string) => authors.get(id)?.data.name ?? id;
 
 const schema = {
@@ -23,15 +24,24 @@ const schema = {
 };
 ---
 <BaseLayout schema={schema}>
-  <section style="max-width:860px; padding:72px 0 56px 0;">
-    <div class="eyebrow" style="margin-bottom:20px;">bizmote OWNED MEDIA</div>
-    <h1 style="font-family:var(--serif); font-size:42px; font-weight:700; line-height:1.7; margin:0 0 24px 0; letter-spacing:0.01em; text-wrap:pretty;">
-      現場で確かめた知見だけを、実名で。
-    </h1>
-    <p style="font-size:15px; line-height:2.1; color:var(--ink-soft); margin:0; max-width:44em; text-wrap:pretty;">
-      エンタープライズ攻略・業務の仕組み化・AI活用・起業の現場で私たち自身が確かめた知見を、実名で記録し公開しています。書き手は、すべて{site.companyName}のメンバーです。
-    </p>
-  </section>
+  {featured && (
+    <section style="padding:44px 0 48px 0;">
+      <a href={`/articles/${featured.id}/`} class="hero-feature">
+        {featured.data.image && (
+          <div class="hero-feature-media"><img src={featured.data.image} alt="" /></div>
+        )}
+        <div class="hero-feature-body">
+          <div style="display:flex; gap:12px; align-items:center; margin-bottom:18px;">
+            {isNew(featured.data.date) && <span class="badge-new">新着</span>}
+            <span class="cat-label">{getCategory(featured.data.category).name}</span>
+          </div>
+          <h1 class="hero-feature-title">{featured.data.title}</h1>
+          <p style="font-size:16px; line-height:2; color:var(--ink-soft); margin:0 0 20px 0; text-wrap:pretty;">{featured.data.description}</p>
+          <div class="byline">{authorName(featured.data.author)}　{fmtDate(featured.data.date)}</div>
+        </div>
+      </a>
+    </section>
+  )}
 
   <section style="padding:0 0 24px 0;">
     <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--ink); padding-top:28px; margin-bottom:4px;">
