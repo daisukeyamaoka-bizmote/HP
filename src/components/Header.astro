@@ -5,7 +5,8 @@ import { categories } from '../data/categories';
   <div class="header-inner">
     <header class="site-header">
       <a href="/" class="logo" aria-label="bizmote トップページ">
-        <img src="/images/logo/RGB_black.svg" alt="bizmote" width="120" height="40" />
+        <img class="logo-mark" src="/images/logo/mark-black.svg" alt="" width="36" height="36" />
+        <span class="logo-word">bizmote</span>
       </a>
       <nav class="site-nav" aria-label="メインナビゲーション">
         {categories.map((cat) => <a href={`/category/${cat.slug}/`}>{cat.name}</a>)}
