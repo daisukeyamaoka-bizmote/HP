@@ -1,0 +1,10 @@
+{
+  // Cloudflare Workers Builds 用設定(静的アセット配信)
+  // ビルド成果物 dist/ をそのまま配信する
+  "name": "hp",
+  "compatibility_date": "2026-07-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
