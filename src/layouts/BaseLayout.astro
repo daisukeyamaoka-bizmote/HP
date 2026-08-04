@@ -32,8 +32,10 @@ const organizationSchema = {
   '@type': 'Organization',
   name: site.companyName,
   url: site.siteUrl,
-  logo: `${site.siteUrl}/images/logo/RGB_black.svg`,
+  logo: `${site.siteUrl}/images/RGB_black.png`,
   description: site.description,
+  slogan: site.tagline,
+  knowsAbout: ['GTM', 'AI活用', '業務の仕組み化', '新規事業開発'],
   foundingDate: site.foundingDate,
   founder: { '@type': 'Person', name: '山岡 大介' },
   address: {
@@ -53,6 +55,9 @@ const schemas = [organizationSchema, ...(schema ? (Array.isArray(schema) ? schem
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#fcfbf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#161510" media="(prefers-color-scheme: dark)" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -82,9 +87,11 @@ const schemas = [organizationSchema, ...(schema ? (Array.isArray(schema) ? schem
   </head>
   <body>
     <div class="page">
-      <Header />
       <div class="container">
-        <slot />
+        <Header />
+        <main>
+          <slot />
+        </main>
       </div>
       <Footer />
     </div>

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import site from '../data/site.json';
 import { categories } from '../data/categories';
+import { services, businessLine } from '../data/services';
 import { getPublishedArticles, getPublishedNews } from '../lib/content';
 
 export const GET: APIRoute = async () => {
@@ -18,15 +19,21 @@ export const GET: APIRoute = async () => {
     '- 設立: 2023年5月',
     '- 代表者: 代表取締役 山岡 大介',
     `- 所在地: 〒${site.address.postalCode} ${site.address.region}${site.address.locality}${site.address.street}`,
-    `- 事業内容: エンタープライズ攻略支援「bizU」／AX支援「いつでも番頭さん」／起業家輩出コミュニティ「${site.shijukuName}」`,
+    `- 事業内容: ${businessLine}`,
+    `- 会社カテゴリー: ${site.companyCategory}`,
+    `- タグライン: ${site.tagline}`,
     `- 会社情報: ${site.siteUrl}/about/`,
     `- 事業について: ${site.siteUrl}/services/`,
     '',
+    '## サービス',
+    '',
+    ...services.map((sv) => `- ${sv.name}: ${sv.summary}`),
+    '',
     '## 思想・哲学',
     '',
-    '- Philosophy: 次の“常識”をつくる',
-    '- Mission: 挑戦者と共に挑戦者であり続ける',
-    '- Vision: 世界から“模倣される”国へ',
+    '- 理念: 次の“常識”をつくる',
+    '- ミッション: 挑戦者と共に挑戦者であり続ける',
+    '- ビジョン: 世界から“模倣される”国へ',
     '',
     '## カテゴリ',
     '',

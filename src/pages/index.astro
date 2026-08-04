@@ -4,15 +4,11 @@ import ArticleRow from '../components/ArticleRow.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import site from '../data/site.json';
 import { categories, getCategory } from '../data/categories';
-import { getPublishedArticles, getPublishedNews, getAuthorsMap, newsTypeLabels } from '../lib/content';
-import { fmtDate, toISODate, isNew } from '../lib/format';
+import { getPublishedArticles } from '../lib/content';
 
 const articles = await getPublishedArticles();
-const news = (await getPublishedNews()).slice(0, 4);
-const authors = await getAuthorsMap();
 const featured = articles[0];
-const latest = articles.slice(1, 5);
-const authorName = (id: string) => authors.get(id)?.data.name ?? id;
+const latest = articles.slice(1, 4);
 
 const schema = {
   '@context': 'https://schema.org',
@@ -25,96 +21,85 @@ const schema = {
 ---
 <BaseLayout schema={schema}>
   {featured && (
-    <section style="padding:44px 0 48px 0;">
+    <section class="fade-up" style="padding:48px 0 56px 0;">
       <a href={`/articles/${featured.id}/`} class="hero-feature">
         {featured.data.image && (
           <div class="hero-feature-media"><img src={featured.data.image} alt="" /></div>
         )}
-        <div class="hero-feature-body">
-          <div style="display:flex; gap:12px; align-items:center; margin-bottom:18px;">
-            {isNew(featured.data.date) && <span class="badge-new">新着</span>}
-            <span class="cat-label">{getCategory(featured.data.category).name}</span>
-          </div>
-          <h1 class="hero-feature-title">{featured.data.title}</h1>
-          <p style="font-size:16px; line-height:2; color:var(--ink-soft); margin:0 0 20px 0; text-wrap:pretty;">{featured.data.description}</p>
-          <div class="byline">{authorName(featured.data.author)}　{fmtDate(featured.data.date)}</div>
-        </div>
+        <span class="label" style="display:block; margin-bottom:16px;">
+          {getCategory(featured.data.category).name}
+        </span>
+        <h1 class="hero-feature-title">{featured.data.title}</h1>
+        <p class="hero-feature-lead">{featured.data.description}</p>
       </a>
     </section>
   )}
 
-  <section style="padding:0 0 24px 0;">
-    <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--ink); padding-top:28px; margin-bottom:4px;">
-      <h2 class="section-title">最新記事</h2>
-      <a href="/articles/" style="font-size:13px; color:var(--ink-sub);">記事一覧へ →</a>
+  <section class="fade-up" style="padding:0 0 48px 0;">
+    <div class="section-head" style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-bottom:4px;">
+      <h2 class="section-title">新着</h2>
+      <a href="/articles/" style="font-size:13px; color:var(--muted);">記事一覧へ →</a>
     </div>
-    <div style="display:flex; flex-direction:column; margin-bottom:32px;">
+    <div style="display:flex; flex-direction:column;">
       {latest.map((article) => (
-        <ArticleRow article={article} authorName={authorName(article.data.author)} showBadge />
+        <ArticleRow article={article} showBadge showByline={false} />
       ))}
     </div>
   </section>
 
   {categories.map((cat) => {
     const catArticles = articles.filter((a) => a.data.category === cat.slug).slice(0, 3);
+    if (catArticles.length === 0) return null;
     return (
-      <section id={cat.anchor} style="padding:8px 0 40px 0;">
-        <div style="border-top:1px solid var(--ink); padding-top:28px; margin-bottom:24px;">
+      <section id={cat.anchor} class="fade-up" style="padding:0 0 48px 0;">
+        <div class="section-head" style="margin-bottom:24px;">
           <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;">
-            <h2 style="font-family:var(--serif); font-size:24px; font-weight:700; margin:0;">{cat.name}</h2>
-            <a href={`/category/${cat.slug}/`} style="font-size:13px; color:var(--ink-sub);">すべて見る →</a>
+            <h2 class="section-title">{cat.name}</h2>
+            <a href={`/category/${cat.slug}/`} style="font-size:13px; color:var(--muted);">すべて見る →</a>
           </div>
-          <p style="font-size:13px; line-height:1.9; color:var(--ink-sub); margin:10px 0 0 0; max-width:44em; text-wrap:pretty;">
+          <p style="font-size:13px; line-height:1.9; color:var(--muted); margin:10px 0 0 0; max-width:36em; text-wrap:pretty;">
             {cat.description}
           </p>
         </div>
-        <div class="card-grid">
+        <div class="card-grid bm-g3">
           {catArticles.map((a) => (
-            <ArticleCard article={a} authorName={authorName(a.data.author)} />
+            <ArticleCard article={a} showByline={false} showCategory={false} />
           ))}
         </div>
       </section>
     );
   })}
 
-  <section style="padding:8px 0 48px 0;">
-    <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--ink); padding-top:28px; margin-bottom:4px;">
-      <h2 class="section-title">お知らせ</h2>
-      <a href="/news/" style="font-size:13px; color:var(--ink-sub);">一覧へ →</a>
+  <section class="fade-up" style="padding:0 0 80px 0;">
+    <div class="section-head" style="margin-bottom:20px;">
+      <h2 class="section-title">運営元について</h2>
     </div>
-    <div style="display:flex; flex-direction:column;">
-      {news.map((n) => (
-        <a href={`/news/${n.id}/`} class="compact-row">
-          <span class="date"><time datetime={toISODate(n.data.date)}>{fmtDate(n.data.date)}</time></span>
-          <span class="cat-label">{newsTypeLabels[n.data.type]}</span>
-          <span class="title">{n.data.title}</span>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section style="padding:8px 0 80px 0;">
-    <div style="border-top:2px solid var(--ink); padding-top:28px; display:grid; grid-template-columns:1fr 1fr; gap:48px;" class="about-strip">
-      <div>
-        <div class="eyebrow" style="margin-bottom:16px;">PHILOSOPHY</div>
-        <p style="font-family:var(--serif); font-size:28px; font-weight:700; line-height:1.7; margin:0 0 16px 0;">次の“常識”をつくる</p>
-        <a href="/about/" style="font-size:13px; color:var(--ink-sub);">運営元について →</a>
-      </div>
-      <div>
-        <div class="eyebrow" style="margin-bottom:16px;">SERVICES</div>
-        <p style="font-size:14px; line-height:2.1; color:var(--ink-soft); margin:0 0 16px 0; text-wrap:pretty;">
-          エンタープライズ攻略支援「bizU」、AX支援「いつでも番頭さん」、起業家輩出コミュニティ「{site.shijukuName}」の3つの事業を運営しています。
-        </p>
-        <a href="/services/" style="font-size:13px; color:var(--ink-sub);">事業について →</a>
-      </div>
-    </div>
+    <p style="font-family:var(--serif); font-size:clamp(22px, 3.4vw, 28px); font-weight:700; line-height:1.7; margin:0 0 16px 0; text-wrap:pretty;">
+      {site.tagline}
+    </p>
+    <p style="font-size:15px; line-height:2; color:var(--body2); margin:0 0 20px 0; max-width:36em; text-wrap:pretty;">
+      {site.footerNote}
+    </p>
+    <a href="/about/" style="font-size:13px; color:var(--muted);">運営元について →</a>
   </section>
 </BaseLayout>
 
-<style>
-  @media (max-width: 900px) {
-    .about-strip {
-      grid-template-columns: 1fr !important;
-    }
+<script>
+  const targets = document.querySelectorAll('.fade-up');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    targets.forEach((el) => el.classList.add('is-in'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.08 }
+    );
+    targets.forEach((el) => io.observe(el));
   }
-</style>
+</script>

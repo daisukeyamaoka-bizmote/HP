@@ -40,24 +40,24 @@ const schemas = [
   ogType="article"
   schema={schemas}
 >
-  <article style="max-width:720px; margin:0 auto; padding:64px 0 80px 0;">
+  <article class="reading" style="padding:56px 0 80px 0;">
     <nav class="breadcrumb" aria-label="パンくずリスト">
       <a href="/">トップ</a>　／　<a href="/news/">お知らせ</a>
     </nav>
     <div style="display:flex; gap:14px; align-items:center; margin-bottom:16px;">
-      <span class="date" style="font-size:12px; color:var(--ink-muted); font-family:var(--latin);">
+      <span class="date-num">
         <time datetime={toISODate(entry.data.date)}>{fmtDate(entry.data.date)}</time>
       </span>
-      <span class="cat-label">{newsTypeLabels[entry.data.type]}</span>
+      <span class="label">{newsTypeLabels[entry.data.type]}</span>
     </div>
-    <h1 style="font-family:var(--serif); font-size:30px; font-weight:700; line-height:1.7; margin:0 0 32px 0; text-wrap:pretty;">
+    <h1 style="font-family:var(--serif); font-size:clamp(24px, 4vw, 32px); font-weight:700; line-height:1.6; margin:0 0 32px 0; text-wrap:pretty;">
       {entry.data.title}
     </h1>
     <div style="border-top:1px solid var(--line); padding-top:32px;" class="article-body">
       <Content />
     </div>
     <div style="border-top:1px solid var(--line-soft); margin-top:48px; padding-top:24px;">
-      <a href="/news/" style="font-size:13px; color:var(--ink-sub);">← お知らせ一覧へ戻る</a>
+      <a href="/news/" style="font-size:13px; color:var(--muted);">← お知らせ一覧へ戻る</a>
     </div>
   </article>
 </BaseLayout>

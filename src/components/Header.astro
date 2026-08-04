@@ -1,42 +1,50 @@
 ---
 import { categories } from '../data/categories';
 ---
-<div class="header-bar" id="header-bar">
-  <div class="header-inner">
-    <header class="site-header">
-      <a href="/" class="logo" aria-label="bizmote トップページ">
-        <img src="/images/RGB_black.png" alt="bizmote" width="150" height="40" />
-      </a>
-      <nav class="site-nav" aria-label="メインナビゲーション">
-        {categories.map((cat) => <a href={`/category/${cat.slug}/`}>{cat.name}</a>)}
-        <span class="nav-divider" aria-hidden="true"></span>
-        <a href="/about/" class="nav-about">運営元について</a>
-      </nav>
-    </header>
-    <div class="double-rule" aria-hidden="true"></div>
-  </div>
-</div>
+<header class="site-header bm-logo" id="site-header">
+  <a href="/" class="logo" aria-label="bizmote(ビズモート) トップページ">
+    <img class="logo-light" src="/images/RGB_black.png" alt="bizmote(ビズモート)" width="150" height="40" />
+    <img class="logo-dark" src="/images/RGB_white.png" alt="bizmote(ビズモート)" width="150" height="40" />
+  </a>
+  <nav class="site-nav bm-nav" aria-label="メインナビゲーション">
+    {categories.map((cat) => <a href={`/category/${cat.slug}/`}>{cat.name}</a>)}
+    <span class="nav-divider" aria-hidden="true"></span>
+    <a href="/articles/" class="nav-sub">記事一覧</a>
+    <a href="/about/" class="nav-sub">運営元について</a>
+  </nav>
+</header>
 
 <script>
-  const bar = document.getElementById('header-bar');
-  if (bar) {
+  (() => {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+    const TOP_ZONE = 140; // ページ上端から140px以内は常に表示
+    const MOVE = 6; // 反応するスクロール移動量
     let lastY = window.scrollY;
     let ticking = false;
-    const THRESHOLD = 80; // このpx以上スクロールしてから隠す(ページ最上部では常に表示)
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const y = window.scrollY;
-        if (y > lastY && y > THRESHOLD) {
-          bar.classList.add('is-hidden'); // 下方向 → 隠す
-        } else {
-          bar.classList.remove('is-hidden'); // 上方向 → 出す
-        }
-        lastY = y <= 0 ? 0 : y;
-        ticking = false;
-      });
+    const update = () => {
+      const y = window.scrollY;
+      const diff = y - lastY;
+      if (y <= TOP_ZONE) {
+        header.classList.remove('is-hidden');
+      } else if (diff > MOVE) {
+        header.classList.add('is-hidden');
+        lastY = y;
+      } else if (diff < -MOVE) {
+        header.classList.remove('is-hidden');
+        lastY = y;
+      }
+      if (Math.abs(diff) > MOVE) lastY = y;
+      ticking = false;
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      },
+      { passive: true }
+    );
+  })();
 </script>

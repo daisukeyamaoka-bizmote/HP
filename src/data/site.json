@@ -1,10 +1,13 @@
 {
   "siteName": "bizmote",
   "companyName": "bizmote株式会社",
+  "companyCategory": "GTMコンサルティングファーム",
   "siteUrl": "https://bizmote.jp",
-  "title": "bizmote｜現場で確かめた知見を、実名で記録するメディア",
-  "description": "bizmote株式会社が運営するオウンドメディア。エンタープライズ攻略・業務の仕組み化・AI活用・起業の現場で私たち自身が確かめた知見を、実名で記録し公開しています。",
-  "shijukuName": "私塾",
+  "title": "bizmote｜事業と経営の実務メディア",
+  "description": "事業と経営の実務メディア。GTMコンサルティングファーム bizmote株式会社が運営しています。現場で確かめた知見を、実名で記録し公開しています。",
+  "tagline": "事業の成長を、構想で終わらせない。",
+  "footerNote": "事業と経営の実務メディア。GTMコンサルティングファーム bizmote株式会社が運営しています。",
+  "communityName": "bizShip",
   "twitter": "@bizmoteinc",
   "foundingDate": "2023-05-01",
   "address": {

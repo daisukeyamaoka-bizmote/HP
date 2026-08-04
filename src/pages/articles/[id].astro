@@ -46,7 +46,7 @@ const schemas: object[] = [
     publisher: {
       '@type': 'Organization',
       name: site.companyName,
-      logo: { '@type': 'ImageObject', url: `${site.siteUrl}/images/logo/RGB_black.svg` },
+      logo: { '@type': 'ImageObject', url: `${site.siteUrl}/images/RGB_black.png` },
     },
     ...(article.data.image ? { image: new URL(article.data.image, Astro.site).href } : {}),
   },
@@ -80,20 +80,20 @@ if (article.data.faq?.length) {
   ogImage={article.data.image}
   schema={schemas}
 >
-  <article style="max-width:720px; margin:0 auto; padding:64px 0 48px 0;">
+  <article class="reading" style="padding:56px 0 48px 0;">
     <nav class="breadcrumb" style="display:flex; gap:12px; align-items:center;" aria-label="パンくずリスト">
       <a href="/">トップ</a><span>／</span>
       <a href={`/category/${category.slug}/`}>{category.name}</a>
     </nav>
-    <h1 style="font-family:var(--serif); font-size:38px; font-weight:700; line-height:1.6; margin:0 0 28px 0; letter-spacing:0.01em; text-wrap:pretty;">
+    <h1 style="font-family:var(--serif); font-size:clamp(28px, 5vw, 42px); font-weight:700; line-height:1.5; margin:0 0 28px 0; letter-spacing:0.01em; text-wrap:pretty;">
       {article.data.title}
     </h1>
-    <div style="display:flex; gap:14px; align-items:center; font-size:13px; color:var(--ink-sub); padding-bottom:28px; border-bottom:1px solid var(--line); margin-bottom:36px; flex-wrap:wrap;">
+    <div style="display:flex; gap:14px; align-items:center; font-size:13px; color:var(--muted); padding-bottom:28px; border-bottom:1px solid var(--line); margin-bottom:36px; flex-wrap:wrap;">
       <div class="avatar" style="width:40px; height:40px;">
         {author?.data.avatar && <img src={author.data.avatar} alt="" />}
       </div>
       <a href={`/authors/${article.data.author}/`} style="font-weight:700; color:var(--ink);">{authorName}</a>
-      {author?.data.note && <span style="color:var(--ink-muted);">{author.data.note}</span>}
+      {author?.data.note && <span style="color:var(--faint);">{author.data.note}</span>}
       <span style="width:1px; height:12px; background:var(--line);" aria-hidden="true"></span>
       <span>公開 <time datetime={toISODate(article.data.date)}>{fmtDate(article.data.date)}</time></span>
       {article.data.updated && (
@@ -108,13 +108,13 @@ if (article.data.faq?.length) {
 
     {article.data.summary && (
       <div style="border-top:2px solid var(--ink); border-bottom:1px solid var(--line); padding:24px 4px; margin-bottom:40px;">
-        <div class="eyebrow" style="margin-bottom:12px;">この記事の結論</div>
+        <div class="label" style="margin-bottom:12px;">この記事の結論</div>
         <p style="font-size:15px; line-height:2; margin:0; color:var(--ink); text-wrap:pretty;">{article.data.summary}</p>
       </div>
     )}
 
     {article.data.image && (
-      <div style="aspect-ratio:16/9; margin-bottom:40px; background:var(--slot); overflow:hidden;">
+      <div style="aspect-ratio:4/3; margin-bottom:40px; background:var(--fill); overflow:hidden;">
         <img src={article.data.image} alt="" style="width:100%; height:100%; object-fit:cover; display:block;" />
       </div>
     )}
@@ -124,7 +124,7 @@ if (article.data.faq?.length) {
     </div>
 
     <div style="display:flex; gap:14px; align-items:center; justify-content:center; margin-top:48px; padding:24px 0; border-top:1px solid var(--line-soft);">
-      <span style="font-size:12px; letter-spacing:0.14em; color:var(--ink-sub);">この記事をシェア</span>
+      <span style="font-size:12px; letter-spacing:0.14em; color:var(--muted);">この記事をシェア</span>
       <ShareButtons title={`${article.data.title}｜${site.siteName}`} size="lg" />
     </div>
 
@@ -133,11 +133,11 @@ if (article.data.faq?.length) {
         {author?.data.avatar && <img src={author.data.avatar} alt="" />}
       </div>
       <div>
-        <div style="font-size:11px; letter-spacing:0.18em; color:var(--ink-sub); margin-bottom:8px;">書き手</div>
+        <div class="label" style="margin-bottom:8px;">執筆・監修者</div>
         <a href={`/authors/${article.data.author}/`} style="display:block; font-family:var(--serif); font-size:18px; font-weight:700; margin-bottom:6px;">
           {authorName}
         </a>
-        <p style="font-size:13px; line-height:1.9; color:var(--ink-soft); margin:0;">
+        <p style="font-size:13px; line-height:1.9; color:var(--body2); margin:0;">
           {author?.data.bioShort ?? author?.data.bio}
         </p>
       </div>
@@ -147,7 +147,7 @@ if (article.data.faq?.length) {
   {related.length > 0 && (
     <section style="border-top:1px solid var(--ink); padding:36px 0 64px 0;">
       <h2 style="font-family:var(--serif); font-size:22px; font-weight:700; margin:0 0 24px 0;">関連記事</h2>
-      <div class="card-grid">
+      <div class="card-grid bm-g3">
         {related.map((r) => (
           <ArticleCard article={r} authorName={authors.get(r.data.author)?.data.name ?? r.data.author} />
         ))}

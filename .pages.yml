@@ -46,7 +46,7 @@ content:
             - value: startup
               label: 起業・事業づくり
       - name: author
-        label: 書き手
+        label: 執筆・監修者
         type: select
         required: true
         options:
@@ -136,7 +136,7 @@ content:
         type: rich-text
 
   - name: authors
-    label: 書き手(メンバー)
+    label: 執筆・監修者(メンバー)
     type: collection
     path: content/authors
     view:
@@ -193,9 +193,18 @@ content:
       - name: description
         label: サイトの説明文(検索結果・SNSに表示)
         type: text
-      - name: shijukuName
-        label: 起業家輩出コミュニティの名称(「私塾」を正式名称に変える場合はここを編集)
+      - name: communityName
+        label: 起業家輩出コミュニティの名称(bizShip。名称変更時はここを編集すると全ページに反映)
         type: string
+      - name: companyCategory
+        label: 会社カテゴリー(例:GTMコンサルティングファーム)
+        type: string
+      - name: tagline
+        label: タグライン(運営元ページの大見出し)
+        type: string
+      - name: footerNote
+        label: フッターの一文説明
+        type: text
       - name: twitter
         label: X(Twitter)アカウント
         type: string

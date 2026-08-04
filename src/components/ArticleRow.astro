@@ -5,10 +5,12 @@ import { fmtDate, isNew } from '../lib/format';
 
 interface Props {
   article: CollectionEntry<'articles'>;
-  authorName: string;
+  authorName?: string;
   showBadge?: boolean;
+  /** トップページでは執筆者名と日付を出さない(DESIGN_SPEC 10) */
+  showByline?: boolean;
 }
-const { article, authorName, showBadge = false } = Astro.props;
+const { article, authorName, showBadge = false, showByline = true } = Astro.props;
 const cat = getCategory(article.data.category);
 ---
 <a href={`/articles/${article.id}/`} class="article-row">
@@ -18,10 +20,10 @@ const cat = getCategory(article.data.category);
   <div>
     <div class="row-meta">
       {showBadge && isNew(article.data.date) && <span class="badge-new">新着</span>}
-      <span class="cat-label">{cat.name}</span>
+      <span class="label">{cat.name}</span>
     </div>
-    <h2>{article.data.title}</h2>
+    <h2 class="row-title">{article.data.title}</h2>
     <p class="lead">{article.data.description}</p>
-    <div class="byline">{authorName}　{fmtDate(article.data.date)}</div>
+    {showByline && <div class="byline">{authorName}　{fmtDate(article.data.date)}</div>}
   </div>
 </a>

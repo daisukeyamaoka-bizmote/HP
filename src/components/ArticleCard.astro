@@ -5,13 +5,16 @@ import { fmtDate } from '../lib/format';
 
 interface Props {
   article: CollectionEntry<'articles'>;
-  authorName: string;
+  authorName?: string;
+  showByline?: boolean;
+  showCategory?: boolean;
 }
-const { article, authorName } = Astro.props;
+const { article, authorName, showByline = true, showCategory = true } = Astro.props;
 const cat = getCategory(article.data.category);
 ---
 <a href={`/articles/${article.id}/`} class="card">
-  <span class="cat-label">{cat.name}</span>
+  {showCategory && <span class="label">{cat.name}</span>}
   <h3>{article.data.title}</h3>
-  <div class="byline">{authorName}　{fmtDate(article.data.date)}</div>
+  <p>{article.data.description}</p>
+  {showByline && <div class="byline" style="margin-top:10px;">{authorName}　{fmtDate(article.data.date)}</div>}
 </a>

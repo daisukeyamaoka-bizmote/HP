@@ -49,23 +49,23 @@ const schemas = [
         {author.data.avatar && <img src={author.data.avatar} alt={author.data.name} />}
       </div>
       <div style="flex:1; min-width:260px;">
-        <div class="eyebrow" style="margin-bottom:12px;">書き手</div>
-        <h1 style="font-family:var(--serif); font-size:32px; font-weight:700; margin:0 0 10px 0;">{author.data.name}</h1>
-        <div style="font-size:13px; color:var(--ink-sub); margin-bottom:14px;">{site.companyName} {author.data.role}</div>
-        <p style="font-size:14px; line-height:2; color:var(--ink-soft); margin:0; max-width:44em; text-wrap:pretty;">{author.data.bio}</p>
+        <div class="label" style="margin-bottom:12px;">執筆・監修者</div>
+        <h1 style="font-family:var(--serif); font-size:clamp(26px, 4.4vw, 34px); font-weight:700; margin:0 0 10px 0;">{author.data.name}</h1>
+        <div style="font-size:13px; color:var(--muted); margin-bottom:14px;">{site.companyName} {author.data.role}</div>
+        <p style="font-size:14px; line-height:2; color:var(--body2); margin:0; max-width:36em; text-wrap:pretty;">{author.data.bio}</p>
       </div>
     </div>
   </div>
 
   <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--ink); padding-top:28px; margin-bottom:4px;">
     <h2 style="font-family:var(--serif); font-size:22px; font-weight:700; margin:0;">執筆記事</h2>
-    <span style="font-size:13px; color:var(--ink-sub);">全{articles.length}本</span>
+    <span style="font-size:13px; color:var(--muted);">全{articles.length}本</span>
   </div>
   <div style="display:flex; flex-direction:column; margin-bottom:80px;">
     {articles.map((article) => (
       <a href={`/articles/${article.id}/`} class="compact-row">
-        <span class="date">{fmtDate(article.data.date)}</span>
-        <span class="cat-label">{getCategory(article.data.category).name}</span>
+        <span class="date-num">{fmtDate(article.data.date)}</span>
+        <span class="label">{getCategory(article.data.category).name}</span>
         <span class="title">{article.data.title}</span>
       </a>
     ))}

@@ -29,9 +29,9 @@ const schema = {
     <nav class="breadcrumb" aria-label="パンくずリスト">
       <a href="/">トップ</a>　／　<a href="/articles/">記事一覧</a>　／　{category.name}
     </nav>
-    <div class="eyebrow" style="margin-bottom:14px;">カテゴリ</div>
+    <div class="label" style="margin-bottom:14px;">カテゴリ</div>
     <h1 class="page-title" style="margin-bottom:16px;">{category.name}</h1>
-    <p style="font-size:14px; line-height:2; color:var(--ink-soft); margin:0; max-width:44em; text-wrap:pretty;">
+    <p style="font-size:14px; line-height:2; color:var(--body2); margin:0; max-width:36em; text-wrap:pretty;">
       {category.description}
     </p>
   </div>
@@ -43,7 +43,7 @@ const schema = {
   </div>
 
   <div style="border-top:1px solid var(--line-soft); padding:24px 0 72px 0; display:flex; gap:28px; align-items:baseline; flex-wrap:wrap;">
-    <span style="font-size:12px; color:var(--ink-sub);">ほかのカテゴリ</span>
+    <span style="font-size:12px; color:var(--muted);">ほかのカテゴリ</span>
     {otherCategories.map((c) => (
       <a href={`/category/${c.slug}/`} style="font-size:14px; font-family:var(--serif); font-weight:600;">{c.name}</a>
     ))}

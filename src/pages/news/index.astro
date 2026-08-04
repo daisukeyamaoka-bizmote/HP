@@ -29,8 +29,8 @@ const schema = {
   <div style="display:flex; flex-direction:column; border-top:1px solid var(--ink); margin-bottom:80px;">
     {news.map((n) => (
       <a href={`/news/${n.id}/`} class="compact-row">
-        <span class="date">{fmtDate(n.data.date)}</span>
-        <span class="cat-label">{newsTypeLabels[n.data.type]}</span>
+        <span class="date-num">{fmtDate(n.data.date)}</span>
+        <span class="label">{newsTypeLabels[n.data.type]}</span>
         <span class="title">{n.data.title}</span>
       </a>
     ))}
