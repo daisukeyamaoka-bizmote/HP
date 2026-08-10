@@ -3,8 +3,7 @@ import { categories } from '../data/categories';
 ---
 <header class="site-header bm-logo" id="site-header">
   <a href="/" class="logo" aria-label="bizmote(ビズモート) トップページ">
-    <img class="logo-light" src="/images/RGB_black.png" alt="bizmote(ビズモート)" width="150" height="40" />
-    <img class="logo-dark" src="/images/RGB_white.png" alt="bizmote(ビズモート)" width="150" height="40" />
+    <img src="/images/RGB_black.png" alt="bizmote(ビズモート)" width="150" height="40" />
   </a>
   <nav class="site-nav bm-nav" aria-label="メインナビゲーション">
     {categories.map((cat) => <a href={`/category/${cat.slug}/`}>{cat.name}</a>)}

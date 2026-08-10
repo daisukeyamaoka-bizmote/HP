@@ -1,6 +1,6 @@
 /* Design tokens — 出典: docs/DESIGN_SPEC.md */
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
   --bg: #fcfbf9;
   --ink: #1a1a1a;
   --body: #2b2823;
@@ -14,20 +14,6 @@
   --serif: 'Shippori Mincho', serif;
   --sans: 'Noto Sans JP', sans-serif;
   --latin: 'Inter', sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #161510;
-    --ink: #ece9e1;
-    --body: #d8d4c9;
-    --body2: #b9b4a8;
-    --muted: #a29c8f;
-    --faint: #8a857b;
-    --line: #413d33;
-    --line-soft: #2f2c25;
-    --fill: #282419;
-  }
 }
 
 html, body {
@@ -98,12 +84,6 @@ img { max-width: 100%; }
 .site-header .logo { display: block; }
 .site-header .logo:hover { text-decoration: none; }
 .site-header .logo img { height: 40px; width: auto; }
-.site-header .logo .logo-light { display: block; }
-.site-header .logo .logo-dark { display: none; }
-@media (prefers-color-scheme: dark) {
-  .site-header .logo .logo-light { display: none; }
-  .site-header .logo .logo-dark { display: block; }
-}
 @media (prefers-reduced-motion: reduce) {
   .site-header { transition: none; }
 }

@@ -17,7 +17,8 @@
 
 ## 2. カラー
 
-CSS変数として `:root` に定義。ライト／ダークの2系統のみ（`color-scheme: light dark`、OS設定に自動追従）。
+CSS変数として `:root` に定義。**白地に黒の1系統に固定**（`color-scheme: light`。OSがダークモードでも配色は変わらない）。
+下表のダーク列は参考値として残すが、現在は使用していない。
 
 | 変数 | ライト | ダーク | 用途 |
 | --- | --- | --- | --- |
@@ -33,7 +34,7 @@ CSS変数として `:root` に定義。ライト／ダークの2系統のみ（`
 
 フッターのみ固定色（ライト/ダーク共通）：背景 `#141310`、文字 `#c9c5bc`、補助 `#8a857b`、罫線 `#33312c`。
 
-ダーク時はロゴを差し替える（`.logo-light` / `.logo-dark` を `prefers-color-scheme` で切り替え。黒ロゴ `uploads/RGB_black.png` ↔ 白ロゴ `uploads/RGB_white.png`）。
+ロゴはヘッダーが黒ロゴ `images/RGB_black.png`、フッター（黒背景）が白ロゴ `images/RGB_white.png` で固定。
 
 ---
 
@@ -99,7 +100,7 @@ transition:transform 0.32s cubic-bezier(0.22,1,0.36,1);
 - 4カラム `grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px`、下端に `border-bottom: 1px solid #33312c`。
   1. 白ロゴ（26px）＋一文説明「事業と経営の実務メディア。GTMコンサルティングファーム bizmote株式会社が運営しています。」
   2. 記事：記事一覧／カテゴリ3つ
-  3. 運営元：運営元について／サービス／お知らせ
+  3. 運営元：運営元について／サービス／お知らせ／カルチャーデック（URL未設定のあいだは非表示）
   4. 専門領域：bizFlag／bizLab／bizShip
 - 列見出しは 11px `letter-spacing: 0.16em` `#8a857b`。
 - 最下部：`© 2026 bizmote Inc.` と llms.txt / sitemap.xml を左右に。11px。

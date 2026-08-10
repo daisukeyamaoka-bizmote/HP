@@ -29,6 +29,11 @@ const year = new Date().getFullYear();
           <li><a href="/about/">運営元について</a></li>
           <li><a href="/services/">サービス</a></li>
           <li><a href="/news/">お知らせ</a></li>
+          {site.cultureDeckUrl && (
+            <li>
+              <a href={site.cultureDeckUrl} target="_blank" rel="noopener">カルチャーデック</a>
+            </li>
+          )}
         </ul>
       </div>
 

@@ -205,6 +205,9 @@ content:
       - name: footerNote
         label: フッターの一文説明
         type: text
+      - name: cultureDeckUrl
+        label: カルチャーデックのURL(入力するとフッターにリンクが表示されます。空欄なら非表示)
+        type: string
       - name: twitter
         label: X(Twitter)アカウント
         type: string
