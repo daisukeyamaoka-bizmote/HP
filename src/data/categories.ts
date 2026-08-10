@@ -17,7 +17,7 @@ export const categories: Category[] = [
   },
   {
     slug: 'ax',
-    name: '業務の仕組み化・AI活用',
+    name: 'AX',
     anchor: 'cat-ax',
     description:
       '業務を個人の記憶と勘から引き剥がし、仕組みに変える。業務の分解、標準化、AI・専用ツールの実装、現場への定着までの工程を扱います。',

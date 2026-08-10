@@ -42,7 +42,7 @@ content:
             - value: gtm
               label: GTM
             - value: ax
-              label: 業務の仕組み化・AI活用
+              label: AX
             - value: startup
               label: 起業・事業づくり
       - name: author
@@ -194,7 +194,7 @@ content:
         label: サイトの説明文(検索結果・SNSに表示)
         type: text
       - name: communityName
-        label: 起業家輩出コミュニティの名称(bizShip。名称変更時はここを編集すると全ページに反映)
+        label: 起業家輩出コミュニティの名称(NANORIBA。名称変更時はここを編集すると全ページに反映)
         type: string
       - name: companyCategory
         label: 会社カテゴリー(例:GTMコンサルティングファーム)

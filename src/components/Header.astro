@@ -7,9 +7,6 @@ import { categories } from '../data/categories';
   </a>
   <nav class="site-nav bm-nav" aria-label="メインナビゲーション">
     {categories.map((cat) => <a href={`/category/${cat.slug}/`}>{cat.name}</a>)}
-    <span class="nav-divider" aria-hidden="true"></span>
-    <a href="/articles/" class="nav-sub">記事一覧</a>
-    <a href="/about/" class="nav-sub">運営元について</a>
   </nav>
 </header>
 
