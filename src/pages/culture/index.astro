@@ -1,0 +1,2364 @@
+---
+// bizmote カルチャーデックLP
+// インターン・フリーランス候補者が「自分に合う会社か」を見極めるための単独ページ。
+// サイト共通レイアウトとはデザイン体系が異なるため、独立したドキュメントとして構成する。
+
+const title = 'bizmote カルチャーデック｜次の常識をつくる。';
+const description =
+  'bizmoteは、BtoB事業の市場開拓と営業変革を、戦略設計から現場実装・内製化まで担うGTMコンサルティングファームです。インターン・フリーランスの方が、自分に合う会社かを見極めるためのカルチャーデック。';
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://bizmote.jp').toString();
+
+const gtmStages = [
+  { no: '01', en: 'Market', ja: '市場を選ぶ', detail: '市場構造、対象企業数、顧客課題の強さ、競争環境、優先セグメント' },
+  { no: '02', en: 'Customer', ja: '顧客を理解する', detail: 'ICP、BuyerとUser、顧客の負、購買契機、意思決定構造' },
+  { no: '03', en: 'Value', ja: '選ばれる理由を作る', detail: 'Value Proposition、ベネフィット、差別化、訴求メッセージ、Offer' },
+  { no: '04', en: 'Motion', ja: '届け方を設計する', detail: 'Marketing、Inside Sales、Field Sales、Customer Success、パートナー、KPIと会議体' },
+  { no: '05', en: 'Validation', ja: '市場で確かめる', detail: '顧客インタビュー、アウトバウンド、商談、PoC、Win/Loss分析、メッセージ検証' },
+  { no: '06', en: 'System', ja: '再現できる形にする', detail: 'Playbook、CRMとデータ、AI・業務自動化、採用・研修・評価、会議体、内製化と権限移管' },
+];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="bizmote" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <!-- スクロール進捗バー -->
+    <div class="progress" data-progress aria-hidden="true"></div>
+
+    <!-- セクションごとに色が移ろう背景レイヤー -->
+    <div class="bglayer" data-bglayer aria-hidden="true"></div>
+
+    <header class="nav" data-nav>
+      <div class="nav-inner">
+        <a href="#top" class="nav-logo"><img src="/culture/bizmote-logo-dark.png" alt="bizmote" /></a>
+        <nav class="nav-links" aria-label="ページ内ナビゲーション">
+          <a href="#s09" class="nav-link">GTMとは</a>
+          <a href="#s13" class="nav-link">事業</a>
+          <a href="#s16" class="nav-link">キャリア</a>
+          <a href="#s17" class="nav-link">カルチャー</a>
+          <a href="#s18" class="nav-link">ビジョン</a>
+          <a href="#s21" class="nav-cta">面談予約</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top" class="main">
+      <!-- S00 ヒーロー -->
+      <section class="hero" data-bg="#F7F5F2">
+        <div class="hero-inner" data-hero>
+          <img src="/culture/bizmote-logo-dark.png" alt="bizmote" class="hero-logo" />
+          <h1 class="hero-title">次の常識をつくる。</h1>
+          <p class="hero-lead">
+            bizmoteは、BtoB事業の市場開拓と営業変革を、戦略設計から現場実装・内製化まで担うGTMコンサルティングファームです。
+          </p>
+          <p class="hero-scroll" aria-hidden="true"><span class="hero-scroll-line"></span>SCROLL</p>
+        </div>
+      </section>
+
+      <!-- 第1章 扉 -->
+      <section class="chapter" data-bg="#1C2C4F" style="background:#1C2C4F;">
+        <div class="chapter-num" data-parallax="0.22" aria-hidden="true">1</div>
+        <div class="chapter-inner" data-reveal>
+          <p class="chapter-kicker">CHAPTER 1</p>
+          <h2 class="chapter-title" data-clip>環境の変化</h2>
+          <p class="chapter-lead">AIは仕事の前提を変え、買い手の行動を変えた。まず、その変化を直視する。</p>
+        </div>
+      </section>
+
+      <!-- S02 不可逆な変化 -->
+      <section class="sec" data-bg="#E9EDF3">
+        <div class="wrap grid-2" data-reveal>
+          <div>
+            <p class="kicker">第1章 ｜ 環境の変化</p>
+            <h2 class="h2">AIの進化は止められない。だから、待つのをやめる。</h2>
+          </div>
+          <div>
+            <p class="body-text">AIの発達と普及は、一時的なブームではなく、仕事の前提を変える流れである。</p>
+            <p class="body-text">
+              ILOの2025年研究では、世界の労働者の<strong class="em-serif">4人に1人</strong
+              >が生成AI曝露のある職業に就くとされる。ただし多くの仕事に起こるのは、消滅ではなく変容だという。
+            </p>
+            <p class="body-text last">bizmoteはAIに抵抗する会社ではない。AIを使ったうえで、人間が担う価値を選ぶ会社である。</p>
+            <p class="source bordered">出典: ILO, Generative AI and jobs: A 2025 update／Gmyrek et al. (2025), ILO Working Paper 140</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- S06 AIと人が共存する購買 -->
+      <section class="sec center">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第1章 ｜ 環境の変化</p>
+          <h2 class="h2 mb-xl">買い手はAIを使う。<br />それでも重要な判断では、人に確かめる。</h2>
+          <div class="stats">
+            <div class="stat">
+              <p class="stat-num"><span data-count="67">0</span><span class="stat-unit">%</span></p>
+              <p class="stat-label">営業担当者なしの<br />購買体験を好む</p>
+            </div>
+            <div class="stat">
+              <p class="stat-num"><span data-count="45">0</span><span class="stat-unit">%</span></p>
+              <p class="stat-label">直近の購買で<br />生成AIを利用</p>
+            </div>
+            <div class="stat">
+              <p class="stat-num accent"><span data-count="69">0</span><span class="stat-unit">%</span></p>
+              <p class="stat-label">AIが生成した情報を<br />営業担当者に確認したい</p>
+            </div>
+          </div>
+          <p class="pull-quote">
+            買い手は、自律的な購買と、人による検証の両方を求めている。この一見矛盾した事実こそが、これからの営業の出発点になる。
+          </p>
+          <p class="source">出典: Gartner調査（2025年実施・2026年公表）</p>
+        </div>
+      </section>
+
+      <!-- S05 高額・複雑なBtoBの現実 -->
+      <section class="sec">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第1章 ｜ 環境の変化</p>
+          <h2 class="h2-big">数千万円の投資を、<br />「AIが選んだから」だけで<br />決裁できますか。</h2>
+          <div class="q-grid">
+            <p class="q-item">誰が社内を動かすのか</p>
+            <p class="q-item">誰がこの選択に責任を持つのか</p>
+            <p class="q-item">誰が導入後まで向き合うのか</p>
+          </div>
+          <div class="figure">
+            <svg
+              viewBox="0 0 900 470"
+              class="figure-svg"
+              style="max-width:760px;"
+              role="img"
+              aria-label="経営層、事業部門、情報システム部門、稟議承認者、現場責任者、導入後の運用者の6者が、それぞれ異なる関心を持って一つの投資判断を取り囲んでいる図"
+            >
+              <g fill="none" stroke="#1A1A1A" stroke-opacity="0.4" stroke-width="1">
+                <line x1="170" y1="112" x2="392" y2="200"></line>
+                <line x1="450" y1="112" x2="450" y2="200"></line>
+                <line x1="730" y1="112" x2="508" y2="200"></line>
+                <line x1="170" y1="358" x2="392" y2="270"></line>
+                <line x1="450" y1="358" x2="450" y2="270"></line>
+                <line x1="730" y1="358" x2="508" y2="270"></line>
+              </g>
+              <rect x="355" y="200" width="190" height="70" fill="#1A1A1A"></rect>
+              <text x="450" y="243" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="22" fill="#F7F5F2">投資判断</text>
+              <g fill="none" stroke="#1A1A1A" stroke-opacity="0.6" stroke-width="1">
+                <rect x="75" y="40" width="190" height="72"></rect>
+                <rect x="355" y="40" width="190" height="72"></rect>
+                <rect x="635" y="40" width="190" height="72"></rect>
+                <rect x="75" y="358" width="190" height="72"></rect>
+                <rect x="355" y="358" width="190" height="72"></rect>
+                <rect x="635" y="358" width="190" height="72"></rect>
+              </g>
+              <g font-family="'Noto Sans JP',sans-serif" font-size="17" fill="#1A1A1A" text-anchor="middle" font-weight="500">
+                <text x="170" y="70">経営層</text>
+                <text x="450" y="70">事業部門</text>
+                <text x="730" y="70">情報システム部門</text>
+                <text x="170" y="388">現場責任者</text>
+                <text x="450" y="388">稟議承認者</text>
+                <text x="730" y="388">導入後の運用者</text>
+              </g>
+              <g font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#6B6B6B" text-anchor="middle">
+                <text x="170" y="96">投資対効果は？</text>
+                <text x="450" y="96">成果は出るか？</text>
+                <text x="730" y="96">既存環境と繋がるか？</text>
+                <text x="170" y="414">現場は回るのか？</text>
+                <text x="450" y="414">リスクはないか？</text>
+                <text x="730" y="414">使いこなせるか？</text>
+              </g>
+            </svg>
+            <p class="figure-caption">一つの投資判断を、異なる関心と不安を持つ6者が取り囲む。AIの推薦だけでは、誰の問いにも答えられない。</p>
+          </div>
+          <p class="body-text last">
+            BtoBの購買は単なる商品比較ではない。複数の関係者が異なる利害を抱えたまま、問題の特定から導入後まで引き受ける。企業差を前提としつつ、日本企業では関係者が多くなる傾向も指摘されている。
+          </p>
+        </div>
+      </section>
+
+      <!-- 第2章 扉 -->
+      <section class="chapter" data-bg="#2E4638" style="background:#2E4638;">
+        <div class="chapter-num" data-parallax="0.22" aria-hidden="true">2</div>
+        <div class="chapter-inner" data-reveal>
+          <p class="chapter-kicker">CHAPTER 2</p>
+          <h2 class="chapter-title" data-clip>人が引き受ける価値</h2>
+          <p class="chapter-lead">では、その中で人は何の価値を引き受けるのか。bizmoteの出発点。</p>
+        </div>
+      </section>
+
+      <!-- S03 人が働く意味 -->
+      <section class="sec" data-bg="#ECF1EB">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第2章 ｜ 人が引き受ける価値</p>
+          <h2 class="h2">人が主体的に働くには、自律性・有能感・関係性が要る。</h2>
+          <p class="body-text mb-lg">
+            自己決定理論では、人が主体的に生き、健やかに働くための基本的心理欲求として、自律性・有能感・関係性の3つが示されている。
+          </p>
+          <div class="col3-bordered">
+            <div class="col3-cell">
+              <p class="label-en">AUTONOMY</p>
+              <h3 class="h3-serif">自律性</h3>
+              <p class="small-text">自分で選び、意思を持って動く</p>
+            </div>
+            <div class="col3-cell">
+              <p class="label-en">COMPETENCE</p>
+              <h3 class="h3-serif">有能感</h3>
+              <p class="small-text">能力を伸ばし、価値を生む</p>
+            </div>
+            <div class="col3-cell">
+              <p class="label-en">RELATEDNESS</p>
+              <h3 class="h3-serif">関係性</h3>
+              <p class="small-text">誰かとつながり、互いに必要とされる</p>
+            </div>
+          </div>
+          <p class="pull-quote centered">
+            指示された作業、情報の整理、定型的な成果物の作成だけでは、AIとの差が見えにくくなる。自分で選ぶ感覚も、成長の実感も、人とのつながりも、痩せていく。
+          </p>
+          <p class="source centered">出典: Ryan &amp; Deci (2000), American Psychologist 55(1)</p>
+        </div>
+      </section>
+
+      <!-- S04 人が引き受ける価値 -->
+      <section class="sec">
+        <div class="wrap narrow" data-reveal>
+          <p class="kicker">第2章 ｜ 人が引き受ける価値</p>
+          <h2 class="h2">情報を出すだけでなく、文脈を読み、合意をつくり、変化に責任を持つ。</h2>
+          <p class="body-text mb-lg">
+            「人間だけができる」と言い切るつもりはない。ただ、AIが判断材料を作る時代ほど、相対的に重要になる人の役割がある。
+          </p>
+          <ol class="num-list">
+            <li><span class="num-list-no">01</span><span class="num-list-label">問いを立てる</span></li>
+            <li><span class="num-list-no">02</span><span class="num-list-label">顧客固有の文脈を読む</span></li>
+            <li><span class="num-list-no">03</span><span class="num-list-label">複数の利害を束ねる</span></li>
+            <li><span class="num-list-no">04</span><span class="num-list-label">不確実な意思決定を支える</span></li>
+            <li><span class="num-list-no">05</span><span class="num-list-label">現場の変化が定着するまで向き合う</span></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- S07 bizmoteの信念 -->
+      <section class="sec belief">
+        <div class="wrap narrow" data-reveal>
+          <p class="kicker accent-kicker">第2章 ｜ bizmoteの経営仮説</p>
+          <h2 class="h2">セールスとコンサルティングは、消えるのではなく、融合し高度化する。</h2>
+          <div class="body-block">
+            <p class="body-text">商品説明や情報提供だけの営業は、AIとセルフサービスへ移る。提言だけで現場を変えないコンサルティングも、価値を問われる。</p>
+            <p class="body-text">
+              残るのは、顧客の意思決定と変革を、構想から実装まで担う仕事である。特に高額・複雑なBtoBで、この役割は重要になる。これは予言ではなく、bizmoteが賭ける専門領域だ。
+            </p>
+          </div>
+          <div class="figure">
+            <svg
+              viewBox="0 0 900 490"
+              class="figure-svg"
+              style="max-width:720px;"
+              role="img"
+              aria-label="セールスとコンサルティングの2つの円が重なり、その融合領域が構想から実装までを担う仕事になる図"
+            >
+              <g font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#6B6B6B" text-anchor="middle">
+                <text x="280" y="42">情報提供だけの営業は、AIとセルフサービスへ</text>
+                <text x="620" y="42">提言だけのコンサルは、価値を問われる</text>
+              </g>
+              <g fill="none" stroke="#1A1A1A" stroke-width="1.2">
+                <circle cx="340" cy="240" r="150" stroke-opacity="0.6"></circle>
+                <circle cx="560" cy="240" r="150" stroke-opacity="0.6"></circle>
+              </g>
+              <g font-family="'Noto Sans JP',sans-serif" text-anchor="middle" fill="#1A1A1A">
+                <text x="290" y="232" font-size="18" font-weight="500">セールス</text>
+                <text x="290" y="258" font-size="13" fill="#6B6B6B">現場で動かす</text>
+                <text x="614" y="232" font-size="18" font-weight="500">コンサルティング</text>
+                <text x="614" y="258" font-size="13" fill="#6B6B6B">構想を描く</text>
+              </g>
+              <text x="450" y="228" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="17" font-weight="600" fill="#1F3A6E">融合し</text>
+              <text x="450" y="252" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="17" font-weight="600" fill="#1F3A6E">高度化</text>
+              <line x1="450" y1="386" x2="450" y2="412" stroke="#1A1A1A" stroke-opacity="0.5" stroke-width="1"></line>
+              <rect x="270" y="412" width="360" height="58" fill="#1A1A1A"></rect>
+              <text x="450" y="448" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="19" fill="#F7F5F2">構想から実装までを担う仕事</text>
+            </svg>
+          </div>
+          <div class="belief-conclusion">
+            <p class="body-text">bizmoteは創業4期目。創業以来、BtoB企業の市場開拓と営業現場に入り続けてきた。その経験からの結論はこうだ。</p>
+            <p class="belief-statement">AI時代に残る営業の価値は、話すことではない。顧客の状況を読み、意思決定を支え、変化を実装することだ。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第3章 扉 -->
+      <section class="chapter" data-bg="#1F3A6E" style="background:#1F3A6E;">
+        <div class="chapter-num" data-parallax="0.22" aria-hidden="true">3</div>
+        <div class="chapter-inner" data-reveal>
+          <p class="chapter-kicker">CHAPTER 3</p>
+          <h2 class="chapter-title" data-clip>bizmoteの事業</h2>
+          <p class="chapter-lead">人が引き受ける価値を、事業として形にした答えが、GTMコンサルティングファームだ。</p>
+        </div>
+      </section>
+
+      <!-- S08 世界の共通言語 -->
+      <section class="sec" data-bg="#F3EFE6">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第3章 ｜ bizmoteの事業</p>
+          <h2 class="h2 mb-lg">海外ではGTMが、事業を成長させる部門横断の共通言語になっている。</h2>
+          <div class="rows">
+            <div class="row">
+              <p class="row-name">Salesforce</p>
+              <p class="row-desc">市場・顧客・チャネルを横断する計画</p>
+            </div>
+            <div class="row">
+              <p class="row-name">AWS</p>
+              <p class="row-desc">獲得から継続・成長までの顧客ライフサイクル</p>
+            </div>
+            <div class="row">
+              <p class="row-name">Bain &amp; Company</p>
+              <p class="row-desc">営業からプロダクト、組織変革まで統合するコンサル領域</p>
+            </div>
+            <div class="row">
+              <p class="row-name">OpenAI</p>
+              <p class="row-desc">GTMを正式組織とし、複数部門を横断する体制</p>
+            </div>
+          </div>
+          <p class="pull-quote">海外の先進企業では、GTMはすでに一部門の経営機能である。</p>
+          <p class="source">
+            出典: 各社公式サイト（Salesforce／AWS／Bain &amp; Company／OpenAI）。社名はタイポグラフィによる表記であり、各社ロゴは使用していません。
+          </p>
+        </div>
+      </section>
+
+      <!-- S09 GTMとは何か -->
+      <section id="s09" class="sec">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第3章 ｜ bizmoteの事業</p>
+          <h2 class="h2">GTMは営業手法ではない。事業を市場へ届ける経営システムだ。</h2>
+          <p class="body-text mb-lg">GTM（Go-To-Market）とは、市場へ向かうための全社設計のこと。次の6つの問いに答えることに等しい。</p>
+          <ol class="q6-list">
+            <li><span class="q6-no">1</span><span>どの市場を選ぶか</span></li>
+            <li><span class="q6-no">2</span><span>誰のどんな課題を解くか</span></li>
+            <li><span class="q6-no">3</span><span>なぜ自社が選ばれるか</span></li>
+            <li><span class="q6-no">4</span><span>どう顧客へ届けるか</span></li>
+            <li><span class="q6-no">5</span><span>市場から何を学ぶか</span></li>
+            <li><span class="q6-no">6</span><span>どう再現可能な仕組みにするか</span></li>
+          </ol>
+          <div class="grid-2">
+            <h3 class="h3-large">作る速度が上がるほど、市場から学び続ける力が競争力になる。</h3>
+            <div>
+              <p class="body-text">
+                AIでプロダクト開発と情報発信は速くなった。良いものを作るだけでは差が続きにくい。顧客はAI、セルフサービス、人との対話を行き来しながら購買する。
+              </p>
+              <p class="body-text last">部分最適では顧客体験が途中で切れる。市場の反応を経営判断へ戻す速度が、成長の差になる。</p>
+              <p class="source bordered">補足根拠: McKinsey, B2B Pulse 2024</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- S10 顧客の構造的課題 -->
+      <section class="sec">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第3章 ｜ bizmoteの事業</p>
+          <h2 class="h2 mb-xl">市場・営業・プロダクトが分断されると、良い事業も伸びない。</h2>
+          <div class="figure scroll-x">
+            <svg
+              viewBox="0 0 940 250"
+              class="figure-svg"
+              style="min-width:640px;"
+              role="img"
+              aria-label="部門が一方向に並び、顧客からの学びが経営へ戻る循環が途中で切れている図"
+            >
+              <defs>
+                <marker id="ar1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M0,0 L8,4 L0,8" fill="none" stroke="#1A1A1A" stroke-opacity="0.6" stroke-width="1"></path>
+                </marker>
+              </defs>
+              <g fill="none" stroke="#1A1A1A" stroke-opacity="0.55" stroke-width="1">
+                <rect x="14" y="40" width="150" height="52"></rect>
+                <rect x="204" y="40" width="150" height="52"></rect>
+                <rect x="394" y="40" width="150" height="52"></rect>
+                <rect x="584" y="40" width="150" height="52"></rect>
+                <rect x="774" y="40" width="150" height="52"></rect>
+                <line x1="164" y1="66" x2="200" y2="66" marker-end="url(#ar1)"></line>
+                <line x1="354" y1="66" x2="390" y2="66" marker-end="url(#ar1)"></line>
+                <line x1="544" y1="66" x2="580" y2="66" marker-end="url(#ar1)"></line>
+                <line x1="734" y1="66" x2="770" y2="66" marker-end="url(#ar1)"></line>
+              </g>
+              <g font-family="'Noto Sans JP',sans-serif" font-size="14" fill="#1A1A1A" text-anchor="middle">
+                <text x="89" y="71">経営</text>
+                <text x="279" y="71">マーケティング</text>
+                <text x="469" y="71">IS / FS</text>
+                <text x="659" y="71">CS</text>
+                <text x="849" y="71">プロダクト</text>
+              </g>
+              <g fill="none" stroke="#1A1A1A" stroke-width="1">
+                <path d="M849,92 V170 H560" stroke-opacity="0.45" stroke-dasharray="5 5"></path>
+                <line x1="536" y1="160" x2="524" y2="180" stroke-opacity="0.8"></line>
+                <line x1="528" y1="160" x2="516" y2="180" stroke-opacity="0.8"></line>
+                <path d="M500,170 H89 V96" stroke-opacity="0.15" stroke-dasharray="5 5" marker-end="url(#ar1)"></path>
+              </g>
+              <text x="530" y="212" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#6B6B6B" text-anchor="middle"
+                >顧客からの学びが、経営へ戻らない</text
+              >
+            </svg>
+          </div>
+          <ul class="fault-grid">
+            <li><span class="fault-name">経営</span><span class="fault-desc">狙う市場と投資判断が曖昧</span></li>
+            <li><span class="fault-name">マーケティング</span><span class="fault-desc">リード獲得が目的化</span></li>
+            <li>
+              <span class="fault-name">インサイドセールス / フィールドセールス</span>
+              <span class="fault-desc">活動や商談が目的化し、学びが残らない</span>
+            </li>
+            <li><span class="fault-name">カスタマーサクセス</span><span class="fault-desc">顧客の声がプロダクトへ戻らない</span></li>
+            <li><span class="fault-name">プロダクト</span><span class="fault-desc">市場の実態と開発判断が離れる</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- S11 宣言と約束 -->
+      <section class="sec center">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第3章 ｜ bizmoteの事業</p>
+          <h2 class="h2">bizmoteは、GTMコンサルティングファームである。</h2>
+          <p class="declaration">
+            bizmoteは、BtoB事業の市場開拓と営業変革を、戦略設計から現場実装・内製化まで担うGTMコンサルティングファームです。
+          </p>
+          <div class="col4-bordered">
+            <div class="col4-cell">
+              <p class="col4-no">1</p>
+              <h3 class="col4-title">Focus</h3>
+              <p class="small-text">勝つ市場を選ぶ</p>
+            </div>
+            <div class="col4-cell">
+              <p class="col4-no">2</p>
+              <h3 class="col4-title">Design</h3>
+              <p class="small-text">成長の構造を設計する</p>
+            </div>
+            <div class="col4-cell">
+              <p class="col4-no">3</p>
+              <h3 class="col4-title">Validation</h3>
+              <p class="small-text">市場で仮説を確かめる</p>
+            </div>
+            <div class="col4-cell">
+              <p class="col4-no">4</p>
+              <h3 class="col4-title">Enablement</h3>
+              <p class="small-text">企業の中に仕組みを残す</p>
+            </div>
+          </div>
+          <p class="body-text centered-block">
+            成果物を納品して終わりにしない。戦略を現場につなぎ、市場の反応を経営判断へ戻し、顧客企業が自ら改善を続けられる状態を作るところまでが、bizmoteの約束である。
+          </p>
+        </div>
+      </section>
+
+      <!-- S12 GTM Method -->
+      <section class="sec">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第3章 ｜ bizmote GTM Method</p>
+          <h2 class="h2 mb-lg">MarketからSystemまで、戦略と実行を分断しない。</h2>
+          <div class="figure scroll-x mb-lg">
+            <svg
+              viewBox="0 0 940 200"
+              class="figure-svg"
+              style="min-width:640px;"
+              role="img"
+              aria-label="MarketからSystemまでの6段階が循環する方法論の図"
+            >
+              <defs>
+                <marker id="ar2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M0,0 L8,4 L0,8" fill="none" stroke="#1A1A1A" stroke-opacity="0.6" stroke-width="1"></path>
+                </marker>
+              </defs>
+              <g fill="none" stroke="#1A1A1A" stroke-opacity="0.55" stroke-width="1">
+                <rect x="12" y="34" width="128" height="56"></rect>
+                <rect x="168" y="34" width="128" height="56"></rect>
+                <rect x="324" y="34" width="128" height="56"></rect>
+                <rect x="480" y="34" width="128" height="56"></rect>
+                <rect x="636" y="34" width="128" height="56"></rect>
+                <rect x="792" y="34" width="128" height="56"></rect>
+                <line x1="140" y1="62" x2="164" y2="62" marker-end="url(#ar2)"></line>
+                <line x1="296" y1="62" x2="320" y2="62" marker-end="url(#ar2)"></line>
+                <line x1="452" y1="62" x2="476" y2="62" marker-end="url(#ar2)"></line>
+                <line x1="608" y1="62" x2="632" y2="62" marker-end="url(#ar2)"></line>
+                <line x1="764" y1="62" x2="788" y2="62" marker-end="url(#ar2)"></line>
+                <path d="M856,90 V148 H76 V94" marker-end="url(#ar2)"></path>
+              </g>
+              <g font-family="'Noto Sans JP',sans-serif" text-anchor="middle" fill="#1A1A1A">
+                <text x="76" y="58" font-size="14" font-weight="500">Market</text><text x="76" y="78" font-size="11" fill="#6B6B6B">市場を選ぶ</text>
+                <text x="232" y="58" font-size="14" font-weight="500">Customer</text><text x="232" y="78" font-size="11" fill="#6B6B6B">顧客を理解する</text>
+                <text x="388" y="58" font-size="14" font-weight="500">Value</text><text x="388" y="78" font-size="11" fill="#6B6B6B">選ばれる理由を作る</text>
+                <text x="544" y="58" font-size="14" font-weight="500">Motion</text><text x="544" y="78" font-size="11" fill="#6B6B6B">届け方を設計する</text>
+                <text x="700" y="58" font-size="14" font-weight="500">Validation</text><text x="700" y="78" font-size="11" fill="#6B6B6B">市場で確かめる</text>
+                <text x="856" y="58" font-size="14" font-weight="500">System</text><text x="856" y="78" font-size="11" fill="#6B6B6B">再現できる形にする</text>
+              </g>
+              <text x="466" y="180" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#6B6B6B" text-anchor="middle"
+                >市場の反応を受けて、改善が循環する</text
+              >
+            </svg>
+          </div>
+          <div class="accordion">
+            {
+              gtmStages.map((st, i) => (
+                <div class="acc-item">
+                  <button class="acc-btn" data-acc={String(i)} aria-expanded="false" aria-controls={`acc-panel-${i}`}>
+                    <span class="acc-no">{st.no}</span>
+                    <span class="acc-en">{st.en}</span>
+                    <span class="acc-ja">{st.ja}</span>
+                    <span class="acc-mark" aria-hidden="true">+</span>
+                  </button>
+                  <div class="acc-panel" id={`acc-panel-${i}`} hidden>
+                    <p class="acc-detail">{st.detail}</p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+          <p class="source">各段階をクリックすると、詳細項目が開きます。</p>
+        </div>
+      </section>
+
+      <!-- S13 3つの事業 -->
+      <section id="s13" class="sec">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第3章 ｜ bizmoteの事業</p>
+          <h2 class="h2">bizFlag・bizLab・bizShipは、同じ思想を別の専門性で実装する。</h2>
+          <p class="body-text mb-lg">
+            3つは無関係な事業の集合ではない。bizmoteという一つの企業ブランドの下で、戦略・技術・人材が循環する構造である。
+          </p>
+          <div class="col3-bordered">
+            <div class="col3-cell">
+              <h3 class="biz-name">bizFlag</h3>
+              <p class="biz-tag">GTM戦略と事業成長</p>
+              <p class="small-text">市場選定、ICP設計、顧客課題の特定、Value Proposition、営業戦略、Revenue Transformation、GTM実装</p>
+            </div>
+            <div class="col3-cell">
+              <h3 class="biz-name">bizLab</h3>
+              <p class="biz-tag">AI・テクノロジーによる実装</p>
+              <p class="small-text">AI活用、業務自動化、データ基盤、プロトタイプ、AI新規事業、AX支援</p>
+            </div>
+            <div class="col3-cell">
+              <h3 class="biz-name">bizShip</h3>
+              <p class="biz-tag">挑戦者と事業人材の循環</p>
+              <p class="small-text">起業家コミュニティ、事業人材ネットワーク、学習と実践、次世代リーダーの輩出、VC・CVC・起業家との接点</p>
+            </div>
+          </div>
+          <p class="pull-quote">bizFlagが成長戦略を設計し、bizLabがテクノロジーで実装し、bizShipが挑戦と人材の循環を生む。</p>
+          <p class="body-text last">当面の表看板と営業の中心は、GTMコンサルティングファームである。</p>
+        </div>
+      </section>
+
+      <!-- 第4章 扉 -->
+      <section class="chapter" data-bg="#443627" style="background:#443627;">
+        <div class="chapter-num" data-parallax="0.22" aria-hidden="true">4</div>
+        <div class="chapter-inner" data-reveal>
+          <p class="chapter-kicker">CHAPTER 4</p>
+          <h2 class="chapter-title" data-clip>ここで働く</h2>
+          <p class="chapter-lead">事業を担うのは人だ。ここで何を仕事にし、どう専門性を育てるのか。</p>
+        </div>
+      </section>
+
+      <!-- S14 仕事の再定義 -->
+      <section class="sec" data-bg="#EFEDE9">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第4章 ｜ ここで働く</p>
+          <h2 class="h2">現場を捨てない。現場をGTMの学習装置へ変える。</h2>
+          <p class="body-text mb-lg">
+            営業実行は、アポイントを供給する作業ではない。GTM仮説を市場で検証し、経営判断に必要なデータを作る機能である。これまでの営業支援で現場に入り続けてきた経験が、その土台になる。
+          </p>
+          <div class="grid-2 wide-gap">
+            <div>
+              <h3 class="list-heading">変えること</h3>
+              <ul class="plain-list">
+                <li><span class="dim">活動量の提供</span><span class="arrow">→</span>経営判断に必要な市場データ</li>
+                <li><span class="dim">アポイント数だけの評価</span><span class="arrow">→</span>受注・失注要因と顧客インサイト</li>
+                <li><span class="dim">人や工数を売る</span><span class="arrow">→</span>意思決定、変革、再現性を提供する</li>
+                <li><span class="dim">属人的な対応</span><span class="arrow">→</span>共通方法論とPlaybookへ残す</li>
+                <li><span class="dim">個人の判断</span><span class="arrow">→</span>Partner-ledのチームで品質を作る</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="list-heading">変えないこと</h3>
+              <ul class="plain-list">
+                <li>顧客の現場へ深く入る</li>
+                <li>仮説を早く市場で試す</li>
+                <li>都合の悪い事実も率直に伝える</li>
+                <li>挑戦者と共に、自分たちも挑戦する</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- S15 GTM Consultantの素養 -->
+      <section class="sec">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第4章 ｜ GTM Consultant</p>
+          <h2 class="h2 mb-lg">市場を理解し、経営を考え、現場を動かし、仕組みを残せる人へ。</h2>
+          <ol class="skill-list">
+            <li><span class="skill-no">01</span><span class="skill-name">Customer Insight</span><span class="skill-desc">顧客の言葉の奥にある課題と購買構造を読む</span></li>
+            <li><span class="skill-no">02</span><span class="skill-name">Strategic Thinking</span><span class="skill-desc">市場、ICP、提供価値、優先順位を構造化する</span></li>
+            <li><span class="skill-no">03</span><span class="skill-name">Commercial Execution</span><span class="skill-desc">マーケティング、営業、CSを現場で動かす</span></li>
+            <li><span class="skill-no">04</span><span class="skill-name">Data &amp; Experimentation</span><span class="skill-desc">Factと解釈を分け、仮説を検証する</span></li>
+            <li><span class="skill-no">05</span><span class="skill-name">Cross-functional Leadership</span><span class="skill-desc">経営と現場、複数部門の利害を束ねる</span></li>
+            <li><span class="skill-no">06</span><span class="skill-name">AI &amp; Technology</span><span class="skill-desc">AIを道具として業務と顧客価値へ実装する</span></li>
+            <li><span class="skill-no">07</span><span class="skill-name">System Building</span><span class="skill-desc">学びをプロセス、データ、Playbook、人材へ残す</span></li>
+          </ol>
+          <p class="body-text last">
+            7つの根底にあるのは、顧客への誠実さと、成果への責任である。すべてを一人で備えたスーパーマンを求めているのではない。チームで専門性を補い合うことを前提とした素養だ。
+          </p>
+        </div>
+      </section>
+
+      <!-- S16 キャリアパス -->
+      <section id="s16" class="sec">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第4章 ｜ キャリアパス</p>
+          <h2 class="h2 mb-xl">ISから始め、事業を動かし、最後はbizmoteを経営する。</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <p class="label-en">STEP 1</p>
+              <h3 class="timeline-title">Inside Sales｜顧客と市場を知る</h3>
+              <p class="small-text">仮説を持って顧客へ向き合う。課題、購買契機、反応をFactとして残す。活動品質と基礎的なセールス力を身につける。</p>
+            </div>
+            <div class="timeline-item">
+              <p class="label-en">STEP 2</p>
+              <h3 class="timeline-title">Field Sales｜意思決定を支える</h3>
+              <p class="small-text">
+                顧客の課題を構造化し、提案する。複数の関係者を動かし、商談を前へ進める。受注だけでなく、失注理由と市場の学びを持ち帰る。
+              </p>
+            </div>
+            <div class="timeline-item">
+              <p class="label-en">STEP 3</p>
+              <h3 class="timeline-title">Consultant / Project Manager｜事業を設計し、変革を実装する</h3>
+              <p class="small-text">GTM戦略、業務、KPI、会議体を設計する。顧客とbizmoteのチームを率い、成果へ責任を持つ。知見を方法論とPlaybookへ変える。</p>
+            </div>
+            <div class="timeline-item accent-dot">
+              <p class="label-en">STEP 4</p>
+              <h3 class="timeline-title">Principal｜顧客とbizmoteの経営を担う</h3>
+              <p class="small-text">
+                経営者のパートナーとして事業変革を導く。bizmoteの営業戦略、事業開発、採用、育成、品質、収益へ責任を持つ。次のPrincipalと事業を生み、会社の企業価値をつくる。
+              </p>
+            </div>
+          </div>
+          <p class="note bordered">
+            この4段階は、一本道でも、在籍年数による自動昇格でもない。複線化や専門性による例外を認める基本モデルである。Principalは管理職の称号ではなく、顧客価値と会社経営の両方に責任を持つ役割を指す。
+          </p>
+          <h3 class="h3-large mb-md">bizmoteが作りたい環境</h3>
+          <div class="env-grid">
+            <div class="env-cell">
+              <h4 class="env-title">自律性</h4>
+              <p class="small-text">役職に関係なく問いと提案を持てる</p>
+            </div>
+            <div class="env-cell">
+              <h4 class="env-title">有能感</h4>
+              <p class="small-text">営業だけでなく、経営・AI・実装を横断して学べる</p>
+            </div>
+            <div class="env-cell">
+              <h4 class="env-title">関係性</h4>
+              <p class="small-text">挑戦者である顧客と仲間の成功を、自分ごとにできる</p>
+            </div>
+          </div>
+          <p class="note">「必ず成長できる」とは約束しない。挑戦とフィードバックを通じて、専門性を育てる会社である。</p>
+        </div>
+      </section>
+
+      <!-- S17 MVVとカルチャー -->
+      <section id="s17" class="sec center">
+        <div class="wrap narrow" data-reveal>
+          <p class="kicker">第4章 ｜ カルチャー</p>
+          <div class="mvv">
+            <div class="mvv-item">
+              <p class="label-en">PHILOSOPHY</p>
+              <p class="mvv-statement">次の常識をつくる</p>
+              <p class="mvv-desc">
+                いま常識とされているやり方は、誰かが一度は非常識と呼んだものだ。営業とコンサルティングの境界も、GTMという職種のあり方も、まだ日本では定まっていない。その次の常識を、bizmoteが実践で示す。
+              </p>
+            </div>
+            <div class="mvv-item">
+              <p class="label-en">MISSION</p>
+              <p class="mvv-statement">挑戦者と共に 挑戦者であり続ける</p>
+              <p class="mvv-desc">
+                顧客は事業を伸ばそうとする挑戦者である。その挑戦に、外から助言するだけの立場では並走できない。自分たち自身が挑戦し続けることが、挑戦者と組むための最低条件になる。
+              </p>
+            </div>
+            <div class="mvv-item">
+              <p class="label-en">VISION</p>
+              <p class="mvv-statement">世界から模倣される国へ</p>
+              <p class="mvv-desc">
+                日本は長く、海外の型を取り入れる側にいた。市場のつくり方、事業の伸ばし方で、世界が参照する事例を日本から生み出す。その一つを、bizmoteと顧客企業の間から出す。
+              </p>
+            </div>
+          </div>
+          <p class="kicker">VALUES</p>
+          <div class="values">
+            <div class="value">
+              <h3 class="value-title">ファーストペンギンでいよう</h3>
+              <p class="value-sub">誰よりも先に経験し感じることが人間に残された価値</p>
+              <p class="body-text">情報は誰でも取れる。差がつくのは、先に飛び込んで得た一次情報だけである。</p>
+            </div>
+            <div class="value">
+              <h3 class="value-title">失敗を賞賛しよう</h3>
+              <p class="value-sub">凹んでる暇があれば次にどう活かすか考えながら動く</p>
+              <p class="body-text">挑戦した上での失敗は、コストではなくファームの資産になる。責めるのは、失敗を隠すことと、同じ失敗を設計に反映しないこと。</p>
+            </div>
+            <div class="value">
+              <h3 class="value-title">ギブアンドギブしよう</h3>
+              <p class="value-sub">あげ続ける人は将来的に「ヒト持ち」になる</p>
+              <p class="body-text">知見は隠さず公開する。公開できる水準の知見を持ち続けることが、私たちの競争力である。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第5章 扉 -->
+      <section class="chapter" data-bg="#3E2436" style="background:#3E2436;">
+        <div class="chapter-num" data-parallax="0.22" aria-hidden="true">5</div>
+        <div class="chapter-inner" data-reveal>
+          <p class="chapter-kicker">CHAPTER 5</p>
+          <h2 class="chapter-title" data-clip>目指す未来</h2>
+          <p class="chapter-lead">この先、bizmoteは何を目指すのか。</p>
+        </div>
+      </section>
+
+      <!-- S18 10期目の目標 -->
+      <section id="s18" class="sec" data-bg="#F0EAEF">
+        <div class="wrap" data-reveal>
+          <p class="kicker accent-kicker">第5章 ｜ 目指す未来 ─ 経営が置く挑戦目標であり、結果の保証ではありません</p>
+          <h2 class="h2">10期目に上場し、時価総額100億円以上を目指す。</h2>
+          <p class="body-text mb-xl">
+            bizmoteは10期目の株式上場と、上場時または上場後早期の時価総額100億円以上を目指す。経営が置く挑戦目標であり、達成を保証するものではない。
+          </p>
+
+          <h3 class="h3-large mb-md">看板を変えるのではない。企業価値のつくり方を変える。</h3>
+          <ul class="plain-list narrow-list">
+            <li><span class="dim">活動量・工数</span><span class="arrow">→</span>意思決定・変革・再現性</li>
+            <li><span class="dim">案件内の経験</span><span class="arrow">→</span>方法論・Playbook・コンテンツ</li>
+            <li><span class="dim">個人の知見</span><span class="arrow">→</span>ConsultantとPrincipalの組織能力</li>
+            <li><span class="dim">営業支援の認知</span><span class="arrow">→</span>GTMと事業成長の指名</li>
+            <li><span class="dim">人数に比例する成長</span><span class="arrow">→</span>人と知見の両方が積み上がる成長</li>
+          </ul>
+          <p class="body-text mb-xl">コンサルと名乗ることで評価が上がるわけではない。実態、収益、品質、ガバナンスを変えて証明する。</p>
+
+          <h3 class="h3-large mb-sm">コンサルティング領域で、100億円を超える企業価値の前例はある。</h3>
+          <p class="source mb-md">下の帯は対数軸（log10）での相対比較。bizmoteが目指す時価総額100億円ラインを基準に位置づけている。</p>
+          <div class="cap-grid">
+            <div class="cap-cell">
+              <p class="cap-name">ベイカレント</p>
+              <p class="cap-code">6532</p>
+              <p class="cap-value">約1兆588<span class="cap-unit">億円</span></p>
+              <div class="cap-bar-track"><div class="cap-bar" data-bar="100"></div></div>
+              <p class="cap-date">2026年8月4日終値ベース</p>
+            </div>
+            <div class="cap-cell">
+              <p class="cap-name">シグマクシス・ホールディングス</p>
+              <p class="cap-code">6088</p>
+              <p class="cap-value">約527<span class="cap-unit">億円</span></p>
+              <div class="cap-bar-track"><div class="cap-bar" data-bar="67.7"></div></div>
+              <p class="cap-date">2026年7月30日終値ベース</p>
+            </div>
+            <div class="cap-cell">
+              <p class="cap-name">INTLOOP</p>
+              <p class="cap-code">9556</p>
+              <p class="cap-value">約189<span class="cap-unit">億円</span></p>
+              <div class="cap-bar-track"><div class="cap-bar" data-bar="56.7"></div></div>
+              <p class="cap-date">2026年8月3日時点</p>
+            </div>
+          </div>
+          <p class="note mb-xl">いずれも事業構成、規模、収益性が異なる参考例であり、時価総額は日々変動する。達成可能性を保証する比較ではない。</p>
+
+          <h3 class="h3-large mb-md">上場はゴールではない。bizPortをつくるための入口だ。</h3>
+          <ul class="line-list narrow-list">
+            <li>大きな構想を実現する資本調達の選択肢を増やす</li>
+            <li>顧客、採用候補者、金融機関、地域、行政からの信用を積み上げる</li>
+            <li>長期で挑戦を続けられる組織とガバナンスを作る</li>
+            <li>志を共有する株主、企業、自治体、仲間を集める</li>
+          </ul>
+          <p class="note">上場が唯一の方法だと考えているわけではない。現時点で経営陣が最も現実的と考え、選ぶ手段である。</p>
+        </div>
+      </section>
+
+      <!-- S18b 今、必要なこと -->
+      <section class="sec" data-bg="#F0EAEF">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第5章 ｜ 目指す未来</p>
+          <h2 class="h2">10期目に立つために、今この2年で積むべきものがある。</h2>
+          <p class="body-text mb-lg">
+            上場と時価総額100億円は、売上を積み上げれば届く数字ではない。人数に比例しない成長の型を、この期間に作れるかどうかで決まる。必要なものは4つある。
+          </p>
+          <ol class="need-grid">
+            <li>
+              <p class="need-no">01</p>
+              <h3 class="need-title">案件の質と再現性</h3>
+              <p class="small-text">単発の支援ではなく、GTM全体を任される案件を増やし、成果の出し方をPlaybookへ残す。</p>
+            </li>
+            <li>
+              <p class="need-no">02</p>
+              <h3 class="need-title">人に依存しない品質</h3>
+              <p class="small-text">誰が入っても一定水準を出せる方法論、レビュー体制、育成の型を組織に持つ。</p>
+            </li>
+            <li>
+              <p class="need-no">03</p>
+              <h3 class="need-title">AIによる生産性</h3>
+              <p class="small-text">調査、整理、資料作成をAIへ寄せ、人は判断と実装に時間を使う構造を自社で先に作る。</p>
+            </li>
+            <li>
+              <p class="need-no">04</p>
+              <h3 class="need-title">担い手の層</h3>
+              <p class="small-text">ConsultantとPrincipalを内側から育てる。そのための入口を、正社員だけに閉じない。</p>
+            </li>
+          </ol>
+
+          <h3 class="h3-large mb-md">この2年を、インターンとフリーランスの力と一緒に作りたい。</h3>
+          <div class="grid-2 wide-gap mb-xl">
+            <p class="body-text">
+              bizmoteはまだ小さい。だからこそ、雇用形態で仕事を切り分けていない。インターンでも顧客の前に立ち、フリーランスでもGTMの設計に関わる。整っていない領域が多いぶん、任せられる範囲は大きい。
+            </p>
+            <p class="body-text">
+              その代わり、渡すのは作業ではなく役割である。市場を調べ、顧客と話し、仮説を検証し、結果を仕組みへ残すまでを担ってもらう。上場に必要な4つは、その積み重ねでしか作れない。
+            </p>
+          </div>
+          <div class="grow-grid">
+            <div class="grow-cell">
+              <p class="label-en">YOU</p>
+              <h4 class="grow-title">あなたの成長</h4>
+              <p class="small-text">任される範囲が広がり、市場・経営・実装を横断した専門性が身につく</p>
+            </div>
+            <div class="grow-cell">
+              <p class="label-en">BIZMOTE</p>
+              <h4 class="grow-title">bizmoteの成長</h4>
+              <p class="small-text">案件の品質と再現性が積み上がり、人数に比例しない成長の型ができる</p>
+            </div>
+            <div class="grow-cell inverted">
+              <p class="label-en">NEXT</p>
+              <h4 class="grow-title">次のステージへ</h4>
+              <p class="small-text">10期目の上場と時価総額100億円。その舞台に、一緒に立つ</p>
+            </div>
+          </div>
+          <p class="pull-quote">
+            一人ひとりが任される範囲を広げた分だけ、会社の再現性が積み上がる。その両方が揃ったとき、bizmoteは次のステージへ進む。同じ舞台に、一緒に立ちたい。
+          </p>
+        </div>
+      </section>
+
+      <!-- S19 bizPort構想 -->
+      <section class="sec">
+        <div class="wrap" data-reveal>
+          <p class="kicker">第5章 ｜ bizPort（構想名）</p>
+          <h2 class="h2 mb-lg">失敗しても、また挑戦できる街をつくる。</h2>
+          <div class="grid-2 mb-xl">
+            <div>
+              <p class="body-text mb-md">bizPortは、派手な未来都市の構想ではない。人が再挑戦できる社会基盤とカルチャーを、街として作る構想である。</p>
+              <div class="bizport-visual" aria-hidden="true"><span>bizPort</span></div>
+            </div>
+            <ul class="line-list">
+              <li>挑戦者が集まり、挑戦が始まる</li>
+              <li>失敗が非難ではなく、次の挑戦の証として称えられる</li>
+              <li>失敗しても生活を立て直せる住居、仕事、学び、コミュニティがある</li>
+              <li>挑戦する気概がある人なら、年齢、肩書き、過去に関係なく歓迎される</li>
+              <li>起業家、事業家、投資家、技術者、クリエイター、地域の人が交わる</li>
+            </ul>
+          </div>
+          <h3 class="h3-large mb-md">100億円から、1,000億円への道筋</h3>
+          <ol class="road-grid">
+            <li>
+              <p class="label-en">いま</p>
+              <p class="small-text">GTMコンサルティングで顧客価値、利益、知見、人材を積む</p>
+            </li>
+            <li>
+              <p class="label-en">10期目</p>
+              <p class="small-text">上場と時価総額100億円以上を目指す</p>
+            </li>
+            <li>
+              <p class="label-en">上場後</p>
+              <p class="small-text">事業成長、提携、投資、金融、地域・行政連携を広げる</p>
+            </li>
+            <li>
+              <p class="label-en">長期</p>
+              <p class="small-text">1,000億円規模の資本と協力者を束ね、bizPortを実現する</p>
+            </li>
+          </ol>
+          <p class="note bordered">
+            注記:
+            時価総額100億円は、会社が自由に使える現金100億円ではない。上場しただけで1,000億円が調達できるわけでもない。上場後の事業成長と多様な資本形成が必要であり、1,000億円以上という規模は現時点の経営仮説・長期概算であり要精査である。
+          </p>
+        </div>
+      </section>
+
+      <!-- 結び 扉 -->
+      <section class="chapter short" data-bg="#141414" style="background:#141414;">
+        <div class="chapter-num" data-parallax="0.22" aria-hidden="true">結</div>
+        <div class="chapter-inner" data-reveal>
+          <p class="chapter-kicker">EPILOGUE</p>
+          <h2 class="chapter-title" data-clip>結び</h2>
+          <p class="chapter-lead">最後に、正直な話を。</p>
+        </div>
+      </section>
+
+      <!-- S20 向いている人・向いていない人 -->
+      <section class="sec" data-bg="#F7F5F2">
+        <div class="wrap" data-reveal>
+          <p class="kicker">結び ｜ 向き不向き</p>
+          <h2 class="h2 mb-xl">正直に書きます。ここは、こういう人には向かない。</h2>
+          <div class="grid-2 wide-gap">
+            <div>
+              <h3 class="list-heading">向いていない人</h3>
+              <ul class="plain-list">
+                <li>決められた範囲の作業を、決められた通りにやりたい人</li>
+                <li>大きな組織の看板と仕組みの中で力を発揮するタイプの人</li>
+                <li>戦略を「描くこと」までが仕事だと考える人。現場に入ることを格下の仕事だと感じる人</li>
+                <li>先に渡すことを「損」と感じる人</li>
+                <li>曖昧さに耐えられない人。私たちはまだ小さく、整っていないものだらけである</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="list-heading accent-border">向いている人</h3>
+              <ul class="plain-list">
+                <li>整っていないことを「自分がつくる余白」と読める人</li>
+                <li>提言で終わらず、現場が変わるまで見届けたい人</li>
+                <li>市場、経営、営業、AIを横断して学び続けたい人</li>
+                <li>誰かの挑戦を、自分ごととして引き受けられる人</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- マーキー -->
+      <div class="marquee-band" aria-hidden="true">
+        <div class="marquee" data-marquee>
+          <span>事業の成長を、構想で終わらせない。 ― bizmote GTM Consulting Firm ― </span>
+          <span>事業の成長を、構想で終わらせない。 ― bizmote GTM Consulting Firm ― </span>
+        </div>
+      </div>
+
+      <!-- S21 CTA -->
+      <section id="s21" class="sec cta center">
+        <div class="wrap narrow" data-reveal>
+          <h2 class="cta-title">腹を割って、<br />話しませんか。</h2>
+          <p class="cta-lead">
+            面談は「審査」ではありません。こちらも、まだ整っていないことを含めて正直に話します。あなたも、迷っていることや条件をそのまま聞かせてください。お互いを見極めるための時間です。
+          </p>
+          <p class="cta-note">代表の山岡が担当します。</p>
+          <div class="cta-btn-wrap">
+            <a
+              href="https://app.spirinc.com/t/GgNzxfLPlkSTDUZPPEdRJ/as/gkE57P6z_IuitPwx3QudK/confirm"
+              target="_blank"
+              rel="noopener"
+              class="cta-btn">カジュアル面談を申し込む</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <img src="/culture/bizmote-logo-light.png" alt="bizmote" class="footer-logo" />
+        <p class="footer-name">bizmote株式会社｜GTMコンサルティングファーム</p>
+        <p class="footer-copy">© bizmote Inc. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <style>
+      :root {
+        --acc: #1f3a6e;
+        --ink: #1a1a1a;
+        --paper: #f7f5f2;
+        --sub: #6b6b6b;
+        --hair: rgba(26, 26, 26, 0.15);
+        --hair-soft: rgba(26, 26, 26, 0.12);
+        --hair-strong: rgba(26, 26, 26, 0.5);
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: 'Noto Sans JP', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--acc);
+        outline-offset: 3px;
+      }
+
+      /* ---- 固定レイヤー ---- */
+      .progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--acc);
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+        z-index: 60;
+      }
+      .bglayer {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background: var(--paper);
+        transition: background 1100ms var(--ease);
+        pointer-events: none;
+      }
+
+      /* ---- ナビゲーション ---- */
+      .nav {
+        position: fixed;
+        top: 2px;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        background: rgba(247, 245, 242, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--hair-soft);
+        transition: transform 400ms var(--ease);
+      }
+      .nav.is-hidden {
+        transform: translateY(calc(-100% - 2px));
+      }
+      .nav-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 0 24px;
+        height: 56px;
+      }
+      .nav-logo img {
+        height: 44px;
+        width: auto;
+        display: block;
+        margin: 0 -10px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .nav-link {
+        font-size: 0.8125rem;
+        letter-spacing: 0.08em;
+        color: var(--sub);
+        transition: color 200ms;
+      }
+      .nav-link:hover {
+        color: var(--acc);
+      }
+      .nav-cta {
+        font-size: 0.8125rem;
+        letter-spacing: 0.08em;
+        color: var(--paper);
+        background: var(--acc);
+        padding: 9px 20px;
+        transition: opacity 200ms;
+      }
+      .nav-cta:hover {
+        opacity: 0.85;
+      }
+      @media (max-width: 820px) {
+        .nav-link {
+          display: none;
+        }
+      }
+
+      .main {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ---- ヒーロー ---- */
+      .hero {
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        padding: 120px clamp(24px, 6vw, 80px);
+        box-sizing: border-box;
+      }
+      .hero-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        width: 100%;
+        will-change: transform, opacity;
+      }
+      .hero-logo {
+        height: 72px;
+        width: auto;
+        display: block;
+        margin: 0 0 24px -18px;
+      }
+      .hero-title {
+        font-family: 'Noto Serif JP', serif;
+        font-weight: 600;
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        line-height: 1.55;
+        letter-spacing: 0.02em;
+        margin: 0 0 48px;
+        text-wrap: pretty;
+      }
+      .hero-lead {
+        font-size: clamp(1rem, 1.1vw, 1.125rem);
+        line-height: 2;
+        max-width: 36em;
+        margin: 0;
+      }
+      .hero-scroll {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 0.6875rem;
+        letter-spacing: 0.35em;
+        color: var(--sub);
+        margin: 88px 0 0;
+      }
+      .hero-scroll-line {
+        display: block;
+        width: 56px;
+        height: 1px;
+        background: var(--sub);
+        transform-origin: 0 50%;
+        animation: scroll-hint 2.4s var(--ease) infinite;
+      }
+      @keyframes scroll-hint {
+        0% {
+          transform: scaleX(0);
+          opacity: 0;
+        }
+        40% {
+          transform: scaleX(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scaleX(1);
+          opacity: 0;
+        }
+      }
+
+      /* ---- 章扉 ---- */
+      .chapter {
+        min-height: 85svh;
+        display: flex;
+        align-items: center;
+        padding: 120px clamp(24px, 6vw, 80px);
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+      }
+      .chapter.short {
+        min-height: 60svh;
+      }
+      .chapter-num {
+        position: absolute;
+        right: -2vw;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(240px, 36vw, 560px);
+        line-height: 1;
+        font-weight: 600;
+        color: transparent;
+        -webkit-text-stroke: 1.5px rgba(247, 245, 242, 0.18);
+        pointer-events: none;
+        user-select: none;
+        will-change: transform;
+      }
+      .chapter-inner {
+        max-width: 880px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .chapter-kicker {
+        font-size: 0.8125rem;
+        letter-spacing: 0.35em;
+        color: rgba(247, 245, 242, 0.55);
+        margin: 0 0 32px;
+      }
+      .chapter-title {
+        font-family: 'Noto Serif JP', serif;
+        font-weight: 600;
+        color: var(--paper);
+        font-size: clamp(1.875rem, 4.2vw, 3.4rem);
+        line-height: 1.6;
+        margin: 0 0 40px;
+        text-wrap: pretty;
+      }
+      .chapter-lead {
+        font-size: clamp(1rem, 1.2vw, 1.1875rem);
+        line-height: 2.1;
+        color: rgba(247, 245, 242, 0.75);
+        max-width: 36em;
+        margin: 0;
+      }
+
+      /* ---- セクション共通 ---- */
+      .sec {
+        padding: clamp(96px, 12vh, 200px) clamp(24px, 6vw, 80px);
+      }
+      .sec.center {
+        text-align: center;
+      }
+      .sec.belief {
+        border-top: 2px solid var(--acc);
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+      .wrap.narrow {
+        max-width: 880px;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: clamp(40px, 6vw, 96px);
+        align-items: start;
+      }
+      .grid-2.wide-gap {
+        gap: clamp(40px, 5vw, 80px);
+      }
+      .kicker {
+        font-size: 0.75rem;
+        letter-spacing: 0.35em;
+        color: var(--sub);
+        margin: 0 0 36px;
+      }
+      .accent-kicker {
+        color: var(--acc);
+        letter-spacing: 0.3em;
+        font-weight: 500;
+      }
+      .h2 {
+        font-family: 'Noto Serif JP', serif;
+        font-weight: 600;
+        font-size: clamp(1.75rem, 3.5vw, 2.9rem);
+        line-height: 1.7;
+        margin: 0 0 32px;
+        text-wrap: pretty;
+      }
+      .h2-big {
+        font-family: 'Noto Serif JP', serif;
+        font-weight: 600;
+        font-size: clamp(2rem, 4.5vw, 3.6rem);
+        line-height: 1.65;
+        margin: 0 0 72px;
+        text-wrap: pretty;
+      }
+      .h3-large {
+        font-family: 'Noto Serif JP', serif;
+        font-weight: 600;
+        font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+        line-height: 1.8;
+        margin: 0;
+        text-wrap: pretty;
+      }
+      .h3-serif {
+        font-family: 'Noto Serif JP', serif;
+        font-weight: 600;
+        font-size: clamp(1.125rem, 1.6vw, 1.5rem);
+        margin: 0 0 16px;
+      }
+      .body-text {
+        font-size: clamp(1rem, 1.1vw, 1.125rem);
+        line-height: 2;
+        margin: 0 0 1.4em;
+        max-width: 42em;
+      }
+      .body-text.last {
+        margin-bottom: 0;
+      }
+      .body-block {
+        max-width: 42em;
+      }
+      .small-text {
+        font-size: 0.9375rem;
+        line-height: 2;
+        margin: 0;
+      }
+      .pull-quote {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+        line-height: 2.1;
+        max-width: 40em;
+        margin: 64px 0 24px;
+        text-wrap: pretty;
+      }
+      .pull-quote.centered {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+      .center .pull-quote {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .source {
+        font-size: 0.8125rem;
+        color: var(--sub);
+        line-height: 1.8;
+        margin: 32px 0 0;
+      }
+      .source.bordered {
+        margin-top: 56px;
+        border-top: 1px solid var(--hair);
+        padding-top: 16px;
+      }
+      .source.centered {
+        text-align: center;
+      }
+      .note {
+        font-size: 0.9375rem;
+        line-height: 2;
+        color: var(--sub);
+        max-width: 46em;
+        margin: 0;
+      }
+      .note.bordered {
+        margin: 64px 0 96px;
+        border-top: 1px solid var(--hair);
+        padding-top: 24px;
+      }
+      .em-serif {
+        font-family: 'Noto Serif JP', serif;
+        font-size: 1.35em;
+        font-weight: 600;
+      }
+      .label-en {
+        font-size: 0.75rem;
+        letter-spacing: 0.25em;
+        color: var(--sub);
+        margin: 0 0 12px;
+      }
+      .mb-sm {
+        margin-bottom: 16px;
+      }
+      .mb-md {
+        margin-bottom: 40px;
+      }
+      .mb-lg {
+        margin-bottom: 64px;
+      }
+      .mb-xl {
+        margin-bottom: 80px;
+      }
+      .center .kicker {
+        text-align: center;
+      }
+
+      /* ---- 統計 ---- */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: clamp(32px, 4vw, 56px);
+        margin: 0 0 80px;
+      }
+      .stat-num {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(3rem, 6vw, 4.5rem);
+        font-weight: 500;
+        line-height: 1;
+        margin: 0 0 20px;
+      }
+      .stat-num.accent {
+        color: var(--acc);
+      }
+      .stat-unit {
+        font-size: 0.5em;
+      }
+      .stat-label {
+        font-size: 0.9375rem;
+        line-height: 1.9;
+        margin: 0;
+      }
+
+      /* ---- 図版 ---- */
+      .figure {
+        margin: 64px 0;
+      }
+      .figure.scroll-x {
+        overflow-x: auto;
+      }
+      .figure-svg {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+      }
+      .figure-caption {
+        font-size: 0.8125rem;
+        color: var(--sub);
+        text-align: center;
+        margin: 24px 0 0;
+      }
+      .q-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px;
+        margin: 0 0 64px;
+      }
+      .q-item {
+        font-size: clamp(1rem, 1.2vw, 1.1875rem);
+        line-height: 2;
+        margin: 0;
+        border-top: 1px solid var(--hair-strong);
+        padding-top: 20px;
+      }
+
+      /* ---- 信念 ---- */
+      .belief-conclusion {
+        border-top: 1px solid var(--hair);
+        margin: 64px 0 0;
+        padding: 48px 0 0;
+      }
+      .belief-statement {
+        font-family: 'Noto Serif JP', serif;
+        font-weight: 600;
+        font-size: clamp(1.375rem, 2.4vw, 2rem);
+        line-height: 1.9;
+        margin: 0;
+        text-wrap: pretty;
+      }
+
+      /* ---- 番号リスト ---- */
+      .num-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .num-list li {
+        display: grid;
+        grid-template-columns: 64px 1fr;
+        gap: 16px;
+        align-items: baseline;
+        padding: 24px 0;
+        border-top: 1px solid var(--hair);
+      }
+      .num-list li:last-child {
+        border-bottom: 1px solid var(--hair);
+      }
+      .num-list-no {
+        font-family: 'Noto Serif JP', serif;
+        font-size: 0.9375rem;
+        color: var(--sub);
+      }
+      .num-list-label {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.125rem, 1.6vw, 1.5rem);
+        font-weight: 500;
+      }
+
+      /* ---- 段組・枠線グリッド ---- */
+      .col3-bordered,
+      .col4-bordered {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 0;
+        border-top: 1px solid var(--hair);
+        border-bottom: 1px solid var(--hair);
+        text-align: left;
+      }
+      .col4-bordered {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+      .col3-cell,
+      .col4-cell {
+        padding: 40px 32px;
+      }
+      .col3-cell:first-child,
+      .col4-cell:first-child {
+        padding-left: 0;
+      }
+      .col3-cell:last-child,
+      .col4-cell:last-child {
+        padding-right: 0;
+      }
+      .col3-cell + .col3-cell,
+      .col4-cell + .col4-cell {
+        border-left: 1px solid var(--hair);
+      }
+      @media (max-width: 767px) {
+        .col3-cell + .col3-cell,
+        .col4-cell + .col4-cell {
+          border-left: none;
+          border-top: 1px solid var(--hair);
+        }
+        .col3-cell,
+        .col4-cell {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+      .col4-no {
+        font-family: 'Noto Serif JP', serif;
+        font-size: 0.9375rem;
+        color: var(--sub);
+        margin: 0 0 12px;
+      }
+      .col4-title {
+        font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+        font-weight: 700;
+        margin: 0 0 10px;
+      }
+      .biz-name {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.375rem, 2vw, 1.75rem);
+        font-weight: 600;
+        margin: 0 0 8px;
+      }
+      .biz-tag {
+        font-size: 0.8125rem;
+        letter-spacing: 0.12em;
+        color: var(--sub);
+        margin: 0 0 24px;
+      }
+
+      /* ---- 行リスト（企業名など） ---- */
+      .rows {
+        border-top: 1px solid var(--hair);
+      }
+      .row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 8px 48px;
+        align-items: baseline;
+        padding: 32px 0;
+        border-bottom: 1px solid var(--hair);
+      }
+      .row-name {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+        font-weight: 500;
+        margin: 0;
+      }
+      .row-desc {
+        font-size: 0.9375rem;
+        line-height: 1.9;
+        margin: 0;
+      }
+
+      /* ---- 宣言 ---- */
+      .declaration {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.25rem, 2.2vw, 1.875rem);
+        line-height: 2;
+        max-width: 32em;
+        margin: 0 auto 96px;
+        text-wrap: pretty;
+      }
+      .centered-block {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 64px;
+        margin-bottom: 0;
+        max-width: 40em;
+      }
+
+      /* ---- GTM 6つの問い ---- */
+      .q6-list {
+        list-style: none;
+        margin: 0 0 96px;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 0 64px;
+        border-top: 1px solid var(--hair);
+      }
+      .q6-list li {
+        display: grid;
+        grid-template-columns: 48px 1fr;
+        gap: 12px;
+        align-items: baseline;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--hair);
+        font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
+      }
+      .q6-no {
+        font-family: 'Noto Serif JP', serif;
+        font-size: 0.9375rem;
+        color: var(--sub);
+      }
+
+      /* ---- 分断リスト ---- */
+      .fault-grid {
+        list-style: none;
+        margin: 64px 0 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 24px 40px;
+      }
+      .fault-grid li {
+        border-top: 1px solid var(--hair);
+        padding-top: 16px;
+      }
+      .fault-name {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 6px;
+      }
+      .fault-desc {
+        font-size: 0.9375rem;
+        line-height: 1.9;
+        color: var(--sub);
+      }
+
+      /* ---- アコーディオン ---- */
+      .accordion {
+        border-top: 1px solid rgba(26, 26, 26, 0.3);
+      }
+      .acc-item {
+        border-bottom: 1px solid var(--hair);
+      }
+      .acc-btn {
+        display: grid;
+        grid-template-columns: 52px minmax(120px, 200px) 1fr 32px;
+        gap: 16px;
+        align-items: baseline;
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        padding: 26px 0;
+        cursor: pointer;
+        font-family: 'Noto Sans JP', sans-serif;
+        color: var(--ink);
+        transition: background 200ms;
+      }
+      .acc-btn:hover {
+        background: rgba(26, 26, 26, 0.03);
+      }
+      .acc-no {
+        font-family: 'Noto Serif JP', serif;
+        font-size: 0.9375rem;
+        color: var(--sub);
+      }
+      .acc-en {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+        font-weight: 500;
+      }
+      .acc-ja {
+        font-size: 0.9375rem;
+        line-height: 1.9;
+      }
+      .acc-mark {
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: var(--sub);
+        text-align: right;
+      }
+      .acc-detail {
+        font-size: 0.9375rem;
+        line-height: 2;
+        color: var(--sub);
+        margin: 0;
+        padding: 0 32px 28px 68px;
+      }
+      @media (max-width: 640px) {
+        .acc-btn {
+          grid-template-columns: 40px 1fr 32px;
+        }
+        .acc-ja {
+          grid-column: 2 / 3;
+          grid-row: 2;
+        }
+        .acc-detail {
+          padding-left: 56px;
+        }
+      }
+
+      /* ---- 変える／変えない ---- */
+      .list-heading {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.125rem, 1.6vw, 1.5rem);
+        font-weight: 600;
+        margin: 0 0 32px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--hair-strong);
+      }
+      .list-heading.accent-border {
+        border-bottom-color: var(--acc);
+      }
+      .plain-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: 0.9375rem;
+        line-height: 2;
+      }
+      .plain-list li {
+        padding: 18px 0;
+        border-bottom: 1px solid var(--hair-soft);
+      }
+      .plain-list.narrow-list {
+        max-width: 720px;
+        border-top: 1px solid var(--hair);
+        margin-bottom: 24px;
+      }
+      .dim {
+        color: var(--sub);
+      }
+      .arrow {
+        margin: 0 10px;
+        color: var(--sub);
+      }
+      .line-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: clamp(1rem, 1.1vw, 1.125rem);
+        line-height: 2;
+      }
+      .line-list li {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--hair-soft);
+      }
+      .line-list.narrow-list {
+        max-width: 720px;
+        margin-bottom: 40px;
+      }
+
+      /* ---- 素養リスト ---- */
+      .skill-list {
+        list-style: none;
+        margin: 0 0 64px;
+        padding: 0;
+        border-top: 1px solid var(--hair);
+      }
+      .skill-list li {
+        display: grid;
+        grid-template-columns: 52px minmax(160px, 290px) 1fr;
+        gap: 16px;
+        align-items: baseline;
+        padding: 24px 0;
+        border-bottom: 1px solid var(--hair);
+      }
+      @media (max-width: 640px) {
+        .skill-list li {
+          grid-template-columns: 40px 1fr;
+        }
+        .skill-desc {
+          grid-column: 2 / 3;
+        }
+      }
+      .skill-no {
+        font-family: 'Noto Serif JP', serif;
+        font-size: 0.9375rem;
+        color: var(--sub);
+      }
+      .skill-name {
+        font-weight: 700;
+        font-size: clamp(1rem, 1.2vw, 1.125rem);
+      }
+      .skill-desc {
+        font-size: 0.9375rem;
+        line-height: 1.9;
+      }
+
+      /* ---- キャリアタイムライン ---- */
+      .timeline {
+        border-left: 1px solid rgba(26, 26, 26, 0.3);
+        padding-left: clamp(28px, 4vw, 56px);
+        display: grid;
+        gap: 64px;
+        max-width: 820px;
+      }
+      .timeline-item {
+        position: relative;
+      }
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: calc(-1 * clamp(28px, 4vw, 56px) - 5px);
+        top: 12px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--ink);
+      }
+      .timeline-item.accent-dot::before {
+        background: var(--acc);
+      }
+      .timeline-title {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.25rem, 1.8vw, 1.625rem);
+        font-weight: 600;
+        margin: 0 0 20px;
+      }
+      .env-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 32px 48px;
+        margin: 0 0 56px;
+      }
+      .env-cell {
+        border-top: 1px solid var(--hair-strong);
+        padding-top: 20px;
+      }
+      .env-title {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+        font-weight: 600;
+        margin: 0 0 12px;
+      }
+
+      /* ---- MVV ---- */
+      .mvv {
+        display: grid;
+        gap: 72px;
+        margin: 72px 0 120px;
+      }
+      .mvv-statement {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+        font-weight: 600;
+        margin: 0;
+      }
+      .mvv-desc {
+        font-size: clamp(1rem, 1.1vw, 1.125rem);
+        line-height: 2.1;
+        max-width: 34em;
+        margin: 24px auto 0;
+      }
+      .mvv .label-en {
+        letter-spacing: 0.3em;
+        margin-bottom: 16px;
+      }
+      .values {
+        display: grid;
+        gap: 0;
+        text-align: left;
+        border-top: 1px solid var(--hair);
+        margin-top: 56px;
+      }
+      .value {
+        padding: 48px 0;
+        border-bottom: 1px solid var(--hair);
+      }
+      .value-title {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.25rem, 1.9vw, 1.625rem);
+        font-weight: 600;
+        margin: 0 0 8px;
+      }
+      .value-sub {
+        font-size: 0.9375rem;
+        color: var(--sub);
+        line-height: 1.9;
+        margin: 0 0 20px;
+      }
+      .value .body-text {
+        margin-bottom: 0;
+      }
+
+      /* ---- 時価総額 ---- */
+      .cap-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 32px;
+        margin: 0 0 20px;
+      }
+      .cap-cell {
+        border-top: 1px solid var(--hair-strong);
+        padding-top: 24px;
+      }
+      .cap-name {
+        font-size: 0.9375rem;
+        font-weight: 500;
+        margin: 0 0 4px;
+      }
+      .cap-code {
+        font-size: 0.75rem;
+        color: var(--sub);
+        margin: 0 0 20px;
+      }
+      .cap-value {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.75rem, 3vw, 2.5rem);
+        font-weight: 500;
+        line-height: 1.2;
+        margin: 0 0 8px;
+      }
+      .cap-unit {
+        font-size: 0.5em;
+      }
+      .cap-bar-track {
+        margin: 0 0 10px;
+      }
+      .cap-bar {
+        height: 6px;
+        background: var(--acc);
+        width: 0;
+        transition: width 1200ms var(--ease);
+      }
+      .cap-date {
+        font-size: 0.75rem;
+        color: var(--sub);
+        margin: 0;
+      }
+
+      /* ---- 必要な4つ ---- */
+      .need-grid {
+        list-style: none;
+        margin: 0 0 96px;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 40px;
+      }
+      .need-grid li {
+        border-top: 1px solid var(--hair-strong);
+        padding-top: 24px;
+      }
+      .need-no {
+        font-family: 'Noto Serif JP', serif;
+        font-size: 0.9375rem;
+        color: var(--sub);
+        margin: 0 0 14px;
+      }
+      .need-title {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+        font-weight: 600;
+        margin: 0 0 12px;
+      }
+
+      /* ---- 成長3列 ---- */
+      .grow-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 0;
+        border-top: 1px solid var(--hair-strong);
+        border-bottom: 1px solid var(--hair-strong);
+        margin: 0 0 40px;
+      }
+      .grow-cell {
+        padding: 36px 32px;
+      }
+      .grow-cell:first-child {
+        padding-left: 0;
+      }
+      .grow-cell + .grow-cell {
+        border-left: 1px solid var(--hair);
+      }
+      @media (max-width: 767px) {
+        .grow-cell + .grow-cell {
+          border-left: none;
+          border-top: 1px solid var(--hair);
+        }
+        .grow-cell {
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .grow-cell.inverted {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+      }
+      .grow-cell .label-en {
+        margin-bottom: 14px;
+      }
+      .grow-title {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+        font-weight: 600;
+        margin: 0 0 12px;
+      }
+      .grow-cell.inverted {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .grow-cell.inverted .label-en {
+        color: rgba(247, 245, 242, 0.6);
+      }
+      .grow-cell.inverted .small-text {
+        color: rgba(247, 245, 242, 0.8);
+      }
+
+      /* ---- bizPort ---- */
+      .bizport-visual {
+        width: 100%;
+        height: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--hair);
+        background: repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(26, 26, 26, 0.04) 14px, rgba(26, 26, 26, 0.04) 15px);
+      }
+      .bizport-visual span {
+        font-family: 'Noto Serif JP', serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 600;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(26, 26, 26, 0.35);
+      }
+      .road-grid {
+        list-style: none;
+        margin: 0 0 56px;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 32px;
+      }
+      .road-grid li {
+        border-top: 1px solid var(--hair-strong);
+        padding-top: 20px;
+      }
+
+      /* ---- マーキー ---- */
+      .marquee-band {
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 56px 0;
+        border-top: 1px solid var(--hair-soft);
+        border-bottom: 1px solid var(--hair-soft);
+        position: relative;
+        z-index: 1;
+      }
+      .marquee {
+        display: inline-flex;
+        animation: om-marquee 30s linear infinite;
+        will-change: transform;
+      }
+      .marquee span {
+        font-family: 'Noto Serif JP', serif;
+        font-weight: 600;
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        line-height: 1.2;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(26, 26, 26, 0.4);
+        padding-right: 2em;
+      }
+      @keyframes om-marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ---- CTA ---- */
+      .sec.cta {
+        padding: clamp(120px, 16vh, 240px) clamp(24px, 6vw, 80px);
+      }
+      .cta-title {
+        font-family: 'Noto Serif JP', serif;
+        font-weight: 600;
+        font-size: clamp(2rem, 5vw, 3.6rem);
+        line-height: 1.6;
+        margin: 0 0 40px;
+      }
+      .cta-lead {
+        font-size: clamp(1rem, 1.1vw, 1.125rem);
+        line-height: 2.1;
+        max-width: 26em;
+        margin: 0 auto 24px;
+        text-align: left;
+        text-wrap: pretty;
+      }
+      .cta-note {
+        font-size: 0.875rem;
+        letter-spacing: 0.06em;
+        color: var(--sub);
+        margin: 0 0 64px;
+      }
+      .cta-btn-wrap {
+        display: flex;
+        justify-content: center;
+      }
+      .cta-btn {
+        display: inline-block;
+        background: var(--acc);
+        color: var(--paper);
+        font-size: 1.0625rem;
+        letter-spacing: 0.12em;
+        padding: 20px 64px;
+        transition:
+          transform 300ms var(--ease),
+          box-shadow 300ms;
+      }
+      .cta-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 40px rgba(31, 58, 110, 0.35);
+      }
+
+      /* ---- フッター ---- */
+      .footer {
+        position: relative;
+        z-index: 1;
+        background: var(--ink);
+        color: #b9b5af;
+        padding: clamp(72px, 8vh, 120px) clamp(24px, 6vw, 80px) 48px;
+      }
+      .footer-logo {
+        height: 52px;
+        width: auto;
+        display: block;
+        margin: 0 0 8px -12px;
+      }
+      .footer-name {
+        font-size: 0.8125rem;
+        line-height: 1.9;
+        margin: 0 0 48px;
+      }
+      .footer-copy {
+        font-size: 0.75rem;
+        line-height: 1.9;
+        margin: 0;
+        border-top: 1px solid rgba(247, 245, 242, 0.15);
+        padding-top: 24px;
+        color: #8a8680;
+      }
+
+      /* ---- スクロール演出 ---- */
+      .reveal-init {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      .reveal-in {
+        opacity: 1;
+        transform: none;
+        transition:
+          opacity 800ms var(--ease),
+          transform 800ms var(--ease);
+      }
+      .reveal-init [data-clip] {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      .reveal-in [data-clip] {
+        opacity: 1;
+        transform: none;
+        transition:
+          opacity 900ms var(--ease) 150ms,
+          transform 900ms var(--ease) 150ms;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .marquee {
+          animation: none;
+        }
+        .hero-scroll-line {
+          animation: none;
+        }
+        .bglayer {
+          transition: none;
+        }
+        .reveal-init {
+          opacity: 1;
+          transform: none;
+        }
+        .reveal-init [data-clip] {
+          opacity: 1;
+          transform: none;
+        }
+        .cap-bar {
+          transition: none;
+        }
+      }
+    </style>
+
+    <script>
+      const init = () => {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const docEl = document.documentElement;
+
+        // --- スクロール進捗バー / 背景色の移ろい / ナビ隠し / ヒーローパララックス / 章番号パララックス ---
+        const progressEl = document.querySelector<HTMLElement>('[data-progress]');
+        const bgLayer = document.querySelector<HTMLElement>('[data-bglayer]');
+        const nav = document.querySelector<HTMLElement>('[data-nav]');
+        const hero = document.querySelector<HTMLElement>('[data-hero]');
+        const bgSections = Array.from(document.querySelectorAll<HTMLElement>('[data-bg]'));
+        const parallaxEls = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'));
+
+        let lastY = 0;
+        let currentBg = '';
+        let ticking = false;
+
+        const onScroll = () => {
+          const y = docEl.scrollTop || window.scrollY;
+          const max = docEl.scrollHeight - docEl.clientHeight;
+
+          if (progressEl) {
+            progressEl.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+          }
+
+          if (bgLayer) {
+            let bg = '#F7F5F2';
+            const half = window.innerHeight * 0.5;
+            for (const el of bgSections) {
+              if (el.getBoundingClientRect().top < half) bg = el.dataset.bg ?? bg;
+            }
+            if (bg !== currentBg) {
+              currentBg = bg;
+              bgLayer.style.background = bg;
+            }
+          }
+
+          if (nav) {
+            const goingDown = y > lastY;
+            nav.classList.toggle('is-hidden', goingDown && y > 120);
+            lastY = y;
+          }
+
+          if (!reduceMotion && hero) {
+            hero.style.opacity = String(Math.max(0, 1 - y / (window.innerHeight * 0.7)));
+            hero.style.transform = `translateY(${(y * 0.2).toFixed(1)}px)`;
+          }
+
+          if (!reduceMotion) {
+            const vh = window.innerHeight;
+            for (const el of parallaxEls) {
+              const parent = el.parentElement;
+              if (!parent) continue;
+              const r = parent.getBoundingClientRect();
+              if (r.bottom < -100 || r.top > vh + 100) continue;
+              const ty = (r.top + r.height / 2 - vh / 2) * parseFloat(el.dataset.parallax ?? '0.2');
+              el.style.transform = `translateY(calc(-50% + ${ty.toFixed(1)}px))`;
+            }
+          }
+
+          ticking = false;
+        };
+
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(onScroll);
+            }
+          },
+          { passive: true }
+        );
+        onScroll();
+
+        // --- 出現アニメーション（reveal） ---
+        const revealEls = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+        if (!reduceMotion && 'IntersectionObserver' in window) {
+          const below = revealEls.filter((el) => el.getBoundingClientRect().top >= window.innerHeight * 0.9);
+          below.forEach((el) => el.classList.add('reveal-init'));
+          const ro = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                entry.target.classList.add('reveal-in');
+                ro.unobserve(entry.target);
+              }
+            },
+            { rootMargin: '0px 0px -10% 0px' }
+          );
+          below.forEach((el) => ro.observe(el));
+          // セーフティ: 6秒後に未表示が残っていたら強制表示
+          setTimeout(() => {
+            below.forEach((el) => el.classList.add('reveal-in'));
+          }, 6000);
+        }
+
+        // --- 数値カウントアップ ---
+        const counts = Array.from(document.querySelectorAll<HTMLElement>('[data-count]'));
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+          counts.forEach((el) => {
+            el.textContent = el.dataset.count ?? '';
+          });
+        } else {
+          const co = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                co.unobserve(entry.target);
+                const target = entry.target as HTMLElement;
+                const goal = Number(target.dataset.count ?? '0');
+                const started = performance.now();
+                const tick = (now: number) => {
+                  const k = Math.min(1, (now - started) / 1400);
+                  target.textContent = String(Math.round(goal * (1 - Math.pow(1 - k, 3))));
+                  if (k < 1) requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+              }
+            },
+            { threshold: 0.6 }
+          );
+          counts.forEach((el) => co.observe(el));
+        }
+
+        // --- 時価総額バーの伸長 ---
+        const bars = Array.from(document.querySelectorAll<HTMLElement>('[data-bar]'));
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+          bars.forEach((el) => {
+            el.style.width = `${el.dataset.bar}%`;
+          });
+        } else {
+          const bo = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                bo.unobserve(entry.target);
+                const target = entry.target as HTMLElement;
+                requestAnimationFrame(() => {
+                  target.style.width = `${target.dataset.bar}%`;
+                });
+              }
+            },
+            { threshold: 0.4 }
+          );
+          bars.forEach((el) => bo.observe(el));
+        }
+
+        // --- GTM Method アコーディオン ---
+        const accButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-acc]'));
+        accButtons.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            accButtons.forEach((other) => {
+              other.setAttribute('aria-expanded', 'false');
+              const mark = other.querySelector('.acc-mark');
+              if (mark) mark.textContent = '+';
+              const panel = document.getElementById(other.getAttribute('aria-controls') ?? '');
+              if (panel) panel.hidden = true;
+            });
+            if (!expanded) {
+              btn.setAttribute('aria-expanded', 'true');
+              const mark = btn.querySelector('.acc-mark');
+              if (mark) mark.textContent = '−';
+              const panel = document.getElementById(btn.getAttribute('aria-controls') ?? '');
+              if (panel) panel.hidden = false;
+            }
+          });
+        });
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init, { once: true });
+      } else {
+        init();
+      }
+    </script>
+  </body>
+</html>
