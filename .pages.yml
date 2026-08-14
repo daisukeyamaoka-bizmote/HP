@@ -206,7 +206,7 @@ content:
         label: フッターの一文説明
         type: text
       - name: cultureDeckUrl
-        label: カルチャーデックのURL(入力するとフッターにリンクが表示されます。空欄なら非表示)
+        label: カルチャーデックのURL(サイト内なら /culturedeck/ 、外部なら https:// から。空欄ならフッターのリンクを非表示)
         type: string
       - name: twitter
         label: X(Twitter)アカウント

@@ -24,6 +24,9 @@ export const GET: APIRoute = async () => {
     `- タグライン: ${site.tagline}`,
     `- 会社情報: ${site.siteUrl}/about/`,
     `- 事業について: ${site.siteUrl}/services/`,
+    ...(site.cultureDeckUrl
+      ? [`- カルチャーデック: ${new URL(site.cultureDeckUrl, site.siteUrl).toString()}`]
+      : []),
     '',
     '## サービス',
     '',

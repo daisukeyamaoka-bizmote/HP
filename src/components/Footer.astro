@@ -31,7 +31,12 @@ const year = new Date().getFullYear();
           <li><a href="/news/">お知らせ</a></li>
           {site.cultureDeckUrl && (
             <li>
-              <a href={site.cultureDeckUrl} target="_blank" rel="noopener">カルチャーデック</a>
+              <a
+                href={site.cultureDeckUrl}
+                {...(site.cultureDeckUrl.startsWith('http')
+                  ? { target: '_blank', rel: 'noopener' }
+                  : {})}
+              >カルチャーデック</a>
             </li>
           )}
         </ul>

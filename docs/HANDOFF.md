@@ -1,6 +1,6 @@
 # 引き継ぎ資料(別セッション・別担当者向け)
 
-最終更新:2026-08-10 / 対象:bizmote オウンドメディア型コーポレートサイト
+最終更新:2026-08-14 / 対象:bizmote オウンドメディア型コーポレートサイト
 
 このファイルだけで作業を再開できることを目的とした引き継ぎメモ。設計の詳細は `DESIGN_SPEC.md`、運用手順は `運用手順書.md` を参照。
 
@@ -73,8 +73,10 @@ docs/                     仕様書・運用手順書・本ファイル
 wrangler.jsonc            Cloudflare Workers 用(dist/を静的配信)
 ```
 
-### ページ一覧(28ページ生成)
-`/` `/articles/` `/articles/{slug}/` `/category/{gtm|ax|startup}/` `/authors/{slug}/` `/about/` `/services/` `/news/` `/news/{slug}/` `/404` `/llms.txt` `/rss.xml` `/sitemap-index.xml`
+### ページ一覧(29ページ生成)
+`/` `/articles/` `/articles/{slug}/` `/category/{gtm|ax|startup}/` `/authors/{slug}/` `/about/` `/services/` `/news/` `/news/{slug}/` `/culturedeck/` `/404` `/llms.txt` `/rss.xml` `/sitemap-index.xml`
+
+> `/culturedeck/` は PR #4 で `main` に入ったカルチャーデックLP。**サイト共通レイアウトを使わない独立ページ**(`src/pages/culturedeck/index.astro` 1ファイルで完結。フォント・配色・アニメーションも独自)。`docs/DESIGN_SPEC.md` の規約は適用されない。
 
 ---
 
@@ -153,13 +155,15 @@ VercelとCloudflare Workersの**両方**がPRに自動デプロイしている�
 > カテゴリのスラッグ変更はURL変更を伴う。**公開前の今なら無償で変更可能**。
 
 ### 課題3:未提供の素材
-- カルチャーデックのURL(`site.json` の `cultureDeckUrl`。入力するとフッター「運営元」欄にリンクが出る。空欄なら非表示)
+- ~~カルチャーデックのURL~~ → **解決済み**。`cultureDeckUrl` に `/culturedeck/` を設定し、フッター「運営元」欄と `/llms.txt` にリンクが出るようになった。外部URL(Google Slides等)に差し替える場合は `https://` から始めれば自動で別タブ表示になる
 - いつでも番頭さん / NANORIBA のサービスサイトURL
 - メンバー5名の顔写真
 - 記事のメイン画像(現状すべて未設定)
 
 ### 課題4:PR未マージ
 PR #3 はDraftのまま。デザイン確認後に Ready for review → Merge が必要。
+
+2026-08-14 時点で `origin/main` を作業ブランチに取り込み済み(`main` との差分は本ブランチの変更のみ)。`main` に新しいコミットが入ったら、マージ前に再度 `git merge origin/main` すること。
 
 ---
 
@@ -192,7 +196,7 @@ Pages CMS(https://app.pagescms.org/)でブラウザ完結。
 
 変更を加えたら以下を確認すること。
 
-- [ ] `npm run build` が成功(28ページ)
+- [ ] `npm run build` が成功(29ページ)
 - [ ] `npm run check` がエラー0
 - [ ] OSをダークモードにしても白地のまま(`color-scheme: light` が効いている)
 - [ ] ヘッダーが下スクロールで隠れ、上スクロールで戻る
