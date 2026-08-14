@@ -1,0 +1,15 @@
+---
+/**
+ * 記事・お知らせが0件のときに出す一文。
+ * 罫線と余白だけで構成し、装飾は足さない(DESIGN_SPEC 1章)。
+ */
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+---
+<p
+  style="font-size:14px; line-height:2; color:var(--muted); margin:0; padding:28px 0; border-bottom:1px solid var(--line-soft); text-wrap:pretty;"
+>
+  {text}
+</p>

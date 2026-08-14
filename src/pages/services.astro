@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import site from '../data/site.json';
+import { services } from '../data/services';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'トップ', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'サービス', item: new URL('/services/', Astro.site).href },
+  ],
+};
+---
+<BaseLayout
+  title="サービス"
+  description={`${site.companyName}のサービス。${services.map((s) => s.name).join('／')}。詳細は各サービスサイトをご覧ください。`}
+  schema={schema}
+>
+  <div class="reading" style="padding:56px 0 24px 0;">
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+      <a href="/">トップ</a>　／　サービス
+    </nav>
+    <h1 class="page-title" style="margin-bottom:24px;">サービス</h1>
+    <p style="font-size:15px; line-height:2.1; color:var(--body2); margin:0; max-width:36em; text-wrap:pretty;">
+      {site.companyName}は、3つの専門領域で事業の市場参入を支援しています。各サービスの詳細は、それぞれのサービスサイトをご覧ください。
+    </p>
+  </div>
+
+  <section class="reading" style="padding:32px 0 80px 0;">
+    {services.map((s, i) => (
+      <div id={s.slug} class={i === 0 ? 'section-head--first' : 'section-head'} style="margin-bottom:40px;">
+        <h2 style="font-family:var(--serif); font-size:clamp(22px, 3.4vw, 28px); font-weight:700; line-height:1.7; margin:0 0 14px 0;">{s.name}</h2>
+        <p style="font-size:15px; line-height:2.1; color:var(--body2); margin:0 0 16px 0; max-width:36em;">{s.summary}</p>
+        <div style="display:flex; gap:24px; align-items:baseline; flex-wrap:wrap;">
+          {s.url && <a href={s.url} style="font-size:13px; font-weight:700;">サービスサイト →</a>}
+          <a href={`/category/${s.catSlug}/`} style="font-size:13px; color:var(--muted);">関連記事:{s.catName} →</a>
+        </div>
+      </div>
+    ))}
+  </section>
+</BaseLayout>

@@ -1,0 +1,46 @@
+---
+import { categories } from '../data/categories';
+---
+<header class="site-header bm-logo" id="site-header">
+  <a href="/" class="logo" aria-label="bizmote(ビズモート) トップページ">
+    <img src="/images/RGB_black.png" alt="bizmote(ビズモート)" width="150" height="40" />
+  </a>
+  <nav class="site-nav bm-nav" aria-label="メインナビゲーション">
+    {categories.map((cat) => <a href={`/category/${cat.slug}/`}>{cat.name}</a>)}
+  </nav>
+</header>
+
+<script>
+  (() => {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+    const TOP_ZONE = 140; // ページ上端から140px以内は常に表示
+    const MOVE = 6; // 反応するスクロール移動量
+    let lastY = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      const y = window.scrollY;
+      const diff = y - lastY;
+      if (y <= TOP_ZONE) {
+        header.classList.remove('is-hidden');
+      } else if (diff > MOVE) {
+        header.classList.add('is-hidden');
+        lastY = y;
+      } else if (diff < -MOVE) {
+        header.classList.remove('is-hidden');
+        lastY = y;
+      }
+      if (Math.abs(diff) > MOVE) lastY = y;
+      ticking = false;
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      },
+      { passive: true }
+    );
+  })();
+</script>

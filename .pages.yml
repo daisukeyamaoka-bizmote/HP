@@ -1,0 +1,234 @@
+media:
+  input: public/uploads
+  output: /uploads
+
+content:
+  - name: articles
+    label: 記事
+    type: collection
+    path: content/articles
+    filename: '{fields.slug}.md'
+    view:
+      fields: [title, category, author, date]
+      sort: [date]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: タイトル
+        type: string
+        required: true
+      - name: slug
+        label: スラッグ(URL用・半角英数とハイフン)
+        type: string
+        required: true
+        pattern:
+          regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+          message: 半角小文字の英数字とハイフンのみ使用できます(例 enterprise-sales-blueprint)
+      - name: description
+        label: リード文(一覧や検索結果に表示される要約・120字前後)
+        type: text
+        required: true
+      - name: summary
+        label: この記事の結論(記事冒頭の結論ボックス・150〜200字)
+        type: text
+      - name: category
+        label: カテゴリ
+        type: select
+        required: true
+        options:
+          values:
+            - value: gtm
+              label: GTM
+            - value: ax
+              label: AX
+            - value: org
+              label: 組織
+            - value: newbiz
+              label: 新規事業
+      - name: author
+        label: 執筆・監修者
+        type: select
+        required: true
+        options:
+          values:
+            - value: daisuke-yamaoka
+              label: 山岡 大介
+            - value: daiki-okui
+              label: 奥居 大輝
+            - value: hayato-sudo
+              label: 須藤 隼
+            - value: yasuyuki-iwata
+              label: 岩田 恭行
+            - value: kyohei-watanabe
+              label: 渡邉 恭平
+      - name: date
+        label: 公開日
+        type: date
+        required: true
+      - name: updated
+        label: 更新日
+        type: date
+      - name: image
+        label: メイン画像(16:9推奨)
+        type: image
+      - name: readingTime
+        label: 読了時間(分・空欄なら自動計算)
+        type: number
+      - name: draft
+        label: 下書き(オンにすると非公開)
+        type: boolean
+        default: false
+      - name: body
+        label: 本文
+        type: rich-text
+
+  - name: news
+    label: お知らせ
+    type: collection
+    path: content/news
+    filename: '{fields.slug}.md'
+    view:
+      fields: [title, type, date]
+      sort: [date]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: タイトル
+        type: string
+        required: true
+      - name: slug
+        label: スラッグ(URL用・半角英数とハイフン)
+        type: string
+        required: true
+        pattern:
+          regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+          message: 半角小文字の英数字とハイフンのみ使用できます(例 office-relocation)
+      - name: date
+        label: 公開日
+        type: date
+        required: true
+      - name: type
+        label: 種別
+        type: select
+        required: true
+        default: announce
+        options:
+          values:
+            - value: release
+              label: プレスリリース
+            - value: announce
+              label: お知らせ
+            - value: event
+              label: イベント
+            - value: media
+              label: メディア掲載
+      - name: description
+        label: 概要(検索結果・SNS用の要約)
+        type: text
+      - name: draft
+        label: 下書き(オンにすると非公開)
+        type: boolean
+        default: false
+      - name: body
+        label: 本文
+        type: rich-text
+
+  - name: authors
+    label: 執筆・監修者(メンバー)
+    type: collection
+    path: content/authors
+    view:
+      fields: [name, role]
+      sort: [order]
+    fields:
+      - name: name
+        label: 名前
+        type: string
+        required: true
+      - name: role
+        label: 役職
+        type: string
+        required: true
+      - name: note
+        label: 記事メタ欄の肩書き(例 CRO・キーエンス出身)
+        type: string
+      - name: bio
+        label: プロフィール文
+        type: text
+        required: true
+      - name: bioShort
+        label: 短いプロフィール文(記事末尾の書き手欄用)
+        type: text
+      - name: avatar
+        label: 顔写真(正方形推奨)
+        type: image
+      - name: member
+        label: 「運営元について」のメンバー欄に表示する
+        type: boolean
+        default: true
+      - name: order
+        label: 表示順(小さいほど上)
+        type: number
+        default: 99
+
+  - name: site
+    label: サイト設定
+    type: file
+    path: src/data/site.json
+    fields:
+      - name: siteName
+        label: サイト名
+        type: string
+      - name: companyName
+        label: 会社名
+        type: string
+      - name: siteUrl
+        label: サイトURL
+        type: string
+      - name: title
+        label: トップページのタイトル(検索結果・SNSに表示)
+        type: string
+      - name: description
+        label: サイトの説明文(検索結果・SNSに表示)
+        type: text
+      - name: communityName
+        label: 起業家輩出コミュニティの名称(NANORIBA。名称変更時はここを編集すると全ページに反映)
+        type: string
+      - name: companyCategory
+        label: 会社カテゴリー(例:GTMコンサルティングファーム)
+        type: string
+      - name: tagline
+        label: タグライン(運営元ページの大見出し)
+        type: string
+      - name: footerNote
+        label: フッターの一文説明
+        type: text
+      - name: cultureDeckUrl
+        label: カルチャーデックのURL(サイト内なら /culturedeck/ 、外部なら https:// から。空欄ならフッターのリンクを非表示)
+        type: string
+      - name: twitter
+        label: X(Twitter)アカウント
+        type: string
+      - name: foundingDate
+        label: 設立日(YYYY-MM-DD)
+        type: string
+      - name: address
+        label: 所在地
+        type: object
+        fields:
+          - name: postalCode
+            label: 郵便番号
+            type: string
+          - name: region
+            label: 都道府県
+            type: string
+          - name: locality
+            label: 市区町村
+            type: string
+          - name: street
+            label: 番地・建物名
+            type: string

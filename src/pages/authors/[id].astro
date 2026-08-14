@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import site from '../../data/site.json';
+import EmptyNote from '../../components/EmptyNote.astro';
+import { getCategory } from '../../data/categories';
+import { getPublishedArticles } from '../../lib/content';
+import { fmtDate } from '../../lib/format';
+
+export async function getStaticPaths() {
+  const authors = await getCollection('authors');
+  return authors.map((author) => ({ params: { id: author.id }, props: { author } }));
+}
+
+const { author } = Astro.props;
+const articles = (await getPublishedArticles()).filter((a) => a.data.author === author.id);
+
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: author.data.name,
+    jobTitle: author.data.role,
+    description: author.data.bio,
+    url: new URL(`/authors/${author.id}/`, Astro.site).href,
+    worksFor: { '@type': 'Organization', name: site.companyName, url: site.siteUrl },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'トップ', item: new URL('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'メンバー', item: new URL('/about/', Astro.site).href },
+      { '@type': 'ListItem', position: 3, name: author.data.name, item: new URL(`/authors/${author.id}/`, Astro.site).href },
+    ],
+  },
+];
+---
+<BaseLayout
+  title={`${author.data.name}の執筆記事`}
+  description={`${site.companyName} ${author.data.role}、${author.data.name}のプロフィールと執筆記事の一覧。${author.data.bioShort ?? ''}`}
+  schema={schemas}
+>
+  <div style="padding:56px 0 40px 0;">
+    <nav class="breadcrumb" style="margin-bottom:28px;" aria-label="パンくずリスト">
+      <a href="/">トップ</a>　／　<a href="/about/">メンバー</a>　／　{author.data.name}
+    </nav>
+    <div style="display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap;">
+      <div class="avatar" style="width:96px; height:96px;">
+        {author.data.avatar && <img src={author.data.avatar} alt={author.data.name} />}
+      </div>
+      <div style="flex:1; min-width:260px;">
+        <div class="label" style="margin-bottom:12px;">執筆・監修者</div>
+        <h1 style="font-family:var(--serif); font-size:clamp(26px, 4.4vw, 34px); font-weight:700; margin:0 0 10px 0;">{author.data.name}</h1>
+        <div style="font-size:13px; color:var(--muted); margin-bottom:14px;">{site.companyName} {author.data.role}</div>
+        <p style="font-size:14px; line-height:2; color:var(--body2); margin:0; max-width:36em; text-wrap:pretty;">{author.data.bio}</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--ink); padding-top:28px; margin-bottom:4px;">
+    <h2 style="font-family:var(--serif); font-size:22px; font-weight:700; margin:0;">執筆記事</h2>
+    <span style="font-size:13px; color:var(--muted);">全{articles.length}本</span>
+  </div>
+  <div style="display:flex; flex-direction:column; margin-bottom:80px;">
+    {articles.map((article) => (
+      <a href={`/articles/${article.id}/`} class="compact-row">
+        <span class="date-num">{fmtDate(article.data.date)}</span>
+        <span class="label">{getCategory(article.data.category).name}</span>
+        <span class="title">{article.data.title}</span>
+      </a>
+    ))}
+    {articles.length === 0 && <EmptyNote text="公開中の記事はまだありません。" />}
+  </div>
+</BaseLayout>

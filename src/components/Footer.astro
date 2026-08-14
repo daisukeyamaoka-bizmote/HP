@@ -1,0 +1,65 @@
+---
+import site from '../data/site.json';
+import { categories } from '../data/categories';
+import { services } from '../data/services';
+
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="inner">
+    <div class="foot-cols bm-foot">
+      <div class="foot-brand">
+        <img src="/images/RGB_white.png" alt="bizmote(ビズモート)" width="97" height="26" />
+        <p>{site.footerNote}</p>
+      </div>
+
+      <div class="foot-col">
+        <h2>記事</h2>
+        <ul>
+          <li><a href="/articles/">記事一覧</a></li>
+          {categories.map((cat) => (
+            <li><a href={`/category/${cat.slug}/`}>{cat.name}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h2>運営元</h2>
+        <ul>
+          <li><a href="/about/">運営元について</a></li>
+          <li><a href="/services/">サービス</a></li>
+          <li><a href="/news/">お知らせ</a></li>
+          {site.cultureDeckUrl && (
+            <li>
+              <a
+                href={site.cultureDeckUrl}
+                {...(site.cultureDeckUrl.startsWith('http')
+                  ? { target: '_blank', rel: 'noopener' }
+                  : {})}
+              >カルチャーデック</a>
+            </li>
+          )}
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h2>専門領域</h2>
+        <ul>
+          {services.map((s) => (
+            <li>
+              {s.url ? <a href={s.url}>{s.name}</a> : <a href={`/services/#${s.slug}`}>{s.name}</a>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span class="copyright">© {year} bizmote Inc.</span>
+      <span class="meta-links">
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/sitemap-index.xml">sitemap.xml</a>
+      </span>
+    </div>
+  </div>
+</footer>
