@@ -8,7 +8,7 @@ const articles = defineCollection({
     slug: z.string().optional(),
     description: z.string(),
     summary: z.string().optional(),
-    category: z.enum(['gtm', 'ax', 'startup']),
+    category: z.enum(['gtm', 'ax', 'org', 'newbiz']),
     author: z.string(),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),

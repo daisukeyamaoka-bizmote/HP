@@ -32,8 +32,8 @@ export const services: Service[] = [
     slug: 'community',
     name: site.communityName,
     summary: '起業家輩出コミュニティ。',
-    catSlug: 'startup',
-    catName: '起業・事業づくり',
+    catSlug: 'newbiz',
+    catName: '新規事業',
     url: null,
   },
 ];

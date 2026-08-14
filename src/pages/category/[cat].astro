@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleRow from '../../components/ArticleRow.astro';
+import EmptyNote from '../../components/EmptyNote.astro';
 import { categories, getCategory } from '../../data/categories';
 import { getPublishedArticles, getAuthorsMap } from '../../lib/content';
 
@@ -40,6 +41,9 @@ const schema = {
     {articles.map((article) => (
       <ArticleRow article={article} authorName={authors.get(article.data.author)?.data.name ?? article.data.author} />
     ))}
+    {articles.length === 0 && (
+      <EmptyNote text={`${category.name}の記事は準備中です。公開までしばらくお待ちください。`} />
+    )}
   </div>
 
   <div style="border-top:1px solid var(--line-soft); padding:24px 0 72px 0; display:flex; gap:28px; align-items:baseline; flex-wrap:wrap;">

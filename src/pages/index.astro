@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleRow from '../components/ArticleRow.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import EmptyNote from '../components/EmptyNote.astro';
 import site from '../data/site.json';
 import { categories, getCategory } from '../data/categories';
 import { getPublishedArticles } from '../lib/content';
@@ -44,7 +45,17 @@ const schema = {
       {latest.map((article) => (
         <ArticleRow article={article} showBadge showByline={false} />
       ))}
+      {articles.length === 0 && (
+        <EmptyNote text="記事は準備中です。公開まで、運営元と専門領域についてはこちらをご覧ください。" />
+      )}
     </div>
+    {articles.length === 0 && (
+      <p style="font-size:14px; margin:24px 0 0 0; display:flex; gap:28px; flex-wrap:wrap;">
+        <a href="/about/">運営元について</a>
+        <a href="/services/">サービス</a>
+        <a href="/culturedeck/">カルチャーデック</a>
+      </p>
+    )}
   </section>
 
   {categories.map((cat) => {

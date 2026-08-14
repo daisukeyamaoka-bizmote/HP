@@ -88,7 +88,7 @@ transition:transform 0.32s cubic-bezier(0.22,1,0.36,1);
 ```
 
 - 左：ロゴ（高さ40px、SP 30px）、トップへのリンク。
-- 右：グローバルナビ 14px / `letter-spacing: 0.06em`。カテゴリ3つ（GTM／AX／起業・事業づくり）のみ。
+- 右：グローバルナビ 14px / `letter-spacing: 0.06em`。カテゴリ4つ（GTM／AX／組織／新規事業）のみ。
 - `box-shadow` の二重指定で「太線＋1px の二重罫線」を表現する（新聞の罫）。
 - **追従挙動**：下方向スクロールで `translateY(-102%)` に隠れ、上方向スクロールで戻る。ページ上端から140px以内では常に表示。しきい値は移動量6px。実装は helmet 内の小さな IIFE（`requestAnimationFrame` + `passive` scroll）。
 
@@ -99,7 +99,7 @@ transition:transform 0.32s cubic-bezier(0.22,1,0.36,1);
 - 背景 `#141310`、`padding: 56px 0 32px`。
 - 4カラム `grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px`、下端に `border-bottom: 1px solid #33312c`。
   1. 白ロゴ（26px）＋一文説明「事業と経営の実務メディア。GTMコンサルティングファーム bizmote株式会社が運営しています。」
-  2. 記事：記事一覧／カテゴリ3つ
+  2. 記事：記事一覧／カテゴリ4つ
   3. 運営元：運営元について／サービス／お知らせ／カルチャーデック（URL未設定のあいだは非表示）
   4. 専門領域：bizU／いつでも番頭さん／NANORIBA
 - 列見出しは 11px `letter-spacing: 0.16em` `#8a857b`。
@@ -146,7 +146,7 @@ transition:transform 0.32s cubic-bezier(0.22,1,0.36,1);
 
 | ファイル | 役割 |
 | --- | --- |
-| `bizmote-top.dc.html` | トップ。ヒーロー記事＋新着3本＋カテゴリ別3セクション |
+| `bizmote-top.dc.html` | トップ。ヒーロー記事＋新着3本＋カテゴリ別セクション（記事のあるカテゴリのみ表示） |
 | `bizmote-articles.dc.html` | 記事一覧 |
 | `bizmote-category.dc.html` | カテゴリ別一覧 |
 | `bizmote-article.dc.html` | 記事詳細（執筆・監修者を明示） |
@@ -155,6 +155,10 @@ transition:transform 0.32s cubic-bezier(0.22,1,0.36,1);
 | `bizmote-news.dc.html` | お知らせ一覧 |
 
 トップページでは執筆者名と日付を表示しない（タイトルとリードのみ）。日付は記事詳細・一覧・お知らせで表示する。
+
+### 空の状態（記事・お知らせが0件のとき）
+
+一覧に「準備中です」の一文を出す（14px `var(--muted)`、`padding: 28px 0`、下に `1px solid var(--line-soft)`）。実装は `components/EmptyNote.astro`。トップページの新着欄ではこれに加えて、運営元について／サービス／カルチャーデックへのリンクを1行で併記する。運営元ページのお知らせ欄は0件ならセクションごと出さない。
 
 ### 運営元について（現行構成）
 

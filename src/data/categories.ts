@@ -1,4 +1,4 @@
-export type CategorySlug = 'gtm' | 'ax' | 'startup';
+export type CategorySlug = 'gtm' | 'ax' | 'org' | 'newbiz';
 
 export interface Category {
   slug: CategorySlug;
@@ -23,11 +23,18 @@ export const categories: Category[] = [
       '業務を個人の記憶と勘から引き剥がし、仕組みに変える。業務の分解、標準化、AI・専用ツールの実装、現場への定着までの工程を扱います。',
   },
   {
-    slug: 'startup',
-    name: '起業・事業づくり',
-    anchor: 'cat-startup',
+    slug: 'org',
+    name: '組織',
+    anchor: 'cat-org',
     description:
-      '起業と新規事業の立ち上げを、現場の実例から扱います。事業アイデアの検証、最初の顧客の獲得、実案件で学ぶ起業家育成までを含みます。',
+      '人の集まりを、成果の出る構造に変える。採用要件の設計、育成と評価、営業組織の分業と会議体、権限移譲と内製化までの工程を扱います。',
+  },
+  {
+    slug: 'newbiz',
+    name: '新規事業',
+    anchor: 'cat-newbiz',
+    description:
+      '新規事業と起業の立ち上げを、現場の実例から扱います。事業アイデアの検証、最初の顧客の獲得、撤退と方針転換の判断、実案件で学ぶ起業家育成までを含みます。',
   },
 ];
 

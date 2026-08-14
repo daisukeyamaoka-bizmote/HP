@@ -7,7 +7,7 @@ bizmote株式会社のオウンドメディア型コーポレートサイト。A
 - **フレームワーク**: Astro(静的サイト生成)
 - **コンテンツ**: `content/articles/`(記事)・`content/news/`(お知らせ)・`content/authors/`(書き手)の Markdown
 - **CMS**: Pages CMS(設定は `.pages.yml`)
-- **ホスティング**: Cloudflare Pages(`main` ブランチへの push で自動デプロイ)
+- **ホスティング**: Vercel(`main` ブランチへの push で自動デプロイ)
 - **AI検索対応(GEO)**: JSON-LD 構造化データ、`/llms.txt`(自動生成)、AIクローラー許可済み `robots.txt`、サイトマップ、RSS
 
 ## 開発

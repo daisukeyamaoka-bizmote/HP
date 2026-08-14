@@ -5,6 +5,7 @@ summary: 大手企業の役員との商談は、個人の人脈や偶然では�
 category: gtm
 author: daiki-okui
 date: 2026-07-18
+draft: true
 updated: 2026-07-20
 readingTime: 12
 ---

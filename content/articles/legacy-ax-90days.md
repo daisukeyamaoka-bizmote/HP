@@ -5,6 +5,7 @@ summary: AX(AIトランスフォーメーション)は、AIツールの導入で
 category: ax
 author: daisuke-yamaoka
 date: 2026-07-14
+draft: true
 faq:
   - question: AXとDXは何が違うのですか?
     answer: DXがデジタルツールの導入による業務効率化を広く指すのに対し、AXはAIを起点に業務の判断や作業そのものを仕組みに置き換える取り組みを指します。ツールを入れることではなく、業務を分解し直すことが中心になります。

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleRow from '../../components/ArticleRow.astro';
+import EmptyNote from '../../components/EmptyNote.astro';
 import { getPublishedArticles, getAuthorsMap } from '../../lib/content';
 
 const articles = await getPublishedArticles();
@@ -36,5 +37,6 @@ const schema = {
         showBadge
       />
     ))}
+    {articles.length === 0 && <EmptyNote text="記事は準備中です。公開までしばらくお待ちください。" />}
   </div>
 </BaseLayout>

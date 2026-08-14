@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import EmptyNote from '../../components/EmptyNote.astro';
 import { getPublishedNews, newsTypeLabels } from '../../lib/content';
 import { fmtDate } from '../../lib/format';
 
@@ -34,5 +35,6 @@ const schema = {
         <span class="title">{n.data.title}</span>
       </a>
     ))}
+    {news.length === 0 && <EmptyNote text="公開中のお知らせはまだありません。" />}
   </div>
 </BaseLayout>

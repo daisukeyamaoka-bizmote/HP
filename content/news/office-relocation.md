@@ -1,6 +1,7 @@
 ---
 title: 本社オフィス移転のお知らせ
 date: 2026-06-16
+draft: true
 type: announce
 description: bizmote株式会社は、本社オフィスを東京都新宿区新宿2丁目8番15号 パークフロント新宿 202号室に移転しました。
 ---

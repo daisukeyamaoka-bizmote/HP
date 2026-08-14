@@ -43,8 +43,10 @@ content:
               label: GTM
             - value: ax
               label: AX
-            - value: startup
-              label: 起業・事業づくり
+            - value: org
+              label: 組織
+            - value: newbiz
+              label: 新規事業
       - name: author
         label: 執筆・監修者
         type: select
