@@ -1,0 +1,44 @@
+name: Apply bizmote media site overlay
+
+on:
+  push:
+    branches:
+      - codex/media-site-v1
+    paths:
+      - .media-payload/READY
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout target branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct and apply overlay
+        shell: bash
+        run: |
+          set -euo pipefail
+          git checkout -B codex/media-site-v1 "${GITHUB_SHA}"
+          cat .media-payload/part-* > /tmp/bizmote-media-overlay.b64
+          echo "653cd3586080ee388aac3d8a77fb9de7938d7b40b6bb4b953f18032c0135593a  /tmp/bizmote-media-overlay.b64" | sha256sum -c -
+          base64 -d /tmp/bizmote-media-overlay.b64 > /tmp/bizmote-media-overlay.tar.gz
+          echo "72fa97130a5f414686e805744d000e6b58296bd14bbed620aa6bad8e36514206  /tmp/bizmote-media-overlay.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/bizmote-media-overlay.tar.gz -C .
+          rm -rf .media-payload
+          rm -f .github/workflows/apply-media-site-overlay.yml
+
+          git config user.name "OpenAI Codex"
+          git config user.email "codex@openai.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "feat: rebuild corporate site as bizmote Journal"
+          git push origin codex/media-site-v1:refs/heads/codex/media-site-v1

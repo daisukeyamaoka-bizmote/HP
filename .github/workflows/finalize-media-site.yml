@@ -1,0 +1,85 @@
+name: Finalize and validate bizmote media site
+
+on:
+  push:
+    branches:
+      - codex/media-site-v1
+    paths:
+      - .media-fix-v2/READY
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout target branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply final source fixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git checkout -B codex/media-site-v1 "${GITHUB_SHA}"
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          replacements = {
+              Path('src/components/media/MediaHeader.astro'): [
+                  ("if (header) {", "if (header instanceof HTMLElement) {")
+              ],
+              Path('src/layouts/MediaLayout.astro'): [
+                  ("if (!header) return 96;", "if (!(header instanceof HTMLElement)) return 96;")
+              ],
+              Path('src/pages/insights/index.astro'): [
+                  (
+                      "        cards.forEach((card) => {\n          let tags = [];",
+                      "        cards.forEach((card) => {\n          if (!(card instanceof HTMLElement)) return;\n          let tags: string[] = [];",
+                  )
+              ],
+          }
+
+          for path, pairs in replacements.items():
+              text = path.read_text()
+              for before, after in pairs:
+                  if before not in text:
+                      raise SystemExit(f'Expected source pattern not found in {path}: {before!r}')
+                  text = text.replace(before, after, 1)
+              path.write_text(text)
+          PY
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type and content schema check
+        run: npm run check
+
+      - name: Production build
+        run: npm run build
+
+      - name: Record validated build and push
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > docs/MEDIA_BUILD_STATUS.md <<EOF
+          # Media-site build status
+
+          - Source workflow SHA: ${GITHUB_SHA}
+          - Validation: \`npm ci\`, \`npm run check\`, and \`npm run build\` completed successfully
+          - Runtime: GitHub Actions / Node.js 22
+          - Validated at: $(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          EOF
+
+          rm -rf .media-fix-v2
+          rm -f .github/workflows/finalize-media-site.yml
+
+          git config user.name "OpenAI Codex"
+          git config user.email "codex@openai.com"
+          git add -A
+          git commit -m "fix: validate media site production build"
+          git push origin codex/media-site-v1:refs/heads/codex/media-site-v1

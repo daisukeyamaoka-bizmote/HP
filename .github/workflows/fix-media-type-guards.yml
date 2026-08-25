@@ -1,0 +1,64 @@
+name: Fix media-site DOM type guards
+
+on:
+  push:
+    branches:
+      - codex/media-site-v1
+    paths:
+      - .media-fix/READY
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout target branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply source-level type guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          git checkout -B codex/media-site-v1 "${GITHUB_SHA}"
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          replacements = {
+              Path('src/components/media/MediaHeader.astro'): [
+                  ("if (header) {", "if (header instanceof HTMLElement) {")
+              ],
+              Path('src/layouts/MediaLayout.astro'): [
+                  ("if (!header) return 96;", "if (!(header instanceof HTMLElement)) return 96;")
+              ],
+              Path('src/pages/insights/index.astro'): [
+                  (
+                      "        cards.forEach((card) => {\n          let tags = [];",
+                      "        cards.forEach((card) => {\n          if (!(card instanceof HTMLElement)) return;\n          let tags: string[] = [];",
+                  )
+              ],
+          }
+
+          for path, pairs in replacements.items():
+              text = path.read_text()
+              for before, after in pairs:
+                  if before not in text:
+                      raise SystemExit(f'Expected source pattern not found in {path}: {before!r}')
+                  text = text.replace(before, after, 1)
+              path.write_text(text)
+          PY
+
+          rm -f src/media-dom.d.ts
+          rm -rf .media-fix
+          rm -f .github/workflows/fix-media-type-guards.yml
+
+          git config user.name "OpenAI Codex"
+          git config user.email "codex@openai.com"
+          git add -A
+          git commit -m "fix: add explicit DOM type guards to media scripts"
+          git push origin codex/media-site-v1:refs/heads/codex/media-site-v1
