@@ -24,6 +24,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          git checkout -B codex/media-site-v1 "${GITHUB_SHA}"
           cat .media-payload/part-* > /tmp/bizmote-media-overlay.b64
           echo "653cd3586080ee388aac3d8a77fb9de7938d7b40b6bb4b953f18032c0135593a  /tmp/bizmote-media-overlay.b64" | sha256sum -c -
           base64 -d /tmp/bizmote-media-overlay.b64 > /tmp/bizmote-media-overlay.tar.gz
@@ -40,4 +41,4 @@ jobs:
             exit 0
           fi
           git commit -m "feat: rebuild corporate site as bizmote Journal"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          git push origin codex/media-site-v1:refs/heads/codex/media-site-v1
